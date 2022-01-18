@@ -1,0 +1,28 @@
+.nav {
+    background: #081935;
+    height: 9vh;
+    padding: 6px 12px 12px 12px;
+    box-shadow: #01042b -1px 0px 4px 2px;
+}
+
+.nav-logo {
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo-image {
+    height: 100%;
+}
+
+.nav-logo-planet {
+    border-radius: 50%;
+    background: #26366C;
+    position: relative;
+    top: 6px;
+}
+
+.nav-logo-text {
+    margin-left: 10px;
+}
