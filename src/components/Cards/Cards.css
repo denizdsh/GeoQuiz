@@ -1,0 +1,19 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 2% 0;
+    width: 80%;
+    margin: auto;
+}
+
+@media all and (min-width: 2000px) {
+    .cards {
+        width: 60%;
+    }
+}
+@media all and (max-width: 900px){
+    .cards{
+        width: 90%;
+    }
+}
