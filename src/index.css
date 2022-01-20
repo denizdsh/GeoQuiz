@@ -2,7 +2,7 @@ body {
   margin: 0;
 }
 
-:root {
+html {
   --nav: #5675db;
   --background: #b7d6fa;
   --item: rgb(160, 195, 241);

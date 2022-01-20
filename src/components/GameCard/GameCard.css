@@ -65,6 +65,10 @@
     border-radius: 10px;
 }
 
+.card:active {
+    top: 5px;
+}
+
 @keyframes glowing {
     0% {
         background-position: 0 0;
@@ -77,6 +81,23 @@
     100% {
         background-position: 0 0;
     }
+}
+
+.card-btn {
+    display: inline-block;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.card-btn:hover {
+    background: var(--text-primary);
+    color: var(--item);
+}
+
+.card-btn:active {
+    top: 2px;
 }
 
 @media all and (max-width: 1200px) {
@@ -93,43 +114,4 @@
     .card {
         width: 85%;
     }
-}
-
-.card-btn {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-}
-
-.card-btn:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-}
-
-.card-btn:hover {
-    background: var(--text-primary);
-    color: var(--item);
-}
-
-.card-btn:active {
-    background: var(--text-primary);
-    color: var(--item);
-    top: 2px;
-}
-
-.card-btn:before {
-    position: absolute;
-    height: 100%;
-    left: 0;
-    top: 0;
-    line-height: 3;
-    font-size: 140%;
-    width: 60px;
 }
