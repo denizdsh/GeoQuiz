@@ -3,6 +3,12 @@ import { Routes, Route } from 'react-router';
 import useLocalStorage from 'use-local-storage';
 import Header from './components/Header/Header';
 import Home from './components/Home';
+import World from './components/Regions/World';
+import Africa from './components/Regions/Africa';
+import Americas from './components/Regions/Americas';
+import Asia from './components/Regions/Asia';
+import Oceania from './components/Regions/Oceania';
+import Europe from './components/Regions/Europe';
 
 
 function App() {
@@ -21,6 +27,12 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/world" element={<World />} />
+          <Route path="/africa" element={<Africa />} />
+          <Route path="/asia" element={<Asia />} />
+          <Route path="/americas" element={<Americas />} />
+          <Route path="/australia-oceania" element={<Oceania />} />
+          <Route path="/europe" element={<Europe />} />
         </Routes>
       </main>
     </div>

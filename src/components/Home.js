@@ -6,32 +6,32 @@ export default function Home() {
         {
             title: 'World',
             image: '/images/home/world.png',
-            link: ''
+            link: '/world'
         },
         {
             title: 'Africa',
             image: '/images/home/africa.png',
-            link: ''
+            link: '/africa'
         },
         {
             title: 'Americas',
             image: '/images/home/americas.png',
-            link: ''
+            link: '/americas'
         },
         {
             title: 'Asia',
             image: '/images/home/asia.png',
-            link: ''
+            link: '/asia'
         },
         {
             title: 'Australia & Oceania',
             image: '/images/home/australia-oceania.png',
-            link: ''
+            link: '/australia-oceania'
         },
         {
             title: 'Europe',
             image: '/images/home/europe.png',
-            link: ''
+            link: '/europe'
         }
     ];
 
