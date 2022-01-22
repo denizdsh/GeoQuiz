@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import './GameCard.css'
+import Button from '../Common/Button';
 
 export default function GameCard({ data }) {
     const navigate = useNavigate();
@@ -10,9 +11,7 @@ export default function GameCard({ data }) {
                 <img src={data.image} alt={data.title} />
             </article>
             <article className='card-btn-wrapper'>
-                <button className='card-btn' type="button">
-                    {data.title}
-                </button>
+                <Button>{data.title}</Button>
             </article>
         </section >
     )

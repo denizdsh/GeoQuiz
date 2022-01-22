@@ -1,0 +1,155 @@
+@import url('https://use.fontawesome.com/releases/v5.15.0/css/all.css');
+
+.game-menu {
+    max-height: 90vh;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.game-menu:before {
+    content: '';
+    background: linear-gradient(45deg, #00b7ff, #0062ff, #002bff, #2779fd);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(4px);
+    width: calc(100% + 1px);
+    height: calc(100% + 1px);
+    animation: glowing 20s linear infinite;
+    opacity: 1;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.game-menu:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--item);
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+.game-menu-img-container {
+    margin: auto;
+    height: 100%;
+    width: 100%;
+}
+
+@media all and (max-width: 500px) {
+    .game-menu {
+        width: 95%;
+    }
+
+    .game-menu-img {
+        width: 100%;
+    }
+}
+
+.game-menu-options {
+    width: calc(200px + 4vw);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.option-container {
+    display: flex;
+    align-items: center;
+}
+
+.option-container .fas, .option-container .fab {
+    font-size: calc(1rem + 2vmin);
+    margin-right: 10px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    cursor: help;
+}
+
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.game-menu-title {
+    margin-bottom: 0;
+    font-size: 1vmax;
+}
+
+[data-title] {
+    position: relative;
+}
+
+[data-title]:hover::before {
+    content: attr(data-title);
+    position: absolute;
+    bottom: -1.8vmax;
+    display: inline-block;
+    padding: 4px 7px;
+    border-radius: 3px;
+    background: var(--nav);
+    color: rgb(235, 234, 232);
+    font-size: 1vmax;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+[data-title]:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 8px;
+    display: inline-block;
+    border: 8px solid transparent;
+    border-bottom: 8px solid var(--nav);
+    z-index: 1;
+}
+
+@media all and (max-width: 1600px) {
+    .game-menu-title {
+        font-size: 1.2vmax;
+    }
+
+    [data-title]:hover::before {
+        font-size: 1.2vmax;
+        bottom: -2.3vmax;
+    }
+}
+
+@media all and (max-width: 1200px) {
+    .game-menu-title {
+        font-size: 1.5vmax;
+    }
+    [data-title]:hover::before {
+        font-size: 1.5vmax;
+        bottom: -3vmax;
+    }
+    [data-title]:hover::after {
+        bottom: -7px;
+    }
+}

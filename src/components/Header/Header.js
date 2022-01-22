@@ -1,5 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import './Header.css';
+import Switch from '../Common/Switch';
 
 export default function Header({ theme, switchThemeHandler }) {
     const navigate = useNavigate();
@@ -12,11 +14,7 @@ export default function Header({ theme, switchThemeHandler }) {
                     <img src="/logos/logo.png" alt="GeoQuiz" className='nav-logo-text nav-logo-image' />
                 </article>
                 <article className="switch-theme">
-                    <label className="switch">
-                        <input type="checkbox" checked={theme === 'dark'} onChange={switchThemeHandler} />
-                        <span className="slider round">
-                        </span>
-                    </label>
+                    <Switch isChecked={theme === 'dark'} onSwitch={switchThemeHandler} />
                 </article>
             </nav>
         </>

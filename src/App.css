@@ -1,8 +1,12 @@
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+* {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
 }
 
 .app {
@@ -28,4 +32,9 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+.fab, .fas {
+  font-size: 2vmax;
+  color: var(--text-secondary);
 }

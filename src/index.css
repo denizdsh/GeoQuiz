@@ -9,6 +9,8 @@ html {
   --text-primary: rgb(32, 41, 128);
   --text-secondary: royalblue;
   --accent: rgb(123, 162, 251);
+  --green: rgb(1, 100, 1);
+  --stopwatch: rgb(39, 39, 165);
 }
 
 [data-theme='dark'] {
@@ -18,4 +20,6 @@ html {
   --text-primary: rgb(235, 234, 232);
   --text-secondary: grey;
   --accent: #263977;
+  --green: rgb(68, 190, 38);
+  --stopwatch: rgb(123, 205, 233);
 }
