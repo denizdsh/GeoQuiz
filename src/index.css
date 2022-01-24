@@ -16,7 +16,7 @@ html {
 [data-theme='dark'] {
   --nav: #1f3064;
   --background: rgb(40, 54, 116);
-  --item: rgb(14, 26, 83);
+  --item: #162757;
   --text-primary: rgb(235, 234, 232);
   --text-secondary: grey;
   --accent: #263977;

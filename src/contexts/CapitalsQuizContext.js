@@ -10,35 +10,36 @@ export function CapitalsQuizProvider({ children }) {
     const [capitals, setCapitals] = useState([]);
     const [answered, setAnswered] = useState([]);
 
+
     const startGame = (region) => {
         setRegion(region);
-        setCapitals(service.capitals(region));
-        return nextQuestion();
+        const capitalsData = service.capitals(region);
+        setCapitals(capitalsData);
+        return nextQuestion('', capitalsData);
     }
 
     const checkAnswer = (country, answer) => {
-        const index = capitals.findIndex(x => Object.keys[0] === country);
-        return Object.values(capitals[index])[0] === answer;
+        return capitals.find(x => Object.keys(x)[0] === country)[country] === answer;
     }
 
     const answerQuestion = (country, answer) => {
+        setAnswered(answered.concat(country));
         const isCorrect = checkAnswer(country, answer);
-        setAnswered(answered.concat(answer));
         if (isCorrect) {
             setScore(score + 1);
         }
         return isCorrect;
     }
 
-    const nextQuestion = () => {
-        const capitalsLeft = capitals.filter(x => !answered.includes(Object.values(x)[0]));
-        const question = service.generateQuestion(region, capitalsLeft);
-        console.log(question)
+    const nextQuestion = (country, capitalsData = capitals) => {
+        console.log(answered.concat(country));
+        const capitalsLeft = capitalsData.filter(x => !answered.includes(Object.keys(x)[0]) & country !== Object.keys(x)[0]);
+        const question = service.generateQuestion(capitalsLeft);
         return question;
     }
 
     return (
-        <CapitalsQuizContext.Provider value={{ capitals, startGame, answerQuestion, nextQuestion }}>
+        <CapitalsQuizContext.Provider value={{ capitals, startGame, answerQuestion, nextQuestion, score }}>
             {children}
         </CapitalsQuizContext.Provider>
     )

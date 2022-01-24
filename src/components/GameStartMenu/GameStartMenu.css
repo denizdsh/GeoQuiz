@@ -109,6 +109,7 @@
     content: attr(data-title);
     position: absolute;
     bottom: -1.8vmax;
+    left: -65px;
     display: inline-block;
     padding: 4px 7px;
     border-radius: 3px;

@@ -3,8 +3,8 @@ import './GameStartMenu.css';
 import Button from '../Common/Button';
 import Switch from '../Common/Switch';
 
-export default function GameStartMenu({ content, startGame, region }) {
-    const [showAnswers, setShowAnswers] = useState(false);
+export default function GameStartMenu({ content, startGame }) {
+    const [showAnswers, setShowAnswers] = useState(true);
     const [showStopwatch, setShowStopwatch] = useState(true);
 
     return (
@@ -29,7 +29,7 @@ export default function GameStartMenu({ content, startGame, region }) {
                     <Switch name={"stopwatch-option"} isChecked={showStopwatch} onSwitch={() => setShowStopwatch(!showStopwatch)} />
                 </article>
             </article>
-            <Button onClick={() => startGame(region)}>Start game</Button>
+            <Button onClick={() => startGame(showAnswers, showStopwatch)}>Start game</Button>
         </section>
     )
 }
