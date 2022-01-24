@@ -25,7 +25,7 @@ export function capitals(region) {
             { Iceland: 'Reykjavik' },
             { Ireland: 'Dublin' },
             { Italy: 'Rome' },
-            { Kosovo: 'Pristina' },
+            { Kosovo: 'Priština' },
             { Latvia: 'Riga' },
             { Liechtenstein: 'Vaduz' },
             { Lithuania: 'Vilnius' },

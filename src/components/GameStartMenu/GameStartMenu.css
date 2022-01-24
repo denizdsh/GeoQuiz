@@ -115,6 +115,7 @@
     border-radius: 3px;
     background: var(--nav);
     color: rgb(235, 234, 232);
+    box-shadow: var(--item) 0px 0px 2px 1px;
     font-size: 1vmax;
     white-space: nowrap;
     z-index: 1;
