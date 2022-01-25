@@ -60,25 +60,25 @@ export function capitals(region) {
     return capitals[region];
 }
 
-export function generateQuestion(capitals) {
+export function generateQuestion(capitals, allCapitals) {
     console.log('length ', capitals.length)
     const random = Math.floor(Math.random() * capitals.length);
     const country = Object.keys(capitals[random])[0];
-    const answers = generateAnswers(capitals, country);
+    const answers = generateAnswers(allCapitals, country);
     return { country, answers };
 }
 
 function generateAnswers(capitals, country) {
     let capitalsData = capitals;
     const answers = [];
-
+    
     let answer = capitals.find(x => Object.keys(x)[0] === country)[country];
     let random = Math.floor(Math.random() * 4);
-
+    
     capitalsData = capitalsData.filter(x => Object.keys(x)[0] !== country);
-
+    
     answers[random] = answer;
-
+    
     for (let i = 0; i < 4; i++) {
         if (!answers[i]) {
             random = Math.floor(Math.random() * capitalsData.length);

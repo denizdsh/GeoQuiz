@@ -26,13 +26,14 @@
 }
 
 .next-btn:hover {
-    background: rgb(255, 123, 0);
-    color: rgb(235, 234, 232);
+    background: rgb(255, 123, 0) !important;
+    color: rgb(235, 234, 232) !important;
 }
 
 .next-btn {
-    background: rgb(3, 149, 185);
-    color: rgb(235, 234, 232);
+    background: rgb(3, 149, 185) !important;
+    color: rgb(235, 234, 232) !important;
+    cursor: pointer !important;
 }
 
 .false, .false:hover {

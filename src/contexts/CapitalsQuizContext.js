@@ -10,7 +10,6 @@ export function CapitalsQuizProvider({ children }) {
     const [capitals, setCapitals] = useState([]);
     const [answered, setAnswered] = useState([]);
 
-
     const startGame = (region) => {
         setRegion(region);
         const capitalsData = service.capitals(region);
@@ -34,7 +33,7 @@ export function CapitalsQuizProvider({ children }) {
     const nextQuestion = (country, capitalsData = capitals) => {
         console.log(answered.concat(country));
         const capitalsLeft = capitalsData.filter(x => !answered.includes(Object.keys(x)[0]) & country !== Object.keys(x)[0]);
-        const question = service.generateQuestion(capitalsLeft);
+        const question = service.generateQuestion(capitalsLeft, capitals.length > 0 ? capitals : capitalsData);
         return question;
     }
 

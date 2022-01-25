@@ -1,0 +1,14 @@
+.stopwatch {
+    font-size: 0.9vmax;
+}
+
+@media all and (max-width: 1200px) {
+    .stopwatch {
+        font-size: 1.5vmax;
+    }
+}
+
+.fa-stopwatch.running {
+    color: var(--stopwatch);
+    font-size: 2rem;
+}
