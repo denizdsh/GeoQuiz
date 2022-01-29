@@ -1,8 +1,0 @@
-.answered .btn {
-    cursor: default;
-}
-
-.answered .btn:hover {
-    background: var(--accent);
-    color: rgb(235, 234, 232);
-}

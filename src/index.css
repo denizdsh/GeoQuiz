@@ -2,7 +2,7 @@ body {
   margin: 0;
 }
 
-html {
+[data-theme='light'] {
   --nav: #5675db;
   --background: #b7d6fa;
   --item: rgb(160, 195, 241);
@@ -22,4 +22,8 @@ html {
   --accent: #263977;
   --green: rgb(68, 190, 38);
   --stopwatch: rgb(123, 205, 233);
+}
+
+html{
+  background: rgb(40, 54, 116);
 }

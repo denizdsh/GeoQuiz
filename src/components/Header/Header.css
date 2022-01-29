@@ -13,7 +13,6 @@
 .nav-logo {
     max-height: calc(9vh - 18px);
     max-width: inherit;
-
     height: 100%;
     cursor: pointer;
     display: flex;

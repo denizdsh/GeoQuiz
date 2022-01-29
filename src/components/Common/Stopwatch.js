@@ -20,10 +20,14 @@ export default function Stopwatch({ run }) {
         let seconds = String(time - minutes * 60).padStart(2, '0');
         return `${minutes}:${seconds}`;
     }
-    
+
     return (
-        <p className="stopwatch">
-            <i className="fas fa-stopwatch running" /> {formatTime(time)}
-        </p>
+
+        <article className="stopwatch">
+            <i className="fas fa-stopwatch running" />
+            <p className="time">
+                {formatTime(time)}
+            </p>
+        </article>
     )
 }

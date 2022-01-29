@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import './GameStartMenu.css';
+
 import Button from '../Common/Button';
 import Switch from '../Common/Switch';
+import '../Common/Game.css';
+import './GameStartMenu.css';
 
 export default function GameStartMenu({ content, startGame }) {
     const [showAnswers, setShowAnswers] = useState(true);
     const [showStopwatch, setShowStopwatch] = useState(true);
 
     return (
-        <section className="game-menu">
+        <section className="game">
             <article className="title-container">
-                <p className='game-menu-title'>{content.title}</p>
+                <p className='game-title'>{content.title}</p>
             </article>
-            <article className="game-menu-img-container">
-                <img src={content.image} className='game-menu-img' alt={content.title} />
+            <article className="game-img-container">
+                <img src={content.image} className='game-img' alt={content.title} />
             </article>
-            <article className="game-menu-options">
+            <article className="game-options">
                 <article className="option-container">
                     <label htmlFor="answers-option" data-title="Highlight correct answers in green when answered wrong">
                         <i className="fab fa-earlybirds" style={{ color: showAnswers ? "var(--green)" : "var(--text-secondary)" }} />

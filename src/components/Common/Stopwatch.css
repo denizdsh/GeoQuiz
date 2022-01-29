@@ -1,14 +1,17 @@
 .stopwatch {
-    font-size: 0.9vmax;
-}
-
-@media all and (max-width: 1200px) {
-    .stopwatch {
-        font-size: 1.5vmax;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .fa-stopwatch.running {
     color: var(--stopwatch);
-    font-size: 2rem;
+    font-size: 1.6vmax;
+    margin-right: 10px;
+}
+
+@media all and (max-width: 1420px) {
+    .fa-stopwatch.running {
+        font-size: 2vmax;
+    }
 }
