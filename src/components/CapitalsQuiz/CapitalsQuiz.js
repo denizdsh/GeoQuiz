@@ -23,11 +23,14 @@ export default function CapitalsQuiz() {
     const answerQuestionHandler = (e, country, answer) => {
         if (!isAnswered) {
             setIsAnswered(true);
-            const isCorrect = ctx.answerQuestion(country, answer);
-            if (isCorrect) {
-                e.currentTarget.classList.add('true');
-            } else {
-                e.currentTarget.classList.add('false');
+            const [isCorrect, correct] = ctx.answerQuestion(country, answer);
+            if (options.showAnswers) {
+                if (isCorrect) {
+                    e.currentTarget.classList.add('true');
+                } else {
+                    e.currentTarget.classList.add('false');
+                    [...e.currentTarget.parentNode.children].find(x => x.textContent === correct).classList.add('true');
+                }
             }
             console.log(isCorrect);
             if (!options.showAnswers) {
@@ -57,18 +60,18 @@ export default function CapitalsQuiz() {
     return (
         ctx.capitals.length !== 0
             ? (
-                <section className="game">
+                <section className="game quiz">
                     <header className="header">
-                        {options.showStopwatch ? <Stopwatch run={runStopwatch} /> : ''}
-                        <article className="title-container">
+                        <Stopwatch run={runStopwatch} on={options.showStopwatch} />
+                        <article className="title-container title">
                             <p className='game-title'>{question.country}</p>
                         </article>
-                        <article className="title-container">
+                        <article className="title-container score">
                             {ctx.capitals ? <p className='game-title'>{`${ctx.score}/${ctx.capitals.length}`}</p> : ''}
                         </article>
                     </header>
                     <article className="game-img-container">
-                        <img src='/images/home/europe.png' className='game-img' alt='/images/home/europe.png' />
+                        <img src={question.image} alt={question.country} className="game-img" />
                     </article>
                     <div className={`btn-container ${isAnswered ? 'answered' : ''}`}>
                         {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.country, answer)} key={answer}>{answer}</Button>)}
@@ -78,6 +81,6 @@ export default function CapitalsQuiz() {
                             </article> : ''}
                     </div>
                 </section >)
-            : <GameStartMenu content={{ title: `${region[0].toLocaleUpperCase().concat(region.slice(1))} Capitals Quiz`, image: `/images/${region}/flags.png` }} startGame={startGameHandler} region={region} />
+            : <GameStartMenu content={{ title: `${region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O')} Capitals Quiz`, image: `/images/${region}/flags.png` }} startGame={startGameHandler} region={region} />
     )
 }

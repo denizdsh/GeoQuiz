@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, createElement } from "react";
 
 import * as service from '../services/capitalsQuizService'
 
@@ -12,28 +12,30 @@ export function CapitalsQuizProvider({ children }) {
 
     const startGame = (region) => {
         setRegion(region);
+
         const capitalsData = service.capitals(region);
         setCapitals(capitalsData);
+
         return nextQuestion('', capitalsData);
     }
 
     const checkAnswer = (country, answer) => {
-        return capitals.find(x => Object.keys(x)[0] === country)[country] === answer;
+        const correct = capitals.find(x => Object.keys(x)[0] === country)[country];
+        return [correct === answer, correct];
     }
 
     const answerQuestion = (country, answer) => {
         setAnswered(answered.concat(country));
-        const isCorrect = checkAnswer(country, answer);
+        const [isCorrect, correct] = checkAnswer(country, answer);
         if (isCorrect) {
             setScore(score + 1);
         }
-        return isCorrect;
+        return [isCorrect, correct];
     }
 
     const nextQuestion = (country, capitalsData = capitals) => {
-        console.log(answered.concat(country));
         const capitalsLeft = capitalsData.filter(x => !answered.includes(Object.keys(x)[0]) & country !== Object.keys(x)[0]);
-        const question = service.generateQuestion(capitalsLeft, capitals.length > 0 ? capitals : capitalsData);
+        const question = service.generateQuestion(capitalsLeft, capitalsData);
         return question;
     }
 

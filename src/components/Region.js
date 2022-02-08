@@ -58,13 +58,13 @@ const games = {
     'australia-oceania': [
         {
             title: 'Flags',
-            image: '/images/oceania/flags.png',
-            link: '/oceania/flags'
+            image: '/images/australia-oceania/flags.png',
+            link: '/australia-oceania/flags'
         },
         {
             title: 'Capitals',
             image: '/images/home/australia-oceania.png',
-            link: '/oceania/capitals'
+            link: '/australia-oceania/capitals'
         }
     ],
     world: [
@@ -72,6 +72,11 @@ const games = {
             title: 'Flags',
             image: '/images/world/flags.png',
             link: '/world/flags'
+        },
+        {
+            title: 'Capitals',
+            image: '/images/home/world.png',
+            link: '/world/capitals'
         }
     ]
 }
