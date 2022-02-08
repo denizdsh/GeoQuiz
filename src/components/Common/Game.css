@@ -1,6 +1,4 @@
 .game {
-    max-width: 90vw;
-    min-width: 25vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,6 +10,11 @@
     z-index: 0;
 }
 
+.quiz.game {
+    width: calc(200px + 25vw);
+    max-width: 650px;
+}
+
 .game:before {
     content: '';
     background: linear-gradient(45deg, #00b7ff, #0062ff, #002bff, #2779fd);
@@ -21,6 +24,7 @@
     background-size: 400%;
     z-index: -1;
     filter: blur(4px);
+    max-width: 656px;
     width: calc(100% + 1px);
     height: calc(100% + 1px);
     animation: glowing 20s linear infinite;
@@ -42,20 +46,29 @@
 }
 
 .game-img-container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    max-width: 100%;
+    overflow: hidden;
 }
 
-@media all and (max-width: 500px) {
-    .game {
-        width: 95%;
-    }
+.quiz .game-img-container {
+    max-width: calc(200px + 20vw);
+    box-shadow: 0px 0px 6px 0px var(--nav);
+    margin: 15px;
+    border-radius: 15px;
+    height: calc(100px + 20vh);
+}
 
-    .game-img {
-        width: 100%;
+@media all and (min-width: 1800px) {
+    .quiz .game-img-container {
+        max-width: 620px;
     }
+}
+
+.game-img {
+    height: 100%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 @keyframes glowing {
@@ -69,32 +82,6 @@
 
     100% {
         background-position: 0 0;
-    }
-}
-
-@media all and (max-width: 1600px) {
-    .game-title {
-        font-size: 1.2vmax;
-    }
-
-    [data-title]:hover::before {
-        font-size: 1.2vmax;
-        bottom: -2.3vmax;
-    }
-}
-
-@media all and (max-width: 1200px) {
-    .game-title {
-        font-size: 1.5vmax;
-    }
-
-    [data-title]:hover::before {
-        font-size: 1.5vmax;
-        bottom: -3vmax;
-    }
-
-    [data-title]:hover::after {
-        bottom: -7px;
     }
 }
 
@@ -117,19 +104,24 @@
 }
 
 .header article {
-    width: 33%;
     text-align: center;
+}
+
+.title-container.title {
+    width: 49%;
+}
+
+.title-container.score {
+    width: 25%;
+}
+
+article.stopwatch {
+    width: 25%;
 }
 
 .header article p {
     margin: 0;
     font-size: inherit;
-}
-
-@media all and (max-width: 1200px) {
-    .header {
-        font-size: 1.5vmax;
-    }
 }
 
 .btn-container {
@@ -138,7 +130,8 @@
 
 .next-modal {
     height: calc(100% + 10px);
-    width: calc(100% + 130px);
+    width: calc(200px + 25vw);
+    max-width: 648px;
     position: absolute;
     top: 47%;
     left: 50%;
@@ -166,9 +159,52 @@
     border-radius: 4px;
 }
 
-
 @media all and (max-height: 760px) {
-    .game {
+    .game, .quiz.game {
         top: calc(50% + 5vh);
+    }
+}
+
+@media all and (max-width: 800px) {
+    .game, .quiz.game {
+        width: 95%;
+    }
+
+    .next-modal {
+        width: 92vw;
+    }
+
+    .quiz .game-img-container {
+        max-width: 85vw;
+    }
+}
+
+@media all and (max-width: 1200px) {
+    .game-title {
+        font-size: 1.5vmax;
+    }
+
+    [data-title]:hover::before {
+        font-size: 1.5vmax;
+        bottom: -3vmax;
+    }
+
+    [data-title]:hover::after {
+        bottom: -7px;
+    }
+
+    .header {
+        font-size: 1.5vmax;
+    }
+}
+
+@media all and (max-width: 1600px) {
+    .game-title {
+        font-size: 1.2vmax;
+    }
+
+    [data-title]:hover::before {
+        font-size: 1.2vmax;
+        bottom: -2.3vmax;
     }
 }
