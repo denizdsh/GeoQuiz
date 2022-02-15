@@ -1,12 +1,11 @@
 import './App.css';
 import { Routes, Route } from 'react-router';
 import useLocalStorage from 'use-local-storage';
-import { CapitalsQuizProvider } from './contexts/CapitalsQuizContext';
+import { QuizProvider } from './contexts/QuizContext';
 import Header from './components/Header/Header';
 import Home from './components/Home';
 import Region from './components/Region'
-import FlagsQuiz from './components/FlagsQuiz/FlagsQuiz';
-import CapitalsQuiz from './components/CapitalsQuiz/CapitalsQuiz';
+import Quiz from './components/Quiz/Quiz';
 
 
 function App() {
@@ -26,11 +25,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:region" element={<Region />} />
-          <Route path="/:region/flags" element={<FlagsQuiz />} />
           <Route path="/:region/capitals" element={
-            <CapitalsQuizProvider>
-              <CapitalsQuiz />
-            </CapitalsQuizProvider>
+            <QuizProvider>
+              <Quiz game="capitals" />
+            </QuizProvider>
+          } />
+          <Route path="/:region/flags" element={
+            <QuizProvider>
+              <Quiz game="flags" />
+            </QuizProvider>
           } />
         </Routes>
       </main>

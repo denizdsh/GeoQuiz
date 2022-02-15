@@ -2,6 +2,17 @@ body {
   margin: 0;
 }
 
+:root {
+  --nav: #1f3064;
+  --background: rgb(40, 54, 116);
+  --item: #162757;
+  --text-primary: rgb(235, 234, 232);
+  --text-secondary: grey;
+  --accent: #263977;
+  --green: rgb(68, 190, 38);
+  --stopwatch: rgb(123, 205, 233);
+}
+
 [data-theme='light'] {
   --nav: #5675db;
   --background: #b7d6fa;
@@ -11,17 +22,6 @@ body {
   --accent: rgb(123, 162, 251);
   --green: rgb(1, 100, 1);
   --stopwatch: rgb(39, 39, 165);
-}
-
-[data-theme='dark'] {
-  --nav: #1f3064;
-  --background: rgb(40, 54, 116);
-  --item: #162757;
-  --text-primary: rgb(235, 234, 232);
-  --text-secondary: grey;
-  --accent: #263977;
-  --green: rgb(68, 190, 38);
-  --stopwatch: rgb(123, 205, 233);
 }
 
 html{

@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Stopwatch.css';
 
-export default function Stopwatch({ run, on }) {
-    const [time, setTime] = useState(0);
-
+export default function Stopwatch({ run, on, time, setTime, color = 'var(--text-primary)', width = '25%' }) {
     useEffect(() => {
         let interval;
         if (run) {
@@ -22,10 +20,9 @@ export default function Stopwatch({ run, on }) {
     }
 
     return (
-
-        <article className="stopwatch">
+        <article className="stopwatch" style={{ width }}>
             <i className="fas fa-stopwatch running" style={!on ? { color: 'var(--text-secondary)' } : {}} />
-            <p className="time">
+            <p className="time" style={!on ? { color: 'var(--text-secondary)' } : { color }}>
                 {on ? formatTime(time) : '--:--'}
             </p>
         </article>

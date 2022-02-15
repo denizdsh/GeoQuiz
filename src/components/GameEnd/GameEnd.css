@@ -1,0 +1,34 @@
+.game-end {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-end .score {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.game-end-score, .game-end .score .stopwatch {
+    font-size: 1.35vmax;
+}
+
+.game-end-score {
+    padding: 0;
+    text-align: center;
+}
+
+@media all and (max-width: 1200px) {
+    .game-end .score {
+        font-size: 1.35vmax;
+    }
+}
+
+@media all and (max-width: 1600px) {
+    .game-end .score {
+        font-size: 1.05vmax;
+    }
+}
