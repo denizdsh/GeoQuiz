@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Stopwatch.css';
 
 export default function Stopwatch({ run, on, time, setTime, color = 'var(--text-primary)', width = '25%' }) {
@@ -21,7 +22,7 @@ export default function Stopwatch({ run, on, time, setTime, color = 'var(--text-
 
     return (
         <article className="stopwatch" style={{ width }}>
-            <i className="fas fa-stopwatch running" style={!on ? { color: 'var(--text-secondary)' } : {}} />
+            <FontAwesomeIcon icon="fa-solid fa-stopwatch" className={`fas running ${on ? "active stopwatch" : "inactive"}`} />
             <p className="time" style={!on ? { color: 'var(--text-secondary)' } : { color }}>
                 {on ? formatTime(time) : '--:--'}
             </p>

@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { QuizContext } from '../../contexts/QuizContext';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../Common/Button';
 import Stopwatch from '../Common/Stopwatch';
 import GameStartMenu from '../GameStartMenu/GameStartMenu';

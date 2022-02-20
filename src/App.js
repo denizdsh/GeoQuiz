@@ -1,3 +1,8 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faStopwatch } from '@fortawesome/free-solid-svg-icons/faStopwatch';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons/faCircleCheck';
+import { faArrowRotateBackward } from '@fortawesome/free-solid-svg-icons/faArrowRotateBackward';
+
 import './App.css';
 import { Routes, Route } from 'react-router';
 import useLocalStorage from 'use-local-storage';
@@ -6,6 +11,7 @@ import Header from './components/Header/Header';
 import Home from './components/Home';
 import Region from './components/Region'
 import Quiz from './components/Quiz/Quiz';
+import MapsGame from './components/MapsGame/MapsGame';
 
 
 function App() {
@@ -16,14 +22,20 @@ function App() {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   }
 
+  library.add(faCircleCheck, faStopwatch, faArrowRotateBackward);
+
   return (
     <div className='app' data-theme={theme}>
+      <Routes>
+        <Route path='/countries' element={<MapsGame />} />
+      </Routes>
       <header >
         <Header theme={theme} switchThemeHandler={switchThemeHandler} />
       </header>
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path='/countries' />
           <Route path="/:region" element={<Region />} />
           <Route path="/:region/capitals" element={
             <QuizProvider>

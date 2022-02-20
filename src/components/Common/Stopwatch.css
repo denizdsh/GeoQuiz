@@ -4,9 +4,8 @@
     justify-content: center;
 }
 
-.fa-stopwatch.running {
-    color: var(--stopwatch);
-    font-size: 1.6vmax;
+.running {
+    font-size: 1.65vmax;
     margin-right: 10px;
 }
 

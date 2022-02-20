@@ -77,6 +77,11 @@ const games = {
             title: 'Capitals',
             image: '/images/home/world.png',
             link: '/world/capitals'
+        },
+        {
+            title: 'Countries',
+            image: '/images/home/world.png',
+            link: '/countries'
         }
     ]
 }

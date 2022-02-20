@@ -11,13 +11,29 @@
     align-items: center;
 }
 
-.option-container .fas, .option-container .fab {
+.option-container .fas {
     font-size: calc(1rem + 2vmin);
     margin-right: 10px;
+
+    cursor: help;
+}
+
+.fas * {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
-    cursor: help;
+}
+
+.inactive * {
+    color: var(--textSecondary);
+}
+
+.active.stopwatch * {
+    color: var(--stopwatch);
+}
+
+.active.green * {
+    color: var(--green);
 }
 
 .game-title {
