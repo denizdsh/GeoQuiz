@@ -1,0 +1,81 @@
+.hide-header~header {
+    display: none;
+}
+
+.back-btn {
+    z-index: 1;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 2vmax;
+    cursor: pointer;
+}
+
+.map-header {
+    z-index: 1;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: var(--nav);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    height: calc(1.2 * 2vmax);
+    border-radius: 50px;
+    box-shadow: var(--nav) 0px 1px 20px -5px;
+}
+
+.game-title {
+    margin: 0;
+}
+
+.time, .title-container.score p {
+    font-size: 1.1vmax;
+}
+
+.action-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    z-index: 1;
+    border-radius: 15px;
+    box-shadow: var(--nav) 0px 0px 20px -5px;
+}
+
+.delay, .skip {
+    background: var(--nav);
+    color: var(--text-primary);
+    padding: calc(2px + 0.2vmax) calc(10px + 0.4vmax);
+    font-size: 0.9vmax;
+    border: 1px solid var(--nav);
+    border-top-color: rgb(134, 148, 226);
+    border-radius: 2px;
+}
+
+.delay {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-right: 2px solid var(--item);
+    border-left-color: rgb(134, 148, 226);
+}
+
+.skip {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-left: 2px solid var(--item);
+    border-right-color: rgb(134, 148, 226);
+}
+
+.delay:active, .skip:active {
+    border-color: var(--nav);
+    border-bottom-color: rgb(134, 148, 226);
+}
+
+.marker-label {
+    color: MediumSlateBlue;
+    opacity: 1;
+    background: rgb(230, 230, 250, 0.5)
+}
