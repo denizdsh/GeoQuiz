@@ -17,11 +17,13 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    user-select: none;
 }
 
 .nav-logo-image {
     height: 100%;
     max-height: inherit;
+    user-select: none;
 }
 
 .nav-logo-planet {

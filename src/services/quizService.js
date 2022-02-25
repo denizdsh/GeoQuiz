@@ -95,7 +95,7 @@ function capitals(region) {
                 image: '/images/africa/capitals/ROTC.jpg'
             },
             {
-                'Cote d\'Ivoire': 'Yamoussoukro',
+                'Côte d\'Ivoire': 'Yamoussoukro',
                 image: '/images/africa/capitals/CoteDIvoire.jpg'
             },
             {

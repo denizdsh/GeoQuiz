@@ -44,7 +44,7 @@ export function QuizProvider({ children }) {
     const questionsLeft = data.length - answered.length;
 
     return (
-        <QuizContext.Provider value={{ capitals: data, startGame, answerQuestion, nextQuestion, score, questionsLeft }}>
+        <QuizContext.Provider value={{ data, startGame, answerQuestion, nextQuestion, score, questionsLeft }}>
             {children}
         </QuizContext.Provider>
     )

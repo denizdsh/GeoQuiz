@@ -3,6 +3,7 @@
     font-size: 0.9vmax;
     width: calc(200px + 3vw);
     height: 50px;
+    overflow-y: auto;
     border: none;
     border-radius: 10px;
     outline: none;
@@ -13,11 +14,7 @@
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
-}
-
-.btn:hover {
-    background: var(--text-primary);
-    color: var(--item);
+    user-select: none;
 }
 
 .btn:active {
@@ -46,10 +43,23 @@
 .btn-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+@media all and (min-width: 1200px) {
+    .btn:hover {
+        background: var(--text-primary);
+        color: var(--item);
+    }
 }
 
 @media all and (max-width: 1200px) {
     .btn {
         font-size: 1.5vmax;
+    }
+
+    .btn:active {
+        background: var(--text-primary);
+        color: var(--item);
     }
 }

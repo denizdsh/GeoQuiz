@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { LanguageContext } from '../contexts/LanguageContext';
+
 import Cards from "./Cards/Cards";
 
-const games = {
+const data = {
     africa: [
         {
             title: 'Flags',
@@ -50,6 +53,11 @@ const games = {
             link: '/europe/capitals'
         },
         {
+            title: 'Countries',
+            image: '/images/europe/map.png',
+            link: '/europe/countries'
+        },
+        {
             title: 'Provinces of Bulgaria',
             image: '/images/home/europe.png',
             link: '/europe/bulgaria'
@@ -80,19 +88,23 @@ const games = {
         },
         {
             title: 'Countries',
-            image: '/images/home/world.png',
-            link: '/countries'
+            image: '/images/europe/map.png',
+            link: '/world/countries'
         }
     ]
 }
 
 export default function Region() {
     const { region } = useParams();
-    if (!games.hasOwnProperty(region)) {
+    const { translate } = useContext(LanguageContext);
+
+    const games = data[region].map(g => { return { ...g, key: g.title, title: translate('region', g.title) } })
+
+    if (!data.hasOwnProperty(region)) {
         return (<p>404</p>)
         //TODO: error page
     }
     return (
-        <Cards cards={games[region]} />
+        <Cards cards={games} />
     )
 }

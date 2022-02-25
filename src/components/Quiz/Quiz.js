@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { QuizContext } from '../../contexts/QuizContext';
+import { LanguageContext } from '../../contexts/LanguageContext';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../Common/Button';
@@ -9,17 +10,26 @@ import GameStartMenu from '../GameStartMenu/GameStartMenu';
 import '../Common/Game.css';
 import GameEnd from '../GameEnd/GameEnd';
 
+const formattedRegions = {
+    world: 'World',
+    americas: 'American',
+    africa: 'African',
+    asia: 'Asian',
+    'australia-oceania': 'Australia & Oceania',
+    europe: 'European',
+}
 export default function Quiz({ game }) {
     const { region } = useParams();
     const ctx = useContext(QuizContext);
+    const { translate } = useContext(LanguageContext);
     const [question, setQuestion] = useState({});
     const [isAnswered, setIsAnswered] = useState(false);
     const [options, setOptions] = useState({ showAnswers: true, showStopwatch: true });
     const [time, setTime] = useState(0);
     const [runStopwatch, setRunStopwatch] = useState(false);
 
-    const startGameHandler = (showAnswers, showStopwatch) => {
-        setOptions({ showAnswers, showStopwatch })
+    const startGameHandler = ({ showAnswers, showStopwatch }) => {
+        setOptions({ showAnswers, showStopwatch });
         setQuestion(ctx.startGame(game, region));
         if (showStopwatch) startStopwatch();
     }
@@ -61,14 +71,16 @@ export default function Quiz({ game }) {
         setRunStopwatch(false);
     }
 
+    const regionText = translate('misc', formattedRegions[region]);
+    const gameDescText = translate('misc', `${region === 'world' ? 'World ' : ''}${game[0].toLocaleUpperCase().concat(game.slice(1))} Quiz`);
     return (
-        ctx.capitals.length !== 0
+        ctx.data.length !== 0
             ? (
                 <section className="game quiz">
                     {ctx.questionsLeft === 0 ?
                         (   //End of game screen
-                            <GameEnd title={`${region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O')} Capitals Quiz`}
-                                score={{ value: ctx.score, max: ctx.capitals.length }} time={{ value: time, on: options.showStopwatch }} />
+                            <GameEnd title={`${regionText} ${gameDescText}`}
+                                score={{ value: ctx.score, max: ctx.data.length }} time={{ value: time, on: options.showStopwatch }} />
                         )
                         :
                         (   //Game
@@ -77,21 +89,21 @@ export default function Quiz({ game }) {
                                     <Stopwatch run={runStopwatch} on={options.showStopwatch} time={time} setTime={setTime} width={game !== 'flags' ? '25%' : '49%'} />
                                     {game !== 'flags' ?
                                         <article className="title-container title">
-                                            <p className='game-title'>{question.country}</p>
+                                            <p className='game-title'>{translate('countries', question.country)}</p>
                                         </article> : ''}
 
                                     <article className="title-container score" style={{ width: game !== 'flags' ? '25%' : '49%' }}>
-                                        {ctx.capitals ? <p className='game-title'>{`${ctx.score}/${ctx.capitals.length}`}</p> : ''}
-                                    </article>
-                                </header>
+                                        {ctx.data ? <p className='game-title'>{`${ctx.score} /${ctx.data.length}`}</p> : ''}
+                                    </article >
+                                </header >
                                 <article className="game-img-container">
                                     <img src={question.image} alt={question.country} className="game-img" />
                                 </article>
                                 <div className={`btn-container ${isAnswered ? 'answered' : ''}`}>
-                                    {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.country, answer)} key={answer}>{answer}</Button>)}
+                                    {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.country, answer)} key={answer}>{translate(game === 'capitals' ? 'capitals' : 'countries', answer)}</Button>)}
                                     {(isAnswered && options.showAnswers) ?
                                         <article className="next-modal">
-                                            <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{ctx.questionsLeft > 0 ? 'Next' : 'End'}</Button>
+                                            <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{translate('misc', ctx.questionsLeft > 0 ? 'Next' : 'End')}</Button>
                                         </article> : ''}
                                 </div>
                             </>
@@ -99,6 +111,6 @@ export default function Quiz({ game }) {
                     }
                 </section >
             )
-            : <GameStartMenu content={{ title: `${region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O')} ${game[0].toLocaleUpperCase().concat(game.slice(1))} Quiz`, image: `/images/${region}/flags.png` }} startGame={startGameHandler} region={region} />
+            : <GameStartMenu content={{ title: `${regionText} ${gameDescText}`, image: `/images/${region}/flags.png` }} startGame={startGameHandler} region={region} game={game} />
     )
 }

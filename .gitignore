@@ -1,5 +1,10 @@
 node_modules
 firebase.json
 .firebaserc
+.firebase
+.env
 build
 /public/images
+/public/geojson
+/public/icons
+/public/logos

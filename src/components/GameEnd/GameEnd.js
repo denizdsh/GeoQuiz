@@ -1,10 +1,14 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LanguageContext } from '../../contexts/LanguageContext';
 import Button from '../Common/Button';
 import Stopwatch from '../Common/Stopwatch';
 import './GameEnd.css';
 
 export default function GameEnd({ title, score, time }) {
     const navigate = useNavigate();
+    const { translate } = useContext(LanguageContext);
+
     let points = score.value * (60 - time.value / score.value);
 
     let scoreColor;
@@ -31,7 +35,7 @@ export default function GameEnd({ title, score, time }) {
                 <p className='game-title'>{title}</p>
             </article>
             <article className="score">
-                <p className='game-end-score'>Score:
+                <p className='game-end-score'>{translate('misc', 'Score')}:
                     {
                         <span style={{ color: scoreColor || 'var(--primary)' }}>
                             {` ${score.value}`}
@@ -41,8 +45,8 @@ export default function GameEnd({ title, score, time }) {
                 </p>
                 <Stopwatch on={time.on} time={time.value} color={stopwatchColor} />
             </article>
-            <p className='game-end-score'>Points: {points === Math.floor(points) ? points : points.toFixed(1)}</p>
-            <Button onClick={() => navigate('/')}>Home</Button>
+            <p className='game-end-score'>{translate('misc', 'Points')}: {points === Math.floor(points) ? points : points.toFixed(1)}</p>
+            <Button onClick={() => navigate('/')}>{translate('misc', 'Home')}</Button>
         </section>
     )
 }

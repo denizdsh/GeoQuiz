@@ -51,6 +51,17 @@ input:checked+.slider:before {
 
 .slider.round {
     border-radius: 34px;
+    font-size: 19.5px;
+    user-select: none;
+    padding-left: 4px;
+    padding-right: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider.round span {
+    height: fit-content;
 }
 
 .slider.round:before {
