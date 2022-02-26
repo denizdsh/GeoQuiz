@@ -97,10 +97,10 @@ export default function Quiz({ game }) {
                                     </article >
                                 </header >
                                 <article className="game-img-container">
-                                    <img src={question.image} alt={question.country} className="game-img" />
+                                    {question?.image}
                                 </article>
                                 <div className={`btn-container ${isAnswered ? 'answered' : ''}`}>
-                                    {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.country, answer)} key={answer}>{translate(game === 'capitals' ? 'capitals' : 'countries', answer)}</Button>)}
+                                    {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.feature, answer)} key={answer}>{translate(game === 'capitals' ? 'capitals' : 'countries', answer)}</Button>)}
                                     {(isAnswered && options.showAnswers) ?
                                         <article className="next-modal">
                                             <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{translate('misc', ctx.questionsLeft > 0 ? 'Next' : 'End')}</Button>

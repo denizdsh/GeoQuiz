@@ -37,24 +37,23 @@
     .card::before {
         content: '';
         position: absolute;
-        top: -2px;
-        left: -2px;
         z-index: -1;
         filter: blur(4px);
+        left: -1px;
+        top: -1px;
         width: calc(100% + 1px);
         height: calc(100% + 1px);
         border-radius: 10px;
         opacity: 0;
         animation: glowing 20s linear infinite;
         transition: opacity .3s ease-in-out;
-        background: linear-gradient(45deg, #00b7ff, #0062ff, #002bff, #2779fd);
+        background: var(--gradient);
     }
 
     .card:hover::before {
         opacity: 1;
     }
 }
-
 
 .card:active {
     top: 5px;
@@ -73,7 +72,6 @@
         background-position: 0 0;
     }
 }
-
 
 @media all and (max-width: 1200px) {
     .card {

@@ -8,15 +8,21 @@ export function NavProvider({ children }) {
     const location = useLocation();
 
     useEffect(() => {
-        setDisplayNav(!location.pathname.includes('/countries'))
+        if (!location.pathname.includes('/countries')) {
+            setDisplayNav(true);
+        }
     }, [location])
 
     const enableNav = () => {
         setDisplayNav(true);
     }
-    
+
+    const disableNav = () => {
+        setDisplayNav(false);
+    }
+
     return (
-        <NavContext.Provider value={{ displayNav, enableNav }}>
+        <NavContext.Provider value={{ displayNav, enableNav, disableNav }}>
             {children}
         </NavContext.Provider>
     )

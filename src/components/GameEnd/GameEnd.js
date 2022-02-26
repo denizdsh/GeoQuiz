@@ -5,11 +5,11 @@ import Button from '../Common/Button';
 import Stopwatch from '../Common/Stopwatch';
 import './GameEnd.css';
 
-export default function GameEnd({ title, score, time }) {
+export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
     const navigate = useNavigate();
     const { translate } = useContext(LanguageContext);
 
-    let points = score.value * (60 - time.value / score.value);
+    let points = score.value * (60 - time.value / score.value) || 0;
 
     let scoreColor;
     if (score.value >= score.max - Math.ceil(0.1 * score.max)) {
@@ -21,10 +21,10 @@ export default function GameEnd({ title, score, time }) {
     }
 
     let stopwatchColor;
-    if (score.value * 8 >= time.value) {
+    if (score.value * timePerQuestion >= time.value) {
         stopwatchColor = 'green';
         points *= 1.5;
-    } else if (score.value * 24 <= time.value) {
+    } else if (score.value * 3 * timePerQuestion <= time.value) {
         stopwatchColor = 'red';
         points /= 1.8;
     }

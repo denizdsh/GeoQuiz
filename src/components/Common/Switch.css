@@ -67,3 +67,15 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.language-icon {
+    border-radius: 50%;
+    width: 20.5px;
+}
+
+.slider .language-icon:nth-child(1) {
+    padding-left: 1px;
+}
+.slider .language-icon:nth-child(2) {
+    padding-right: 1px;
+}

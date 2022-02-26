@@ -50,6 +50,7 @@
     .btn:hover {
         background: var(--text-primary);
         color: var(--item);
+        text-shadow: 0 0 1px var(--inverted-text-shadow-color);
     }
 }
 
@@ -61,5 +62,6 @@
     .btn:active {
         background: var(--text-primary);
         color: var(--item);
+        text-shadow: 0 0 1px var(--inverted-text-shadow-color);
     }
 }

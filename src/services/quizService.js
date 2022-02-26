@@ -6,7 +6,7 @@ export function generateQuestion(data, allData) {
     const feature = Object.keys(dataObject)[0];
     const image = dataObject.image || Object.keys(dataObject)[0];
     const answers = generateAnswers(allData, feature);
-    return { country: feature, answers, image };
+    return { feature, answers, image, country: dataObject.image ? feature : Object.values(dataObject)[0] };
 }
 
 function generateAnswers(data, feature) {

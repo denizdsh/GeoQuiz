@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useState, useContext, memo } from "react"
 import { useNavigate, useParams } from 'react-router-dom';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { MapsContext } from "../../contexts/MapsContext";
@@ -28,11 +28,12 @@ function MapsGame() {
 
     const ctx = useContext(MapsContext);
     const { translate } = useContext(LanguageContext);
-    const { enableNav } = useContext(NavContext);
+    const { enableNav, disableNav } = useContext(NavContext);
 
     const { region } = useParams();
 
     const startGameHandler = ({ showStopwatch }) => {
+        disableNav();
         ctx.startGame(region);
         setShowStopwatch(showStopwatch);
         if (showStopwatch) setRunStopwatch(true);
@@ -46,11 +47,14 @@ function MapsGame() {
     return (
         ctx.score.max ?
             !ctx.country ?
-                <GameEnd title={`${regionText} ${gameDescText}`}
-                    score={{ value: ctx.score.current, max: ctx.score.max }} time={{ value: time, on: showStopwatch }} />
+                <section className="game maps-end">
+                    <GameEnd title={`${regionText} ${gameDescText}`}
+                        score={{ value: ctx.score.current, max: ctx.score.max }}
+                        time={{ value: time, on: showStopwatch }}
+                        timePerQuestion={10} />
+                </section>
                 :
                 <>
-                    <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" className='back-btn' onClick={() => navigate(-1)} />
                     <section className="map-header hide-header">
                         <Stopwatch run={runStopwatch} on={showStopwatch} time={time} setTime={setTime} />
                         <article className="title-container title">
@@ -85,19 +89,51 @@ const center = {
 };
 const zoom = window.innerWidth >= 800 ? 4.5 : 3;
 const latLngBounds = {
+    world: {
+        north: 180,
+        south: -180,
+        west: -180,
+        east: 180
+    },
+    africa: {
+        north: 38,
+        south: -38,
+        west: -30,
+        east: 66
+    },
+    americas: {
+        north: 69,
+        south: -60,
+        west: -177,
+        east: -26
+    },
+    asia: {
+        north: 80,
+        south: -11,
+        west: 18,
+        east: 180
+    },
+    'australica-oceania': {
+        north: 1,
+        south: -48,
+        west: 108,
+        east: -157
+    },
     europe: {
         north: 72,
         south: 34,
         west: -26,
         east: 36
-    }
+    },
 }
-const options = {
-    mapId: '4132498b700a9b11',
-    mapTypeControl: false,
-    streetViewControl: false,
-    fullscreenControl: false,
-    restriction: { latLngBounds: latLngBounds.europe, strictBounds: false }
+const options = (region) => {
+    return {
+        mapId: '4132498b700a9b11',
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false,
+        restriction: { latLngBounds: latLngBounds[region], strictBounds: false }
+    }
 }
 const label = (country) => {
     return {
@@ -121,7 +157,48 @@ const smallCountries = {
         ['Monaco', { lat: 43.736974, lng: 7.421652 }],
         ['San Marino', { lat: 43.934514, lng: 12.447499 }],
         ['Vatican City', { lat: 41.903094, lng: 12.453412 }]
+    ],
+    asia: [
+        ['Bahrain', { lat: 26.220286, lng: 50.550944 }],
+        ['Brunei', { lat: 4.742270, lng: 114.573702 }],
+        ['Kuwait', { lat: 29.679911, lng: 47.890260 }],
+        ['Lebanon', { lat: 34.267441, lng: 35.696224 }],
+        ['Maldives', { lat: 4.175137, lng: 73.510096 }],
+        ['Palestine', { lat: 32.156861, lng: 35.280103 }],
+        ['Singapore', { lat: 1.421580, lng: 103.771587 }],
+    ],
+    /*
+    africa: [
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }]
+    ],
+    americas: [
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }]
+    ],
+    'australica-oceania': [
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }],
+        ['', { lat:  lng:  }]
     ]
+    */
 }
 
 const formatToFeatureEvent = (x) => {
@@ -147,13 +224,12 @@ function Map({ region }) {
     const [prevE, setPrevE] = useState();
     const { translate } = useContext(LanguageContext);
 
-
     const addMarker = (position, text) => {
         setMarkers(markers => [...markers, { position, text }]);
     }
 
     const loadGeoJson = async (map) => {
-        const geojson = await (await fetch('http://localhost:3000/geojson/europe.geojson')).json();
+        const geojson = await (await fetch(`${process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000'}/geojson/${region}.geojson`)).json();
         await map.data.addGeoJson(geojson);
         map.data.setStyle({ icon: 0, fillColor: 'Gold', strokeWeight: 1, strokeColor: 'MediumSlateBlue' });
 
@@ -164,7 +240,8 @@ function Map({ region }) {
     const countryClickHandler = (event) => {
         if (!event) event = e;
         const targetCountry = event.feature.j.ADMIN;
-        const isSmallCountry = smallMarkers.flat().includes(targetCountry);
+        console.log(targetCountry)
+        const isSmallCountry = smallMarkers?.flat().includes(targetCountry);
         if (prevE !== event) {
             setPrevE(event);
             if (ctx.countries.concat(ctx.country).includes(targetCountry)) {
@@ -176,6 +253,7 @@ function Map({ region }) {
                         color = 'purple';
                         setSmallMarkers(smallMarkers => smallMarkers.filter(m => m[0] !== targetCountry));
                     }
+                    console.log({ lat: event.latLng.lat(), lng: event.latLng.lng() });
                     addMarker({ lat: event.latLng.lat(), lng: event.latLng.lng() }, ctx.country);
                     ctx.nextCountryHandler();
                 }
@@ -195,16 +273,16 @@ function Map({ region }) {
             >
                 <GoogleMap
                     mapContainerStyle={containerStyle}
-                    options={options}
+                    options={options(region)}
                     center={center}
                     zoom={zoom}
                     onLoad={loadGeoJson}
                 >
-                    {markers.length > 0 && markers.map(m =>
+                    {markers && markers.map(m =>
                         <Marker position={m.position} label={label(translate('countries', m.text))} options={markerOptions} icon={icon} key={`${m.text}-label`} />)}
 
-                    {smallMarkers.length > 0 && smallMarkers.map(c =>
-                        <Marker position={c[1]} icon='http://localhost:3000/icons/star_icon_marker.png'
+                    {smallMarkers && smallMarkers.map(c =>
+                        <Marker position={c[1]} icon={`${process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000'}/icons/star_icon_marker.png`}
                             onClick={() => countryClickHandler(formatToFeatureEvent(c))} key={`${c[0]}-smallCountry`} />)}
                 </GoogleMap>
             </LoadScript >
@@ -212,4 +290,4 @@ function Map({ region }) {
     )
 }
 
-export default MapsGame; //memo?
+export default memo(MapsGame);

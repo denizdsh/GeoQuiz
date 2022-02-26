@@ -15,6 +15,11 @@ const data = {
             title: 'Capitals',
             image: '/images/home/africa.png',
             link: '/africa/capitals'
+        },
+        {
+            title: 'Countries',
+            image: '/images/africa/map.png',
+            link: '/africa/countries'
         }
     ],
     americas: [
@@ -27,6 +32,11 @@ const data = {
             title: 'Capitals',
             image: '/images/home/americas.png',
             link: '/americas/capitals'
+        },
+        {
+            title: 'Countries',
+            image: '/images/americas/map.png',
+            link: '/americas/countries'
         }
     ],
     asia: [
@@ -39,6 +49,11 @@ const data = {
             title: 'Capitals',
             image: '/images/home/asia.png',
             link: '/asia/capitals'
+        },
+        {
+            title: 'Countries',
+            image: '/images/asia/map.png',
+            link: '/asia/countries'
         }
     ],
     europe: [
@@ -73,6 +88,11 @@ const data = {
             title: 'Capitals',
             image: '/images/home/australia-oceania.png',
             link: '/australia-oceania/capitals'
+        },
+        {
+            title: 'Countries',
+            image: '/images/australia-oceania/map.png',
+            link: '/australia-oceania/countries'
         }
     ],
     world: [
@@ -88,7 +108,7 @@ const data = {
         },
         {
             title: 'Countries',
-            image: '/images/europe/map.png',
+            image: '/images/world/map.png',
             link: '/world/countries'
         }
     ]

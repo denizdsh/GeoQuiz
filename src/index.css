@@ -1,8 +1,12 @@
 body {
   margin: 0;
+  background-color: rgb(40, 54, 116);
+  background-size: cover;
 }
 
 :root {
+  text-shadow: 0 0 1px rgb(4, 0, 26);
+  scroll-behavior: smooth;
   --nav: #1f3064;
   --background: rgb(40, 54, 116);
   --item: #162757;
@@ -11,19 +15,26 @@ body {
   --accent: #263977;
   --green: rgb(68, 190, 38);
   --stopwatch: rgb(123, 205, 233);
+  --inverted-text-shadow-color: rgb(211, 248, 253);
+  --gradient: linear-gradient(45deg, #00b7ff, #0062ff, #002bff, #2779fd);
 }
 
 [data-theme='light'] {
+  text-shadow: 0 0 1px rgb(211, 248, 253);
   --nav: #5675db;
   --background: #b7d6fa;
   --item: rgb(160, 195, 241);
-  --text-primary: rgb(32, 41, 128);
-  --text-secondary: royalblue;
-  --accent: rgb(123, 162, 251);
-  --green: rgb(1, 100, 1);
-  --stopwatch: rgb(39, 39, 165);
+  --text-primary: rgb(64, 75, 172);
+  --accent: rgb(152, 183, 255);
+  --green: rgb(43, 143, 43);
+  --stopwatch: rgb(61, 28, 251);
+  --inverted-text-shadow-color: rgb(4, 0, 26);
+  --gradient: linear-gradient(45deg, #9997ff, #a494fb, #8294f8);
 }
 
-html{
-  background: rgb(40, 54, 116);
+html {
+  background-color: rgb(40, 54, 116);
+  background-size: cover;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
 }

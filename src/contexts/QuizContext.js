@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, createElement } from "react";
 
 import * as service from '../services/quizService'
 
@@ -9,14 +9,47 @@ export function QuizProvider({ children }) {
     const [score, setScore] = useState(0);
     const [data, setData] = useState([]);
     const [answered, setAnswered] = useState([]);
+    const [images, setImages] = useState([]);
+
+    //preload images for quick response in quizes
+    const loadImages = (game, data) => {
+        const url = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000';
+
+        let imgs = [];
+        if (game === 'capitals') {
+            data.forEach(x => {
+                let name = Object.keys(x)[0];
+
+                let img = new Image();
+                img.src = x.image;
+
+                imgs.push({
+                    image: createElement('img', { src: img.src, className: 'game-img', alt: name }),
+                    name
+                })
+            })
+        } else {
+            data.forEach(x => {
+                let img = new Image();
+                img.src = Object.keys(x)[0];
+
+                imgs.push({
+                    image: createElement('img', { src: img.src, className: 'game-img', alt: 'FLAG' }),
+                    name: Object.values(x)[0]
+                })
+            })
+        }
+        setImages(imgs);
+        return imgs;
+    }
 
     const startGame = (game, region) => {
         setGame(game);
-
         const allData = service.getData(game, region);
+        const imgs = loadImages(game, allData);
         setData(allData);
 
-        return nextQuestion('', allData);
+        return nextQuestion('', allData, imgs);
     }
 
     // feature can be either country or imageURL
@@ -34,9 +67,10 @@ export function QuizProvider({ children }) {
         return [isCorrect, correct];
     }
 
-    const nextQuestion = (feature, allData = data) => {
+    const nextQuestion = (feature, allData = data, imgs = images) => {
         const dataLeft = allData.filter(x => !answered.includes(Object.keys(x)[0]) & feature !== Object.keys(x)[0])
         const question = service.generateQuestion(dataLeft, allData);
+        question.image = imgs.find(x => x.name === question.country).image
         console.log(question)
         return question;
     }

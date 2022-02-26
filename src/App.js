@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router';
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { useNavigate, useLocation } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
 
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -17,6 +19,7 @@ import Home from './components/Home';
 import Region from './components/Region'
 import Quiz from './components/Quiz/Quiz';
 import MapsGame from './components/MapsGame/MapsGame';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
   const switchThemeHandler = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   }
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   library.add(faCircleCheck, faStopwatch, faCircleArrowLeft);
 
@@ -36,25 +42,30 @@ function App() {
             <Header theme={theme} switchThemeHandler={switchThemeHandler} />
           </header>
           <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/:region" element={<Region />} />
-              <Route path="/:region/capitals" element={
-                <QuizProvider>
-                  <Quiz game="capitals" />
-                </QuizProvider>
-              } />
-              <Route path="/:region/flags" element={
-                <QuizProvider>
-                  <Quiz game="flags" />
-                </QuizProvider>
-              } />
-              <Route path='/:region/countries' element={
-                <MapsProvider>
-                  <MapsGame />
-                </MapsProvider>
-              } />
-            </Routes>
+            <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" className='back-btn' onClick={() => navigate(-1)} />
+            <TransitionGroup component={null}>
+              <CSSTransition key={location.key} classNames='slide' timeout={400}>
+                <Routes location={location}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/:region" element={<Region />} />
+                  <Route path="/:region/capitals" element={
+                    <QuizProvider>
+                      <Quiz game="capitals" />
+                    </QuizProvider>
+                  } />
+                  <Route path="/:region/flags" element={
+                    <QuizProvider>
+                      <Quiz game="flags" />
+                    </QuizProvider>
+                  } />
+                  <Route path='/:region/countries' element={
+                    <MapsProvider>
+                      <MapsGame />
+                    </MapsProvider>
+                  } />
+                </Routes>
+              </CSSTransition>
+            </TransitionGroup>
           </main>
         </NavProvider>
       </LanguageProvider>

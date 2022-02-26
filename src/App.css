@@ -16,13 +16,18 @@
   background: var(--background);
 }
 
+.fab, .fas {
+  font-size: 2vmax;
+  color: var(--text-secondary);
+}
+
 /*Scrollbar*/
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgb(40, 54, 116);
+  background: rgba(40, 54, 116, 0.418);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -34,7 +39,31 @@
   background: var(--accent);
 }
 
-.fab, .fas {
-  font-size: 2vmax;
-  color: var(--text-secondary);
+::-webkit-scrollbar-corner {
+  background: rgb(40, 54, 116);
+}
+
+/*Transition*/
+.slide-enter {
+  position: relative;
+  left: 100vw !important;
+}
+
+.slide-enter-active {
+  left: 0 !important;
+  transition: left 400ms;
+}
+
+.game.slide-enter-active {
+  left: 50% !important;
+  transition: left 400ms;
+}
+
+.slide-exit-active {
+  display: none !important;
+  z-index: -1 !important;
+}
+
+.slide-exit-active~div {
+  display: none !important;
 }

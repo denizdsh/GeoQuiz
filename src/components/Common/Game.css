@@ -17,13 +17,13 @@
 
 .game:before {
     content: '';
-    background: linear-gradient(45deg, #00b7ff, #0062ff, #002bff, #2779fd);
+    background: var(--gradient);
     position: absolute;
-    top: -2px;
-    left: -2px;
     background-size: 400%;
     z-index: -1;
     filter: blur(4px);
+    left: -1px;
+    top: -1px;
     max-width: 656px;
     width: calc(100% + 1px);
     height: calc(100% + 1px);

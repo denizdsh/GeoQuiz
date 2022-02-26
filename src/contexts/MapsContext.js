@@ -48,15 +48,29 @@ export function MapsProvider({ children }) {
     }
 
     const skipCountryHandler = () => {
+        //delete current (1st) country 
         let data;
         if (countries.length > 0) {
             data = countries.filter(x => x !== country);
             setCountries(data);
         } else {
             data = delayed.filter(x => x !== country);
+            setCountries(data);
+        }
+
+        //get next country from countries or delayed
+        data = countries.length > 0 ? countries : delayed;
+
+        const current = nextCountry(data);
+        data = data.filter(x => x !== current)
+        setCountry(current);
+
+        //delete current (2nd) country 
+        if (countries.length > 0) {
+            setCountries(data);
+        } else {
             setDelayed(data);
         }
-        setCountry(nextCountry(data));
     }
 
     const updateScore = (targetCountry) => {
