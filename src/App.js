@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useNavigationType } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
 
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -31,6 +32,13 @@ function App() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const navType = useNavigationType();
+
+  useEffect(() => {
+    if (navType !== 'POP') {
+      document.documentElement.scrollTo(0, 0);
+    }
+  }, [location.pathname])
 
   library.add(faCircleCheck, faStopwatch, faCircleArrowLeft);
 
@@ -42,7 +50,6 @@ function App() {
             <Header theme={theme} switchThemeHandler={switchThemeHandler} />
           </header>
           <main>
-            <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" className='back-btn' onClick={() => navigate(-1)} />
             <TransitionGroup component={null}>
               <CSSTransition key={location.key} classNames='slide' timeout={400}>
                 <Routes location={location}>
@@ -66,6 +73,7 @@ function App() {
                 </Routes>
               </CSSTransition>
             </TransitionGroup>
+            <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" className='back-btn' onClick={() => navigate(-1)} />
           </main>
         </NavProvider>
       </LanguageProvider>

@@ -45,10 +45,28 @@
     width: 130px;
 }
 
+.back-btn {
+    z-index: 1;
+    position: absolute;
+    top: 10vh;
+    left: 20px;
+    font-size: 2vmax;
+    cursor: pointer;
+}
+
 @media all and (max-width: 700px) {
     .nav {
         max-height: none;
         flex-direction: column;
+    }
+
+    .hide.nav-logo {
+        display: none;
+    }
+
+    .back-btn {
+        top: calc(22px - 0.5vmax);
+        font-size: 3vmax;
     }
 
     .env-options {

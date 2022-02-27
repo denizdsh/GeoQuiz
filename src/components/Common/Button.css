@@ -65,3 +65,9 @@
         text-shadow: 0 0 1px var(--inverted-text-shadow-color);
     }
 }
+
+@media all and (max-width: 800px) {
+    .btn {
+        font-size: 1.8vmax;
+    }
+}

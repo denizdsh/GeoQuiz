@@ -55,7 +55,11 @@
     margin: 0;
 }
 
-.game-img-container {
+.game-title {
+    text-align: center;
+}
+
+.quiz .game-img-container {
     max-width: 100%;
     overflow: hidden;
 }
@@ -74,7 +78,7 @@
     }
 }
 
-.game-img {
+.quiz .game-img {
     height: 100%;
     position: relative;
     left: 50%;
@@ -132,7 +136,6 @@ article.stopwatch {
 
 .header article p {
     margin: 0;
-    font-size: inherit;
 }
 
 .btn-container {
@@ -177,19 +180,28 @@ article.stopwatch {
     }
 }
 
-@media all and (max-width: 800px) {
-    .game, .quiz.game {
-        width: 95%;
+@media all and (max-width: 1600px) {
+    .game-title {
+        font-size: 1.2vmax;
     }
 
-    .quiz .game-img-container {
-        max-width: 85vw;
+    .title-container.title .game-title {
+        font-size: 1.5vmax;
+    }
+
+    [data-title]:hover::before {
+        font-size: 1.2vmax;
+        bottom: -2.3vmax;
     }
 }
 
 @media all and (max-width: 1200px) {
     .game-title {
         font-size: 1.5vmax;
+    }
+
+    .title-container.title .game-title {
+        font-size: 1.7vmax;
     }
 
     [data-title]:hover::before {
@@ -206,13 +218,20 @@ article.stopwatch {
     }
 }
 
-@media all and (max-width: 1600px) {
-    .game-title {
-        font-size: 1.2vmax;
+@media all and (max-width: 800px) {
+    .game, .quiz.game {
+        width: 95%;
     }
 
-    [data-title]:hover::before {
-        font-size: 1.2vmax;
-        bottom: -2.3vmax;
+    .quiz .game-img-container {
+        max-width: 85vw;
+    }
+
+    .game-title, article.stopwatch {
+        font-size: 1.8vmax;
+    }
+
+    .title-container.title .game-title {
+        font-size: 2vmax;
     }
 }

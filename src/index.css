@@ -6,7 +6,6 @@ body {
 
 :root {
   text-shadow: 0 0 1px rgb(4, 0, 26);
-  scroll-behavior: smooth;
   --nav: #1f3064;
   --background: rgb(40, 54, 116);
   --item: #162757;
@@ -35,6 +34,7 @@ body {
 html {
   background-color: rgb(40, 54, 116);
   background-size: cover;
+  padding-top: env(safe-area-inset-top);
   -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
 }

@@ -2,8 +2,8 @@ import { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { QuizContext } from '../../contexts/QuizContext';
 import { LanguageContext } from '../../contexts/LanguageContext';
+import { NavContext } from '../../contexts/NavContext';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../Common/Button';
 import Stopwatch from '../Common/Stopwatch';
 import GameStartMenu from '../GameStartMenu/GameStartMenu';
@@ -22,6 +22,7 @@ export default function Quiz({ game }) {
     const { region } = useParams();
     const ctx = useContext(QuizContext);
     const { translate } = useContext(LanguageContext);
+    const { enableLogo, disableLogo } = useContext(NavContext);
     const [question, setQuestion] = useState({});
     const [isAnswered, setIsAnswered] = useState(false);
     const [options, setOptions] = useState({ showAnswers: true, showStopwatch: true });
@@ -30,6 +31,7 @@ export default function Quiz({ game }) {
 
     const startGameHandler = ({ showAnswers, showStopwatch }) => {
         setOptions({ showAnswers, showStopwatch });
+        disableLogo();
         setQuestion(ctx.startGame(game, region));
         if (showStopwatch) startStopwatch();
     }
@@ -71,6 +73,7 @@ export default function Quiz({ game }) {
         setRunStopwatch(false);
     }
 
+    if (ctx.data.length === 0) enableLogo();
     const regionText = translate('misc', formattedRegions[region]);
     const gameDescText = translate('misc', `${region === 'world' ? 'World ' : ''}${game[0].toLocaleUpperCase().concat(game.slice(1))} Quiz`);
     return (
@@ -93,7 +96,7 @@ export default function Quiz({ game }) {
                                         </article> : ''}
 
                                     <article className="title-container score" style={{ width: game !== 'flags' ? '25%' : '49%' }}>
-                                        {ctx.data ? <p className='game-title'>{`${ctx.score} /${ctx.data.length}`}</p> : ''}
+                                        {ctx.data ? <p className='game-title'>{`${ctx.score}/${ctx.data.length}`}</p> : ''}
                                     </article >
                                 </header >
                                 <article className="game-img-container">

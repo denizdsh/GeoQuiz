@@ -1,19 +1,6 @@
-.game.maps-end{
+.game.maps-end {
     min-width: 330px;
     width: 22vw;
-}
-
-.hide-header~header {
-    display: none;
-}
-
-.back-btn {
-    z-index: 1;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 2vmax;
-    cursor: pointer;
 }
 
 .map-header {
@@ -27,26 +14,30 @@
     align-items: center;
     justify-content: space-around;
     width: 50%;
+    height: auto;
     height: calc(1.2 * 2vmax);
     border-radius: 50px;
     box-shadow: var(--nav) 0px 1px 20px -5px;
     text-shadow: 0 0 1px rgb(4, 0, 26);
+    padding: 15px 0px;
 }
 
 .map-header p, .map-header .stopwatch p.time {
     color: rgb(235, 234, 232) !important;
 }
 
-.game-title {
+.map-header .game-title, .map-header .time {
     margin: 0;
+    font-size: 1.1vmax;
 }
 
-.time, .title-container.score p {
-    font-size: 1.1vmax;
+.map-header .title p {
+    font-size: 1.4vmax;
 }
 
 .action-buttons {
     position: absolute;
+    width: fit-content;
     top: 20px;
     right: 20px;
     display: flex;
@@ -89,4 +80,64 @@
     text-shadow: none;
     opacity: 1;
     background: rgb(230, 230, 250, 0.5)
+}
+
+.map-header~.back-btn {
+    top: 10px;
+}
+
+@media all and (max-width: 800px) {
+    .map-header {
+        left: calc(8px + 3vmax);
+        top: 8px;
+        transform: translate(0, 0);
+        width: 60%;
+    }
+
+    .action-buttons {
+        top: 8px;
+        height: 30px;
+        left: calc(12px + 3vmax + 60%)
+    }
+
+    article.stopwatch {
+        padding-left: 5px;
+    }
+
+    .map-header .game-title, .map-header .time, .delay, .skip {
+        font-size: 1.55vmax;
+    }
+
+    .action-buttons {
+        top: 7px;
+    }
+
+    .map-header~.back-btn {
+        top: 11px;
+        left: 5px;
+        font-size: 3vmax;
+    }
+}
+
+@media all and (max-height: 600px) {
+    .map-header {
+        top: 5px;
+    }
+
+    .map-header .game-title, .map-header .time {
+        font-size: 1.55vmax;
+    }
+
+    .action-buttons {
+        top: 7px;
+    }
+
+    .delay, .skip {
+        font-size: 1.4vmax;
+    }
+
+    .map-header~.back-btn {
+        top: 7px;
+        font-size: 3vmax;
+    }
 }

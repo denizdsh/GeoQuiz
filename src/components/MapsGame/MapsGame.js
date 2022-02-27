@@ -55,7 +55,7 @@ function MapsGame() {
                 </section>
                 :
                 <>
-                    <section className="map-header hide-header">
+                    <section className="map-header">
                         <Stopwatch run={runStopwatch} on={showStopwatch} time={time} setTime={setTime} />
                         <article className="title-container title">
                             <p className='game-title'>{translate('countries', ctx.country)}</p>
@@ -120,10 +120,10 @@ const latLngBounds = {
         east: -157
     },
     europe: {
-        north: 72,
-        south: 34,
+        north: 78,
+        south: 14,
         west: -26,
-        east: 36
+        east: 56
     },
 }
 const options = (region) => {

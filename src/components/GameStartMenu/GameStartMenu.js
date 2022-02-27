@@ -14,7 +14,7 @@ export default function GameStartMenu({ content, startGame, game }) {
 
     const gameIsQuiz = game === 'capitals' || game === 'flags';
     return (
-        <section className="game">
+        <section className="game game-start">
             <article className="title-container">
                 <p className='game-title'>{content.title}</p>
             </article>

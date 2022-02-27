@@ -24,7 +24,7 @@ export function QuizProvider({ children }) {
                 img.src = x.image;
 
                 imgs.push({
-                    image: createElement('img', { src: img.src, className: 'game-img', alt: name }),
+                    image: createElement('img', { src: img.src, className: 'game-img', alt: name, loading: 'lazy' }),
                     name
                 })
             })

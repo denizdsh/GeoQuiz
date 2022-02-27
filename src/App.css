@@ -53,7 +53,7 @@
   left: 0 !important;
   transition: left 400ms;
 }
-
+f
 .game.slide-enter-active {
   left: 50% !important;
   transition: left 400ms;
