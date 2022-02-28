@@ -32,7 +32,7 @@ export function countries(region) {
             'Panama', 'Paraguay', 'Peru',
             'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Suriname',
             'Trinidad and Tobago',
-            'United States',
+            'USA',
             'Uruguay',
             'Venezuela'
         ],

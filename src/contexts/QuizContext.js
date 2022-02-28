@@ -13,8 +13,6 @@ export function QuizProvider({ children }) {
 
     //preload images for quick response in quizes
     const loadImages = (game, data) => {
-        const url = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000';
-
         let imgs = [];
         if (game === 'capitals') {
             data.forEach(x => {
@@ -34,7 +32,7 @@ export function QuizProvider({ children }) {
                 img.src = Object.keys(x)[0];
 
                 imgs.push({
-                    image: createElement('img', { src: img.src, className: 'game-img', alt: 'FLAG' }),
+                    image: createElement('img', { src: img.src, className: 'game-img', alt: 'FLAG', loading: 'lazy' }),
                     name: Object.values(x)[0]
                 })
             })

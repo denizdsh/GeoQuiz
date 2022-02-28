@@ -1,5 +1,5 @@
 .game-end {
-    width: 100%;
+    width: calc(200px + 15vw);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,6 +10,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+}
+
+.game-end .title-container {
+    width: 100%;
+    font-size: 1.4vmax;
+}
+
+.game-end .game-title{
+    margin-top: 15px;
 }
 
 .game-end-score, .game-end .score .stopwatch {

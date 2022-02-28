@@ -11,8 +11,9 @@
 }
 
 .quiz.game {
-    width: calc(200px + 25vw);
-    max-width: 650px;
+    --img-box-shadow: 0px 0px 6px 0px var(--nav);
+    --quiz-width: 654px;
+    width: var(--quiz-width);
 }
 
 .game:before {
@@ -24,9 +25,8 @@
     filter: blur(4px);
     left: -1px;
     top: -1px;
-    max-width: 656px;
-    width: calc(100% + 1px);
-    height: calc(100% + 1px);
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
     animation: glowing 20s linear infinite;
     opacity: 1;
     transition: opacity .3s ease-in-out;
@@ -47,35 +47,29 @@
     user-select: none;
 }
 
-.game p.game-title {
-    margin-top: 10px;
-}
-
-.game.quiz p.game-title {
-    margin: 0;
+.game-start, .game-end {
+    padding: 3.5px;
 }
 
 .game-title {
     text-align: center;
 }
 
-.quiz .game-img-container {
-    max-width: 100%;
-    overflow: hidden;
+.game .game-title {
+    margin-top: 10px;
+}
+
+.game.quiz .game-title {
+    margin: 0;
 }
 
 .quiz .game-img-container {
-    max-width: calc(200px + 20vw);
-    box-shadow: 0px 0px 6px 0px var(--nav);
+    max-width: calc(var(--quiz-width) - 34px);
+    overflow: hidden;
+    box-shadow: var(--img-box-shadow);
     margin: 15px;
     border-radius: 15px;
     height: calc(100px + 20vh);
-}
-
-@media all and (min-width: 1800px) {
-    .quiz .game-img-container {
-        max-width: 620px;
-    }
 }
 
 .quiz .game-img {
@@ -227,11 +221,28 @@ article.stopwatch {
         max-width: 85vw;
     }
 
-    .game-title, article.stopwatch {
+    .game-title, article.stopwatch, .game-start .title-container .game-title {
         font-size: 1.8vmax;
     }
 
     .title-container.title .game-title {
         font-size: 2vmax;
+    }
+}
+
+@media all and (max-width: 650px) {
+    .flags.quiz .game-img-container {
+        box-shadow: none;
+        display: flex;
+        align-items: center;
+        max-width: 100%;
+        margin: 5px 10px;
+    }
+
+    .flags.quiz .game-img {
+        width: 100%;
+        height: fit-content;
+        box-shadow: var(--img-box-shadow);
+        border-radius: 10px;
     }
 }

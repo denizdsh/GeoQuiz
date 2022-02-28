@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { QuizContext } from '../../contexts/QuizContext';
 import { LanguageContext } from '../../contexts/LanguageContext';
 import { NavContext } from '../../contexts/NavContext';
+import { SoundContext } from '../../contexts/SoundContext';
 
 import Button from '../Common/Button';
 import Stopwatch from '../Common/Stopwatch';
@@ -23,6 +24,7 @@ export default function Quiz({ game }) {
     const ctx = useContext(QuizContext);
     const { translate } = useContext(LanguageContext);
     const { enableLogo, disableLogo } = useContext(NavContext);
+    const sounds = useContext(SoundContext);
     const [question, setQuestion] = useState({});
     const [isAnswered, setIsAnswered] = useState(false);
     const [options, setOptions] = useState({ showAnswers: true, showStopwatch: true });
@@ -39,13 +41,17 @@ export default function Quiz({ game }) {
     const answerQuestionHandler = (e, country, answer) => {
         if (!isAnswered) {
             setIsAnswered(true);
+            sounds.answer();
             const [isCorrect, correct] = ctx.answerQuestion(country, answer);
             if (options.showAnswers) {
                 if (isCorrect) {
                     e.currentTarget.classList.add('true');
                 } else {
                     e.currentTarget.classList.add('false');
-                    [...e.currentTarget.parentNode.children].find(x => x.textContent === correct).classList.add('true');
+                    console.log(correct);
+                    [...e.currentTarget.parentNode.children]
+                        .find(x => x.textContent === translate(game === 'capitals' ? 'capitals' : 'country', correct))
+                        .classList.add('true');
                 }
             }
             console.log(isCorrect);
@@ -79,41 +85,39 @@ export default function Quiz({ game }) {
     return (
         ctx.data.length !== 0
             ? (
-                <section className="game quiz">
-                    {ctx.questionsLeft === 0 ?
-                        (   //End of game screen
-                            <GameEnd title={`${regionText} ${gameDescText}`}
-                                score={{ value: ctx.score, max: ctx.data.length }} time={{ value: time, on: options.showStopwatch }} />
-                        )
-                        :
-                        (   //Game
-                            <>
-                                <header className="header">
-                                    <Stopwatch run={runStopwatch} on={options.showStopwatch} time={time} setTime={setTime} width={game !== 'flags' ? '25%' : '49%'} />
-                                    {game !== 'flags' ?
-                                        <article className="title-container title">
-                                            <p className='game-title'>{translate('countries', question.country)}</p>
-                                        </article> : ''}
+                ctx.questionsLeft === 0 ?
+                    (   //End of game screen
+                        <GameEnd title={`${regionText} ${gameDescText}`}
+                            score={{ value: ctx.score, max: ctx.data.length }} time={{ value: time, on: options.showStopwatch }} />
+                    )
+                    :
+                    (   //Game
+                        <section className={`game quiz ${game}`}>
+                            <header className="header">
+                                <Stopwatch run={runStopwatch} on={options.showStopwatch} time={time} setTime={setTime} width={game !== 'flags' ? '25%' : '49%'} />
+                                {game !== 'flags' ?
+                                    <article className="title-container title">
+                                        <p className='game-title'>{translate('countries', question.country)}</p>
+                                    </article> : ''}
 
-                                    <article className="title-container score" style={{ width: game !== 'flags' ? '25%' : '49%' }}>
-                                        {ctx.data ? <p className='game-title'>{`${ctx.score}/${ctx.data.length}`}</p> : ''}
-                                    </article >
-                                </header >
-                                <article className="game-img-container">
-                                    {question?.image}
-                                </article>
-                                <div className={`btn-container ${isAnswered ? 'answered' : ''}`}>
-                                    {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.feature, answer)} key={answer}>{translate(game === 'capitals' ? 'capitals' : 'countries', answer)}</Button>)}
-                                    {(isAnswered && options.showAnswers) ?
-                                        <article className="next-modal">
-                                            <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{translate('misc', ctx.questionsLeft > 0 ? 'Next' : 'End')}</Button>
-                                        </article> : ''}
-                                </div>
-                            </>
-                        )
-                    }
-                </section >
+                                <article className="title-container score" style={{ width: game !== 'flags' ? '25%' : '49%' }}>
+                                    {ctx.data ? <p className='game-title'>{`${ctx.score}/${ctx.data.length}`}</p> : ''}
+                                </article >
+                            </header >
+                            <article className="game-img-container">
+                                {question?.image}
+                            </article>
+                            <div className={`btn-container ${isAnswered ? 'answered' : ''}`}>
+                                {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.feature, answer)} key={answer}>{translate(game === 'capitals' ? 'capitals' : 'countries', answer)}</Button>)}
+                                {(isAnswered && options.showAnswers) ?
+                                    <article className="next-modal">
+                                        <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{translate('misc', ctx.questionsLeft > 0 ? 'Next' : 'End')}</Button>
+                                    </article> : ''}
+                            </div>
+                        </section >
+                    )
             )
-            : <GameStartMenu content={{ title: `${regionText} ${gameDescText}`, image: `/images/${region}/flags.png` }} startGame={startGameHandler} region={region} game={game} />
+            : < GameStartMenu content={{ title: `${regionText} ${gameDescText}`, image: `/images/${region}/flags.png` }
+            } startGame={startGameHandler} region={region} game={game} />
     )
 }

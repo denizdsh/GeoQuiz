@@ -1,9 +1,10 @@
 import { useState, useContext, memo } from "react"
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { MapsContext } from "../../contexts/MapsContext";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { NavContext } from "../../contexts/NavContext";
+import { SoundContext } from "../../contexts/SoundContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './MapsGame.css';
@@ -20,8 +21,6 @@ const formattedRegions = {
     europe: 'European',
 }
 function MapsGame() {
-    const navigate = useNavigate();
-
     const [showStopwatch, setShowStopwatch] = useState(false);
     const [time, setTime] = useState(0);
     const [runStopwatch, setRunStopwatch] = useState(false);
@@ -29,6 +28,7 @@ function MapsGame() {
     const ctx = useContext(MapsContext);
     const { translate } = useContext(LanguageContext);
     const { enableNav, disableNav } = useContext(NavContext);
+    const sounds = useContext(SoundContext);
 
     const { region } = useParams();
 
@@ -47,31 +47,37 @@ function MapsGame() {
     return (
         ctx.score.max ?
             !ctx.country ?
-                <section className="game maps-end">
-                    <GameEnd title={`${regionText} ${gameDescText}`}
-                        score={{ value: ctx.score.current, max: ctx.score.max }}
-                        time={{ value: time, on: showStopwatch }}
-                        timePerQuestion={10} />
-                </section>
+                <GameEnd title={`${regionText} ${gameDescText}`}
+                    score={{ value: ctx.score.current, max: ctx.score.max }}
+                    time={{ value: time, on: showStopwatch }}
+                    timePerQuestion={10} />
                 :
                 <>
-                    <section className="map-header">
-                        <Stopwatch run={runStopwatch} on={showStopwatch} time={time} setTime={setTime} />
-                        <article className="title-container title">
-                            <p className='game-title'>{translate('countries', ctx.country)}</p>
-                        </article>
-                        <article className="title-container score">
-                            <p className='game-title'>{`${ctx.score.current}/${ctx.score.max}`}</p>
+                    <section className="map-features">
+                        <section className="map-header">
+                            <Stopwatch run={runStopwatch} on={showStopwatch} time={time} setTime={setTime} />
+                            <article className="title-container title">
+                                <p className='game-title'>{translate('countries', ctx.country)}</p>
+                            </article>
+                            <article className="title-container score">
+                                <p className='game-title'>{`${ctx.score.current}/${ctx.score.max}`}</p>
+                            </article>
+                        </section>
+                        <article className="action-buttons">
+                            <button className="delay" onClick={() => {
+                                sounds.switch();
+                                ctx.delayCountryHandler()
+                            }}>
+                                {translate('misc', 'Delay')}
+                            </button>
+                            <button className="skip" onClick={() => {
+                                sounds.switch();
+                                ctx.skipCountryHandler()
+                            }}>
+                                {translate('misc', 'Skip')}
+                            </button>
                         </article>
                     </section>
-                    <article className="action-buttons">
-                        <button className="delay" onClick={ctx.delayCountryHandler}>
-                            {translate('misc', 'Delay')}
-                        </button>
-                        <button className="skip" onClick={ctx.skipCountryHandler}>
-                            {translate('misc', 'Skip')}
-                        </button>
-                    </article>
 
                     <Map region={region} />
                 </>
@@ -83,48 +89,80 @@ function MapsGame() {
 const containerStyle = {
     height: '100vh',
 };
-const center = {
-    lat: 55,
-    lng: 15
-};
 const zoom = window.innerWidth >= 800 ? 4.5 : 3;
-const latLngBounds = {
+const coordinates = {
     world: {
-        north: 180,
-        south: -180,
-        west: -180,
-        east: 180
+        center: {
+            lat: 30,
+            lng: 0
+        },
+        bounds: {
+            north: 180,
+            south: -180,
+            west: -180,
+            east: 180
+        }
     },
     africa: {
-        north: 38,
-        south: -38,
-        west: -30,
-        east: 66
+        center: {
+            lat: 3.56197,
+            lng: 16.442287
+        },
+        bounds: {
+            north: 38,
+            south: -38,
+            west: -30,
+            east: 66
+        }
     },
     americas: {
-        north: 69,
-        south: -60,
-        west: -177,
-        east: -26
+        center: {
+            lat: 6.312251,
+            lng: -79.157893
+        },
+        bounds: {
+            north: 69,
+            south: -60,
+            west: -177,
+            east: -26
+        }
     },
     asia: {
-        north: 80,
-        south: -11,
-        west: 18,
-        east: 180
+        center: {
+            lat: 40.020012,
+            lng: 69.317574
+        },
+        bounds: {
+            north: 80,
+            south: -11,
+            west: 18,
+            east: 180
+        }
     },
-    'australica-oceania': {
-        north: 1,
-        south: -48,
-        west: 108,
-        east: -157
+    'australia-oceania': {
+        center: {
+            lat: -27.52546,
+            lng: 143.418669
+        },
+        bounds: {
+            north: 1,
+            south: -48,
+            west: 108,
+            east: -157
+        }
     },
     europe: {
-        north: 78,
-        south: 14,
-        west: -26,
-        east: 56
-    },
+        center: {
+            lat: 55,
+            lng: 15
+        },
+        bounds: {
+            north: 78,
+            south: 14,
+            west: -26,
+            east: 56
+        }
+    }
 }
 const options = (region) => {
     return {
@@ -132,7 +170,7 @@ const options = (region) => {
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: false,
-        restriction: { latLngBounds: latLngBounds[region], strictBounds: false }
+        restriction: { latLngBounds: coordinates[region].bounds, strictBounds: false }
     }
 }
 const label = (country) => {
@@ -217,6 +255,7 @@ const formatToFeatureEvent = (x) => {
 
 function Map({ region }) {
     const ctx = useContext(MapsContext);
+    const sounds = useContext(SoundContext);
     const [markers, setMarkers] = useState([]);
     const [smallMarkers, setSmallMarkers] = useState(smallCountries[region]);
     const [map, setMap] = useState();
@@ -229,6 +268,7 @@ function Map({ region }) {
     }
 
     const loadGeoJson = async (map) => {
+        console.log(region)
         const geojson = await (await fetch(`${process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000'}/geojson/${region}.geojson`)).json();
         await map.data.addGeoJson(geojson);
         map.data.setStyle({ icon: 0, fillColor: 'Gold', strokeWeight: 1, strokeColor: 'MediumSlateBlue' });
@@ -241,8 +281,11 @@ function Map({ region }) {
         if (!event) event = e;
         const targetCountry = event.feature.j.ADMIN;
         console.log(targetCountry)
+        console.log(ctx.country)
         const isSmallCountry = smallMarkers?.flat().includes(targetCountry);
+
         if (prevE !== event) {
+            sounds.answer();
             setPrevE(event);
             if (ctx.countries.concat(ctx.country).includes(targetCountry)) {
                 ctx.updateScore(targetCountry);
@@ -274,7 +317,7 @@ function Map({ region }) {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     options={options(region)}
-                    center={center}
+                    center={coordinates[region].center}
                     zoom={zoom}
                     onLoad={loadGeoJson}
                 >

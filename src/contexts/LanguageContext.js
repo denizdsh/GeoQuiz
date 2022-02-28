@@ -11,7 +11,6 @@ export function LanguageProvider({ children }) {
         if (language !== 'en') {
             (async () => {
                 setTranslation(require(`../translations/${language}.json`));
-                //(await (await fetch(`http://localhost:3000/translations/${language}.json`)).json());
             })()
         }
     }, [language])

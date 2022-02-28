@@ -8,7 +8,7 @@ export default function GameCard({ data }) {
     return (
         <section className='card' onClick={() => navigate(data.link)}>
             <article className="card-img">
-                <img src={data.image} alt={data.title} />
+                <img src={data.image} alt={data.title} loading='lazy' />
             </article>
             <article className='card-btn-wrapper'>
                 <Button>{data.title}</Button>

@@ -8,6 +8,7 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { QuizProvider } from './contexts/QuizContext';
 import { MapsProvider } from './contexts/MapsContext';
 import { NavProvider } from './contexts/NavContext';
+import { SoundProvider } from './contexts/SoundContext';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faStopwatch } from '@fortawesome/free-solid-svg-icons/faStopwatch';
@@ -45,37 +46,39 @@ function App() {
   return (
     <div className='app' data-theme={theme}>
       <LanguageProvider>
-        <NavProvider>
-          <header >
-            <Header theme={theme} switchThemeHandler={switchThemeHandler} />
-          </header>
-          <main>
-            <TransitionGroup component={null}>
-              <CSSTransition key={location.key} classNames='slide' timeout={400}>
-                <Routes location={location}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/:region" element={<Region />} />
-                  <Route path="/:region/capitals" element={
-                    <QuizProvider>
-                      <Quiz game="capitals" />
-                    </QuizProvider>
-                  } />
-                  <Route path="/:region/flags" element={
-                    <QuizProvider>
-                      <Quiz game="flags" />
-                    </QuizProvider>
-                  } />
-                  <Route path='/:region/countries' element={
-                    <MapsProvider>
-                      <MapsGame />
-                    </MapsProvider>
-                  } />
-                </Routes>
-              </CSSTransition>
-            </TransitionGroup>
-            <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" className='back-btn' onClick={() => navigate(-1)} />
-          </main>
-        </NavProvider>
+        <SoundProvider>
+          <NavProvider>
+            <header >
+              <Header theme={theme} switchThemeHandler={switchThemeHandler} />
+            </header>
+            <main>
+              <TransitionGroup component={null}>
+                <CSSTransition key={location.key} classNames='slide' timeout={400}>
+                  <Routes location={location}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/:region" element={<Region />} />
+                    <Route path="/:region/capitals" element={
+                      <QuizProvider>
+                        <Quiz game="capitals" />
+                      </QuizProvider>
+                    } />
+                    <Route path="/:region/flags" element={
+                      <QuizProvider>
+                        <Quiz game="flags" />
+                      </QuizProvider>
+                    } />
+                    <Route path='/:region/countries' element={
+                      <MapsProvider>
+                        <MapsGame />
+                      </MapsProvider>
+                    } />
+                  </Routes>
+                </CSSTransition>
+              </TransitionGroup>
+              <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" className='back-btn' onClick={() => navigate(-1)} />
+            </main>
+          </NavProvider>
+        </SoundProvider>
       </LanguageProvider>
     </div >
   );
