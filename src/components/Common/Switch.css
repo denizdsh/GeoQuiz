@@ -14,6 +14,7 @@
 .slider {
     position: absolute;
     cursor: pointer;
+    user-select: auto;
     top: 0;
     left: 0;
     right: 0;
@@ -21,6 +22,10 @@
     background-color: var(--accent);
     -webkit-transition: .4s;
     transition: .4s;
+}
+
+.game .slider {
+    background-color: rgba(111, 113, 129, 0.548);
 }
 
 .slider:before {
@@ -36,7 +41,7 @@
 }
 
 input:checked+.slider {
-    background-color: var(--accent);
+    background-color: var(--switch-background);
 }
 
 input:focus+.slider {
@@ -76,6 +81,7 @@ input:checked+.slider:before {
 .slider .language-icon:nth-child(1) {
     padding-left: 1px;
 }
+
 .slider .language-icon:nth-child(2) {
     padding-right: 1px;
 }

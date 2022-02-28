@@ -8,8 +8,8 @@ export function SoundProvider({ children }) {
 
     const [playAnswer] = useSound('/sounds/switch.flac');
     const [playSwitch] = useSound('/sounds/pop.flac');
-    const [playBadScore] = useSound('/sounds/sad-trombone-bad-score.flac', { interrupt: true });
-    const [playExcellentScore] = useSound('/sounds/win-excellent-score.flac', { interrupt: true });
+    const [playBadScore] = useSound('/sounds/sad-trombone-bad-score.flac', { playbackRate: 1.25, interrupt: true });
+    const [playExcellentScore] = useSound('/sounds/win-excellent-score.flac', { playbackRate: 1.1, interrupt: true });
 
     const sounds = {
         answer: () => { if (isSoundOn) return playAnswer() },
@@ -18,9 +18,12 @@ export function SoundProvider({ children }) {
         excellentScore: () => { if (isSoundOn) return playExcellentScore() }
     }
 
+    const switchIsSoundOn = () => {
+        setIsSoundOn(isSoundOn => !isSoundOn);
+    }
 
     return (
-        <SoundContext.Provider value={sounds}>
+        <SoundContext.Provider value={{ sounds, isSoundOn, switchIsSoundOn }}>
             {children}
         </SoundContext.Provider >
     )

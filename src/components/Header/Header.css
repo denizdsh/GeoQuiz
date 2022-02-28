@@ -42,12 +42,34 @@
 .env-options {
     display: flex;
     justify-content: space-between;
-    width: 130px;
+    width: 195px;
+}
+
+.sounds-on, .sounds-off {
+    font-size: 17px;
+}
+
+.sounds-on {
+    padding-left: 2px;
+}
+
+.sounds-on * {
+    color: var(--stopwatch);
+}
+
+.sounds-off * {
+    color: var(--text-secondary);
+}
+
+.back-btn * {
+    color: rgba(86, 117, 219, 0.959);
 }
 
 .back-btn {
     z-index: 1;
     position: absolute;
+    border-radius: 50%;
+    box-shadow: 0 0 -10px 3px var(--text-primary);
     top: 10vh;
     left: 20px;
     font-size: 2vmax;
@@ -72,6 +94,6 @@
     .env-options {
         justify-content: space-around;
         margin-top: 10px;
-        width: 140px;
+        width: 215px;
     }
 }

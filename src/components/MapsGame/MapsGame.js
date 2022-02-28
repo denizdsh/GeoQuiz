@@ -1,7 +1,8 @@
-import { useState, useContext, memo } from "react"
+import { useState, useContext, memo, useEffect } from "react"
 import { useParams } from 'react-router-dom';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { MapsContext } from "../../contexts/MapsContext";
+import { coordinates, smallCountries, formatToFeatureEvent } from "../../services/mapsService"
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { NavContext } from "../../contexts/NavContext";
 import { SoundContext } from "../../contexts/SoundContext";
@@ -20,7 +21,7 @@ const formattedRegions = {
     'australia-oceania': 'Australia & Oceania',
     europe: 'European',
 }
-function MapsGame() {
+function MapsGame({ title }) {
     const [showStopwatch, setShowStopwatch] = useState(false);
     const [time, setTime] = useState(0);
     const [runStopwatch, setRunStopwatch] = useState(false);
@@ -28,7 +29,7 @@ function MapsGame() {
     const ctx = useContext(MapsContext);
     const { translate } = useContext(LanguageContext);
     const { enableNav, disableNav } = useContext(NavContext);
-    const sounds = useContext(SoundContext);
+    const { sounds } = useContext(SoundContext);
 
     const { region } = useParams();
 
@@ -38,16 +39,21 @@ function MapsGame() {
         setShowStopwatch(showStopwatch);
         if (showStopwatch) setRunStopwatch(true);
     }
+    useEffect(() => {
+        if (ctx.score.max && !ctx.country) {
+            enableNav()
+        }
+    }, [ctx.score.max, ctx.country])
 
-    const regionText = translate('misc', formattedRegions[region]);
-    const gameDescText = translate('misc', `${region === 'world' ? 'World ' : ''}Countries`);
-    if (ctx.score.max && !ctx.country) {
-        enableNav()
+    if (!title) {
+        title = `${translate('misc', formattedRegions[region])} ${translate('misc', `${region === 'world' ? 'World ' : ''}Countries`)}`;
+    } else {
+        title = `${translate('misc', title)} ${translate('countries', region[0].toLocaleUpperCase().concat(region.slice(1)))}`;
     }
     return (
         ctx.score.max ?
             !ctx.country ?
-                <GameEnd title={`${regionText} ${gameDescText}`}
+                <GameEnd title={title}
                     score={{ value: ctx.score.current, max: ctx.score.max }}
                     time={{ value: time, on: showStopwatch }}
                     timePerQuestion={10} />
@@ -82,88 +88,13 @@ function MapsGame() {
                     <Map region={region} />
                 </>
 
-            : <GameStartMenu content={{ title: `${regionText} ${gameDescText}`, image: `/images/${region}/map.png` }} startGame={startGameHandler} region={'world'} />
+            : <GameStartMenu content={{ title, image: `/images/${region}/map.png` }} startGame={startGameHandler} region={'world'} />
     )
 }
 
 const containerStyle = {
     height: '100vh',
 };
-const zoom = window.innerWidth >= 800 ? 4.5 : 3;
-const coordinates = {
-    world: {
-        center: {
-            lat: 30,
-            lng: 0
-        },
-        bounds: {
-            north: 180,
-            south: -180,
-            west: -180,
-            east: 180
-        }
-    },
-    africa: {
-        center: {
-            lat: 3.56197,
-            lng: 16.442287
-        },
-        bounds: {
-            north: 38,
-            south: -38,
-            west: -30,
-            east: 66
-        }
-    },
-    americas: {
-        center: {
-            lat: 6.312251,
-            lng: -79.157893
-        },
-        bounds: {
-            north: 69,
-            south: -60,
-            west: -177,
-            east: -26
-        }
-    },
-    asia: {
-        center: {
-            lat: 40.020012,
-            lng: 69.317574
-        },
-        bounds: {
-            north: 80,
-            south: -11,
-            west: 18,
-            east: 180
-        }
-    },
-    'australia-oceania': {
-        center: {
-            lat: -27.52546,
-            lng: 143.418669
-        },
-        bounds: {
-            north: 1,
-            south: -48,
-            west: 108,
-            east: -157
-        }
-    },
-    europe: {
-        center: {
-            lat: 55,
-            lng: 15
-        },
-        bounds: {
-            north: 78,
-            south: 14,
-            west: -26,
-            east: 56
-        }
-    }
-}
 const options = (region) => {
     return {
         mapId: '4132498b700a9b11',
@@ -186,78 +117,12 @@ const icon = {
     path: 0,
     scale: 0,
 }
-
-const smallCountries = {
-    europe: [
-        ['Andorra', { lat: 42.504648, lng: 1.522089 }],
-        ['Liechtenstein', { lat: 47.140227, lng: 9.525021 }],
-        ['Malta', { lat: 35.884146, lng: 14.402945 }],
-        ['Monaco', { lat: 43.736974, lng: 7.421652 }],
-        ['San Marino', { lat: 43.934514, lng: 12.447499 }],
-        ['Vatican City', { lat: 41.903094, lng: 12.453412 }]
-    ],
-    asia: [
-        ['Bahrain', { lat: 26.220286, lng: 50.550944 }],
-        ['Brunei', { lat: 4.742270, lng: 114.573702 }],
-        ['Kuwait', { lat: 29.679911, lng: 47.890260 }],
-        ['Lebanon', { lat: 34.267441, lng: 35.696224 }],
-        ['Maldives', { lat: 4.175137, lng: 73.510096 }],
-        ['Palestine', { lat: 32.156861, lng: 35.280103 }],
-        ['Singapore', { lat: 1.421580, lng: 103.771587 }],
-    ],
-    /*
-    africa: [
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }]
-    ],
-    americas: [
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }]
-    ],
-    'australica-oceania': [
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }],
-        ['', { lat:  lng:  }]
-    ]
-    */
-}
-
-const formatToFeatureEvent = (x) => {
-    return {
-        feature: {
-            j: {
-                ADMIN: x[0]
-            }
-        },
-        latLng: {
-            lat: () => { return x[1].lat },
-            lng: () => { return x[1].lng }
-        }
-    }
-}
-
+const zoom = window.innerWidth > 1000 ? 4.5 : 3
 function Map({ region }) {
     const ctx = useContext(MapsContext);
-    const sounds = useContext(SoundContext);
+    const { sounds } = useContext(SoundContext);
     const [markers, setMarkers] = useState([]);
-    const [smallMarkers, setSmallMarkers] = useState(smallCountries[region]);
+    const [smallMarkers, setSmallMarkers] = useState(region !== 'world' ? smallCountries[region] : Object.values(smallCountries).flat());
     const [map, setMap] = useState();
     const [e, setE] = useState();
     const [prevE, setPrevE] = useState();
@@ -281,7 +146,7 @@ function Map({ region }) {
         if (!event) event = e;
         const targetCountry = event.feature.j.ADMIN;
         console.log(targetCountry)
-        console.log(ctx.country)
+        console.log({ lat: event.latLng.lat(), lng: event.latLng.lng() });
         const isSmallCountry = smallMarkers?.flat().includes(targetCountry);
 
         if (prevE !== event) {
@@ -296,7 +161,6 @@ function Map({ region }) {
                         color = 'purple';
                         setSmallMarkers(smallMarkers => smallMarkers.filter(m => m[0] !== targetCountry));
                     }
-                    console.log({ lat: event.latLng.lat(), lng: event.latLng.lng() });
                     addMarker({ lat: event.latLng.lat(), lng: event.latLng.lng() }, ctx.country);
                     ctx.nextCountryHandler();
                 }
@@ -318,19 +182,18 @@ function Map({ region }) {
                     mapContainerStyle={containerStyle}
                     options={options(region)}
                     center={coordinates[region].center}
-                    zoom={zoom}
+                    zoom={coordinates[region].zoom || zoom}
                     onLoad={loadGeoJson}
                 >
                     {markers && markers.map(m =>
                         <Marker position={m.position} label={label(translate('countries', m.text))} options={markerOptions} icon={icon} key={`${m.text}-label`} />)}
 
                     {smallMarkers && smallMarkers.map(c =>
-                        <Marker position={c[1]} icon={`${process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000'}/icons/star_icon_marker.png`}
+                        c && <Marker position={c[1]} icon={`${process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000'}/icons/star_icon_marker.png`}
                             onClick={() => countryClickHandler(formatToFeatureEvent(c))} key={`${c[0]}-smallCountry`} />)}
                 </GoogleMap>
             </LoadScript >
         </div>
     )
 }
-
 export default memo(MapsGame);

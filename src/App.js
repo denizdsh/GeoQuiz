@@ -14,6 +14,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faStopwatch } from '@fortawesome/free-solid-svg-icons/faStopwatch';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons/faCircleCheck';
 import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons/faCircleArrowLeft';
+import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons/faVolumeHigh';
+import { faVolumeXmark } from '@fortawesome/free-solid-svg-icons/faVolumeXmark';
 
 import './App.css';
 import Header from './components/Header/Header';
@@ -41,7 +43,7 @@ function App() {
     }
   }, [location.pathname])
 
-  library.add(faCircleCheck, faStopwatch, faCircleArrowLeft);
+  library.add(faCircleCheck, faStopwatch, faCircleArrowLeft, faVolumeHigh, faVolumeXmark);
 
   return (
     <div className='app' data-theme={theme}>
@@ -72,10 +74,15 @@ function App() {
                         <MapsGame />
                       </MapsProvider>
                     } />
+                    <Route path='/:region/provinces' element={
+                      <MapsProvider>
+                        <MapsGame title='Provinces of' />
+                      </MapsProvider>
+                    } />
                   </Routes>
                 </CSSTransition>
               </TransitionGroup>
-              <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" className='back-btn' onClick={() => navigate(-1)} />
+              <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" style={location.pathname === '/' ? { display: 'none' } : {}} className='back-btn' onClick={() => navigate(-1)} />
             </main>
           </NavProvider>
         </SoundProvider>

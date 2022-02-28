@@ -24,7 +24,7 @@ export default function Quiz({ game }) {
     const ctx = useContext(QuizContext);
     const { translate } = useContext(LanguageContext);
     const { enableLogo, disableLogo } = useContext(NavContext);
-    const sounds = useContext(SoundContext);
+    const { sounds } = useContext(SoundContext);
     const [question, setQuestion] = useState({});
     const [isAnswered, setIsAnswered] = useState(false);
     const [options, setOptions] = useState({ showAnswers: true, showStopwatch: true });

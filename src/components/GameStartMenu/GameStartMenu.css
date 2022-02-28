@@ -43,7 +43,7 @@
     text-align: center;
 }
 
-.game-start .game-img{
+.game-start .game-img {
     width: 100%;
 }
 
@@ -54,8 +54,8 @@
 [data-title]:hover::before {
     content: attr(data-title);
     position: absolute;
-    bottom: -1.8vmax;
-    left: -65px;
+    bottom: 50px;
+    left: calc(-40px - 1.5vmax);
     display: inline-block;
     padding: 4px 7px;
     border-radius: 3px;
@@ -70,10 +70,10 @@
 [data-title]:hover::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: 36px;
     left: 8px;
     display: inline-block;
     border: 8px solid transparent;
-    border-bottom: 8px solid var(--nav);
+    border-top: 8px solid var(--nav);
     z-index: 1;
 }

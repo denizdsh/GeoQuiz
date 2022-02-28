@@ -24,14 +24,14 @@ export default function GameStartMenu({ content, startGame, game }) {
             <article className="game-options">
                 {gameIsQuiz ?
                     <article className="option-container">
-                        <label htmlFor="answers-option" data-title="Highlight correct answers in green when answered wrong">
+                        <label htmlFor="answers-option" data-title={translate('misc', 'Turn off to enter speedrun mode')}>
                             <FontAwesomeIcon icon="fa-solid fa-circle-check" className={`fas ${showAnswers ? "active green" : "inactive"}`} />
                         </label>
                         <Switch name={"answers-option"} isChecked={showAnswers} onSwitch={() => setShowAnswers(!showAnswers)} />
                     </article> : null}
 
                 <article className="option-container" style={gameIsQuiz ? {} : { margin: 'auto' }}>
-                    <label htmlFor="stopwatch-option" data-title="Show stopwatch">
+                    <label htmlFor="stopwatch-option" data-title={translate('misc', 'Show stopwatch')}>
                         <FontAwesomeIcon icon="fa-solid fa-stopwatch" className={`fas ${showStopwatch ? "active stopwatch" : "inactive"}`} />
                     </label>
                     <Switch name={"stopwatch-option"} isChecked={showStopwatch} onSwitch={() => setShowStopwatch(!showStopwatch)} />

@@ -32,9 +32,12 @@
         "Asian": "Азиатски",
         "Australia & Oceania": "Океански",
         "European": "Европейски",
+        "Provinces of": "Области в",
         "Start game": "Започни игра",
         "Delay": "Отложи",
-        "Skip": "Пропусни"
+        "Skip": "Пропусни",
+        "Turn off to enter speedrun mode": "Изключи за бърз режим",
+        "Show stopwatch": "Използвай хронометър"
     },
     "countries": {
         "Algeria": "Алжир",

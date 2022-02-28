@@ -9,7 +9,7 @@ import './GameEnd.css';
 export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
     const navigate = useNavigate();
     const { translate } = useContext(LanguageContext);
-    const sounds = useContext(SoundContext);
+    const { sounds } = useContext(SoundContext);
     const [colors, setColors] = useState({})
 
     let points = score.value * (60 - time.value / score.value) || 0;

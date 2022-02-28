@@ -75,7 +75,7 @@ const data = {
         {
             title: 'Provinces of Bulgaria',
             image: '/images/home/europe.png',
-            link: '/europe/bulgaria'
+            link: '/bulgaria/provinces'
         }
     ],
     'australia-oceania': [
