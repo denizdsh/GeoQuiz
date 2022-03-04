@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LanguageContext } from '../../contexts/LanguageContext';
 import { SoundContext } from '../../contexts/SoundContext';
+import useOnClickConfetti from '../../hooks/useOnClickConfetti';
+import useFireworksConfetti from '../../hooks/useFireworksConfetti';
 import Button from '../Common/Button';
 import Stopwatch from '../Common/Stopwatch';
 import './GameEnd.css';
@@ -10,7 +12,9 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
     const navigate = useNavigate();
     const { translate } = useContext(LanguageContext);
     const { sounds } = useContext(SoundContext);
-    const [colors, setColors] = useState({})
+    const [colors, setColors] = useState({});
+    const [confetti, fire] = useOnClickConfetti();
+    const [fireworks, start] = useFireworksConfetti();
 
     let points = score.value * (60 - time.value / score.value) || 0;
 
@@ -42,31 +46,44 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
 
         setColors({ scoreColor, stopwatchColor })
 
+        average = 0;
+
         if (average >= 1) {
+            start();
             sounds.excellentScore();
         } else if (average < 1) {
+            window.addEventListener('click', fire);
             sounds.badScore();
+        }
+
+        return () => {
+            window.removeEventListener('click', fire);
         }
     }, [])
 
+
     return (
-        <section className='game game-end'>
-            <article className="title-container title">
-                <p className='game-title'>{title}</p>
-            </article>
-            <article className="score">
-                <p className='game-end-score'>{translate('misc', 'Score')}:
-                    {
-                        <span style={{ color: colors.scoreColor || 'var(--primary)' }}>
-                            {` ${score.value}`}
-                        </span>
-                    }
-                    {`/${score.max}`}
-                </p>
-                <Stopwatch on={time.on} time={time.value} color={colors.stopwatchColor} />
-            </article>
-            <p className='game-end-score'>{translate('misc', 'Points')}: {points === Math.floor(points) ? points : points.toFixed(1)}</p>
-            <Button onClick={() => navigate('/')}>{translate('misc', 'Home')}</Button>
-        </section>
+        <div>
+            {confetti}
+            {fireworks}
+            <section className='game game-end'>
+                <article className="title-container title">
+                    <p className='game-title'>{title}</p>
+                </article>
+                <article className="score">
+                    <p className='game-end-score'>{translate('misc', 'Score')}:
+                        {
+                            <span style={{ color: colors.scoreColor || 'var(--primary)' }}>
+                                {` ${score.value}`}
+                            </span>
+                        }
+                        {`/${score.max}`}
+                    </p>
+                    <Stopwatch on={time.on} time={time.value} color={colors.stopwatchColor} />
+                </article>
+                <p className='game-end-score'>{translate('misc', 'Points')}: {points === Math.floor(points) ? points : points.toFixed(1)}</p>
+                <Button onClick={() => navigate('/')}>{translate('misc', 'Home')}</Button>
+            </section>
+        </div>
     )
 }

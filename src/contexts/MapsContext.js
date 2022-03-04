@@ -23,7 +23,7 @@ export function MapsProvider({ children }) {
             setDelayed(data.filter(x => x !== current));
         } else {
             current = nextCountry(data);
-            setCountries(data.filter(x => x != current));
+            setCountries(data.filter(x => x !== current));
         }
 
         setCountry(current);
@@ -74,7 +74,7 @@ export function MapsProvider({ children }) {
     }
 
     const updateScore = (targetCountry) => {
-        const points = targetCountry == country ? 1 : -0.5;
+        const points = targetCountry === country ? 1 : -0.5;
         setScore(score => { return { current: score.current + points, max: score.max } });
     }
 

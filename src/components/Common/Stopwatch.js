@@ -12,7 +12,7 @@ export default function Stopwatch({ run, on, time, setTime, color = 'var(--text-
         }
 
         return () => clearInterval(interval);
-    }, [run, time])
+    }, [run, time, setTime])
 
     const formatTime = () => {
         let minutes = String(Math.floor(time / 60)).padStart(2, '0');

@@ -7,20 +7,11 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import { NavContext } from "../../contexts/NavContext";
 import { SoundContext } from "../../contexts/SoundContext";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './MapsGame.css';
 import Stopwatch from '../Common/Stopwatch'
 import GameStartMenu from "../GameStartMenu/GameStartMenu";
 import GameEnd from '../GameEnd/GameEnd';
 
-const formattedRegions = {
-    world: 'World',
-    americas: 'American',
-    africa: 'African',
-    asia: 'Asian',
-    'australia-oceania': 'Australia & Oceania',
-    europe: 'European',
-}
 function MapsGame({ title }) {
     const [showStopwatch, setShowStopwatch] = useState(false);
     const [time, setTime] = useState(0);
@@ -43,12 +34,12 @@ function MapsGame({ title }) {
         if (ctx.score.max && !ctx.country) {
             enableNav()
         }
-    }, [ctx.score.max, ctx.country])
+    }, [ctx.score.max, ctx.country, enableNav])
 
     if (!title) {
-        title = `${translate('misc', formattedRegions[region])} ${translate('misc', `${region === 'world' ? 'World ' : ''}Countries`)}`;
+        title = `${translate('region', region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O'))}: ${translate('misc', 'Countries')}`;
     } else {
-        title = `${translate('misc', title)} ${translate('countries', region[0].toLocaleUpperCase().concat(region.slice(1)))}`;
+        title = `${translate('misc', title)} ${translate('countries', region[0].toLocaleUpperCase().concat(region.slice(1)))} `;
     }
     return (
         ctx.score.max ?
@@ -66,9 +57,9 @@ function MapsGame({ title }) {
                                 <p className='game-title'>{translate('countries', ctx.country)}</p>
                             </article>
                             <article className="title-container score">
-                                <p className='game-title'>{`${ctx.score.current}/${ctx.score.max}`}</p>
-                            </article>
-                        </section>
+                                <p className='game-title'>{`${ctx.score.current} / ${ctx.score.max}`}</p >
+                            </article >
+                        </section >
                         <article className="action-buttons">
                             <button className="delay" onClick={() => {
                                 sounds.switch();
@@ -83,7 +74,7 @@ function MapsGame({ title }) {
                                 {translate('misc', 'Skip')}
                             </button>
                         </article>
-                    </section>
+                    </section >
 
                     <Map region={region} />
                 </>
@@ -145,8 +136,12 @@ function Map({ region }) {
     const countryClickHandler = (event) => {
         if (!event) event = e;
         const targetCountry = event.feature.j.ADMIN;
-        console.log(targetCountry)
-        console.log({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+
+        if (process.env.NODE_ENV === 'production') {
+            console.log(targetCountry)
+            console.log({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+        }
+
         const isSmallCountry = smallMarkers?.flat().includes(targetCountry);
 
         if (prevE !== event) {
@@ -155,7 +150,7 @@ function Map({ region }) {
             if (ctx.countries.concat(ctx.country).includes(targetCountry)) {
                 ctx.updateScore(targetCountry);
                 let color = 'red';
-                if (targetCountry == ctx.country) {
+                if (targetCountry === ctx.country) {
                     color = 'green';
                     if (isSmallCountry) {
                         color = 'purple';
@@ -165,7 +160,7 @@ function Map({ region }) {
                     ctx.nextCountryHandler();
                 }
                 if (isSmallCountry) {
-                    const smallCountry = Object.values(map.data.h.h).find(c => c.j.ADMIN == targetCountry);
+                    const smallCountry = Object.values(map.data.h.h).find(c => c.j.ADMIN === targetCountry);
                     map.data.overrideStyle(smallCountry, { fillColor: color });
                 }
                 map.data.overrideStyle(event.feature, { fillColor: color });

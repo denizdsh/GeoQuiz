@@ -1,8 +1,9 @@
 .game-end {
-    width: calc(200px + 15vw);
+    width: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 20px;
 }
 
 .game-end .score {
@@ -12,12 +13,16 @@
     justify-content: space-evenly;
 }
 
+.game-end .score .game-end-score {
+    margin-right: 25px;
+}
+
 .game-end .title-container {
     width: 100%;
     font-size: 1.4vmax;
 }
 
-.game-end .game-title{
+.game-end .game-title {
     margin-top: 15px;
 }
 
@@ -30,14 +35,21 @@
     text-align: center;
 }
 
+
+@media all and (max-width: 1600px) {
+    .game-end-score, .game-end .score .stopwatch {
+        font-size: 1.05vmax;
+    }
+}
+
 @media all and (max-width: 1200px) {
-    .game-end .score {
+    .game-end-score, .game-end .score .stopwatch {
         font-size: 1.35vmax;
     }
 }
 
-@media all and (max-width: 1600px) {
-    .game-end .score {
-        font-size: 1.05vmax;
+@media all and (max-width: 800px) {
+    .game-end-score, .game-end .score .stopwatch {
+        font-size: 1.8vmax;
     }
 }

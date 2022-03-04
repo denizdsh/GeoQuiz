@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { LanguageContext } from '../contexts/LanguageContext';
 
 import Cards from "./Cards/Cards";
@@ -13,7 +13,7 @@ const data = {
         },
         {
             title: 'Capitals',
-            image: '/images/home/africa.png',
+            image: '/images/africa/capitals.png',
             link: '/africa/capitals'
         },
         {
@@ -30,7 +30,7 @@ const data = {
         },
         {
             title: 'Capitals',
-            image: '/images/home/americas.png',
+            image: '/images/americas/capitals.png',
             link: '/americas/capitals'
         },
         {
@@ -47,7 +47,7 @@ const data = {
         },
         {
             title: 'Capitals',
-            image: '/images/home/asia.png',
+            image: '/images/asia/capitals.png',
             link: '/asia/capitals'
         },
         {
@@ -64,7 +64,7 @@ const data = {
         },
         {
             title: 'Capitals',
-            image: '/images/home/europe.png',
+            image: '/images/europe/capitals.png',
             link: '/europe/capitals'
         },
         {
@@ -74,7 +74,7 @@ const data = {
         },
         {
             title: 'Provinces of Bulgaria',
-            image: '/images/home/europe.png',
+            image: '/images/bulgaria/map.png',
             link: '/bulgaria/provinces'
         }
     ],
@@ -86,7 +86,7 @@ const data = {
         },
         {
             title: 'Capitals',
-            image: '/images/home/australia-oceania.png',
+            image: '/images/australia-oceania/capitals.png',
             link: '/australia-oceania/capitals'
         },
         {
@@ -103,12 +103,12 @@ const data = {
         },
         {
             title: 'Capitals',
-            image: '/images/home/world.png',
+            image: '/images/world/capitals-orange.png',
             link: '/world/capitals'
         },
         {
             title: 'Countries',
-            image: '/images/world/map.png',
+            image: '/images/world/map-orange.png',
             link: '/world/countries'
         }
     ]
@@ -118,7 +118,7 @@ export default function Region() {
     const { region } = useParams();
     const { translate } = useContext(LanguageContext);
 
-    const games = data[region].map(g => { return { ...g, key: g.title, title: translate('region', g.title) } })
+    const games = data[region].map(g => { return { ...g, key: g.title, title: translate('game', g.title) } })
 
     if (!data.hasOwnProperty(region)) {
         return (<p>404</p>)

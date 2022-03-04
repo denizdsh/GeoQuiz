@@ -11,14 +11,6 @@ import GameStartMenu from '../GameStartMenu/GameStartMenu';
 import '../Common/Game.css';
 import GameEnd from '../GameEnd/GameEnd';
 
-const formattedRegions = {
-    world: 'World',
-    americas: 'American',
-    africa: 'African',
-    asia: 'Asian',
-    'australia-oceania': 'Australia & Oceania',
-    europe: 'European',
-}
 export default function Quiz({ game }) {
     const { region } = useParams();
     const ctx = useContext(QuizContext);
@@ -80,14 +72,14 @@ export default function Quiz({ game }) {
     }
 
     if (ctx.data.length === 0) enableLogo();
-    const regionText = translate('misc', formattedRegions[region]);
-    const gameDescText = translate('misc', `${region === 'world' ? 'World ' : ''}${game[0].toLocaleUpperCase().concat(game.slice(1))} Quiz`);
+    const regionText = translate('region', region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O'));
+    const gameDescText = translate('misc', `${game[0].toLocaleUpperCase().concat(game.slice(1))} Quiz`);
     return (
         ctx.data.length !== 0
             ? (
                 ctx.questionsLeft === 0 ?
                     (   //End of game screen
-                        <GameEnd title={`${regionText} ${gameDescText}`}
+                        <GameEnd title={`${regionText}: ${gameDescText}`}
                             score={{ value: ctx.score, max: ctx.data.length }} time={{ value: time, on: options.showStopwatch }} />
                     )
                     :
@@ -117,7 +109,7 @@ export default function Quiz({ game }) {
                         </section >
                     )
             )
-            : < GameStartMenu content={{ title: `${regionText} ${gameDescText}`, image: `/images/${region}/flags.png` }
+            : < GameStartMenu content={{ title: `${regionText}: ${gameDescText}`, image: `/images/${region}/${game}.png` }
             } startGame={startGameHandler} region={region} game={game} />
     )
 }

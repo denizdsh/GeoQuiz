@@ -10,6 +10,7 @@ import { MapsProvider } from './contexts/MapsContext';
 import { NavProvider } from './contexts/NavContext';
 import { SoundProvider } from './contexts/SoundContext';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faStopwatch } from '@fortawesome/free-solid-svg-icons/faStopwatch';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons/faCircleCheck';
@@ -23,8 +24,6 @@ import Home from './components/Home';
 import Region from './components/Region'
 import Quiz from './components/Quiz/Quiz';
 import MapsGame from './components/MapsGame/MapsGame';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 function App() {
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -41,16 +40,15 @@ function App() {
     if (navType !== 'POP') {
       document.documentElement.scrollTo(0, 0);
     }
-  }, [location.pathname])
+  }, [location.pathname, navType])
 
   library.add(faCircleCheck, faStopwatch, faCircleArrowLeft, faVolumeHigh, faVolumeXmark);
-
   return (
     <div className='app' data-theme={theme}>
       <LanguageProvider>
         <SoundProvider>
           <NavProvider>
-            <header >
+            <header>
               <Header theme={theme} switchThemeHandler={switchThemeHandler} />
             </header>
             <main>

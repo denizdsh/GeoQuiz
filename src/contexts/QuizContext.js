@@ -5,7 +5,6 @@ import * as service from '../services/quizService'
 export const QuizContext = createContext();
 
 export function QuizProvider({ children }) {
-    const [game, setGame] = useState('');
     const [score, setScore] = useState(0);
     const [data, setData] = useState([]);
     const [answered, setAnswered] = useState([]);
@@ -42,7 +41,6 @@ export function QuizProvider({ children }) {
     }
 
     const startGame = (game, region) => {
-        setGame(game);
         const allData = service.getData(game, region);
         const imgs = loadImages(game, allData);
         setData(allData);
