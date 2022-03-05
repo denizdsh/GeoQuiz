@@ -43,7 +43,7 @@ export default function Quiz({ game }) {
                     e.currentTarget.classList.add('false');
                     console.log(correct);
                     [...e.currentTarget.parentNode.children]
-                        .find(x => x.textContent === translate(game === 'capitals' ? 'capitals' : 'country', correct))
+                        .find(x => x.textContent === translate(game === 'capitals' ? 'capitals' : 'countries', correct))
                         .classList.add('true');
 
                     setRotate(true);
