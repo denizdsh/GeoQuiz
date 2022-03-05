@@ -103,12 +103,12 @@ const data = {
         },
         {
             title: 'Capitals',
-            image: '/images/world/capitals-orange.png',
+            image: '/images/world/capitals.png',
             link: '/world/capitals'
         },
         {
             title: 'Countries',
-            image: '/images/world/map-orange.png',
+            image: '/images/world/map.png',
             link: '/world/countries'
         }
     ]

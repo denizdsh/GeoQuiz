@@ -22,6 +22,7 @@ export default function Quiz({ game }) {
     const [options, setOptions] = useState({ showAnswers: true, showStopwatch: true });
     const [time, setTime] = useState(0);
     const [runStopwatch, setRunStopwatch] = useState(false);
+    const [rotate, setRotate] = useState(false);
 
     const startGameHandler = ({ showAnswers, showStopwatch }) => {
         setOptions({ showAnswers, showStopwatch });
@@ -44,8 +45,12 @@ export default function Quiz({ game }) {
                     [...e.currentTarget.parentNode.children]
                         .find(x => x.textContent === translate(game === 'capitals' ? 'capitals' : 'country', correct))
                         .classList.add('true');
+
+                    setRotate(true);
                 }
             }
+
+
             console.log(isCorrect);
             if (!options.showAnswers) {
                 setIsAnswered(false);
@@ -58,8 +63,12 @@ export default function Quiz({ game }) {
 
     const nextQuestionHandler = (e, country) => {
         setIsAnswered(false);
-        [...e.currentTarget.parentNode.parentNode.children].forEach(btn => (btn.classList.contains('true') || btn.classList.contains('false')) ? btn.classList.remove('true') & btn.classList.remove('false') : null);
+        [...e.currentTarget.parentNode.parentNode.children].forEach(btn =>
+            (btn.classList.contains('true') || btn.classList.contains('false'))
+                ? btn.classList.remove('true') & btn.classList.remove('false')
+                : null);
         setQuestion(ctx.nextQuestion(country));
+        if (options.showAnswers && rotate) setRotate(false);
         if (options.showStopwatch && ctx.questionsLeft > 0) startStopwatch();
     }
 
@@ -84,7 +93,7 @@ export default function Quiz({ game }) {
                     )
                     :
                     (   //Game
-                        <section className={`game quiz ${game}`}>
+                        <section className={`game quiz ${game}${rotate ? ' rotate' : ''}`}>
                             <header className="header">
                                 <Stopwatch run={runStopwatch} on={options.showStopwatch} time={time} setTime={setTime} width={game !== 'flags' ? '25%' : '49%'} />
                                 {game !== 'flags' ?

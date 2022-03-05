@@ -168,9 +168,28 @@ article.stopwatch {
     border-bottom-right-radius: 10px;
 }
 
+.rotate {
+    transform-origin: center;
+    animation: rotate .5s normal;
+}
+
+@keyframes rotate {
+    30% {
+        transform: translate(-50%, -50%) rotate(-10deg);
+    }
+
+    80% {
+        transform: translate(-50%, -50%) rotate(10deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+}
+
 @media all and (max-height: 950px) {
     .game, .quiz.game {
-        top: 60%;
+        top: 55%;
     }
 }
 

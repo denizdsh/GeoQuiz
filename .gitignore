@@ -4,4 +4,7 @@ firebase.json
 .firebase
 .env
 build
+/public/images
+/public/icons
+/public/logos
 /public/sounds

@@ -46,8 +46,6 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
 
         setColors({ scoreColor, stopwatchColor })
 
-        average = 0;
-
         if (average >= 1) {
             start();
             sounds.excellentScore();
