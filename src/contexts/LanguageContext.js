@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect, useCallback } from "react";
 import useLocalStorage from "use-local-storage";
-export const LanguageContext = createContext();
+export const LanguageContext = createContext({});
+
+const types = ['game', 'region', 'misc', 'country', 'capital'];
 
 const defaultBulgarian = window.navigator.language === 'bg';
 export function LanguageProvider({ children }) {
@@ -21,12 +23,17 @@ export function LanguageProvider({ children }) {
         }
     }, [language])
 
-    const translate = useCallback((type, word) => {
+    const translate = useCallback((word, type) => {
         if (language === 'en' || Object.keys(translation).length === 0) return word;
-        try{
+        try {
+            if (!types.includes(type) || !type) {
+                console.error(`Invalid translation type: ${type}.\nValid types:\n${types.join(',\n')}`);
+                return Object.values(translation).map(x => Object.entries(x)).flat().find(x => x[0] === word)[1];
+            }
+
             return translation[type][word];
-        } catch(e){
-            console.log(e);
+        } catch (e) {
+            console.error(e);
             return word;
         }
     }, [language, translation])

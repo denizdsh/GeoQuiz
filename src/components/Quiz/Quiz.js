@@ -41,15 +41,13 @@ export default function Quiz({ game }) {
                     e.currentTarget.classList.add('true');
                 } else {
                     e.currentTarget.classList.add('false');
-                    console.log(correct);
                     [...e.currentTarget.parentNode.children]
-                        .find(x => x.textContent === translate(game === 'capitals' ? 'capitals' : 'countries', correct))
+                        .find(x => x.textContent === translate(correct, game === 'capitals' ? 'capital' : 'country'))
                         .classList.add('true');
 
                     setRotate(true);
                 }
             }
-
 
             console.log(isCorrect);
             if (!options.showAnswers) {
@@ -81,8 +79,8 @@ export default function Quiz({ game }) {
     }
 
     if (ctx.data.length === 0) enableLogo();
-    const regionText = translate('region', region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O'));
-    const gameDescText = translate('misc', `${game[0].toLocaleUpperCase().concat(game.slice(1))} Quiz`);
+    const regionText = translate(region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O'), 'region');
+    const gameDescText = translate(`${game[0].toLocaleUpperCase().concat(game.slice(1))} Quiz`, 'misc');
     return (
         ctx.data.length !== 0
             ? (
@@ -98,7 +96,7 @@ export default function Quiz({ game }) {
                                 <Stopwatch run={runStopwatch} on={options.showStopwatch} time={time} setTime={setTime} width={game !== 'flags' ? '25%' : '49%'} />
                                 {game !== 'flags' ?
                                     <article className="title-container title">
-                                        <p className='game-title'>{translate('countries', question.country)}</p>
+                                        <p className='game-title'>{translate(question.country, 'country')}</p>
                                     </article> : ''}
 
                                 <article className="title-container score" style={{ width: game !== 'flags' ? '25%' : '49%' }}>
@@ -109,10 +107,10 @@ export default function Quiz({ game }) {
                                 {question?.image}
                             </article>
                             <div className={`btn-container ${isAnswered ? 'answered' : ''}`}>
-                                {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.feature, answer)} key={answer}>{translate(game === 'capitals' ? 'capitals' : 'countries', answer)}</Button>)}
+                                {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.feature, answer)} key={answer}>{translate(answer, game === 'capitals' ? 'capital' : 'country')}</Button>)}
                                 {(isAnswered && options.showAnswers) ?
                                     <article className="next-modal">
-                                        <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{translate('misc', ctx.questionsLeft > 0 ? 'Next' : 'End')}</Button>
+                                        <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{translate(ctx.questionsLeft > 0 ? 'Next' : 'End', 'misc')}</Button>
                                     </article> : ''}
                             </div>
                         </section >

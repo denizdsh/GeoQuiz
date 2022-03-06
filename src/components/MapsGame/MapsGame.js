@@ -37,9 +37,9 @@ function MapsGame({ title }) {
     }, [ctx.score.max, ctx.country, enableNav])
 
     if (!title) {
-        title = `${translate('region', region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O'))}: ${translate('misc', 'Countries')}`;
+        title = `${translate(region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O'), 'region')}: ${translate('Countries', 'misc')}`;
     } else {
-        title = `${translate('misc', title)} ${translate('countries', region[0].toLocaleUpperCase().concat(region.slice(1)))} `;
+        title = `${translate(title, 'misc')} ${translate(region[0].toLocaleUpperCase().concat(region.slice(1)), 'country')} `;
     }
     return (
         ctx.score.max ?
@@ -54,7 +54,7 @@ function MapsGame({ title }) {
                         <section className="map-header">
                             <Stopwatch run={runStopwatch} on={showStopwatch} time={time} setTime={setTime} />
                             <article className="title-container title">
-                                <p className='game-title'>{translate('countries', ctx.country)}</p>
+                                <p className='game-title'>{translate(ctx.country, 'country')}</p>
                             </article>
                             <article className="title-container score">
                                 <p className='game-title'>{`${ctx.score.current} / ${ctx.score.max}`}</p >
@@ -65,13 +65,13 @@ function MapsGame({ title }) {
                                 sounds.switch();
                                 ctx.delayCountryHandler()
                             }}>
-                                {translate('misc', 'Delay')}
+                                {translate('Delay', 'misc')}
                             </button>
                             <button className="skip" onClick={() => {
                                 sounds.switch();
                                 ctx.skipCountryHandler()
                             }}>
-                                {translate('misc', 'Skip')}
+                                {translate('Skip', 'misc')}
                             </button>
                         </article>
                     </section >
@@ -181,7 +181,7 @@ function Map({ region }) {
                     onLoad={loadGeoJson}
                 >
                     {markers && markers.map(m =>
-                        <Marker position={m.position} label={label(translate('countries', m.text))} options={markerOptions} icon={icon} key={`${m.text}-label`} />)}
+                        <Marker position={m.position} label={label(translate(m.text, 'country'))} options={markerOptions} icon={icon} key={`${m.text}-label`} />)}
 
                     {smallMarkers && smallMarkers.map(c =>
                         c && <Marker position={c[1]} icon={`${process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000'}/icons/star_icon_marker.png`}

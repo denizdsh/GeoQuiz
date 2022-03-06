@@ -6,32 +6,32 @@ export default function Home() {
     const { translate } = useContext(LanguageContext)
     const regions = [
         {
-            title: translate('region', 'World'),
+            title: translate('World', 'region'),
             image: '/images/home/world.png',
             link: '/world'
         },
         {
-            title: translate('region', 'Africa'),
+            title: translate('Africa', 'region'),
             image: '/images/home/africa.png',
             link: '/africa'
         },
         {
-            title: translate('region', 'Americas'),
+            title: translate('Americas', 'region'),
             image: '/images/home/americas.png',
             link: '/americas'
         },
         {
-            title: translate('region', 'Asia'),
+            title: translate('Asia', 'region'),
             image: '/images/home/asia.png',
             link: '/asia'
         },
         {
-            title: translate('region', 'Australia & Oceania'),
+            title: translate('Australia & Oceania', 'region'),
             image: '/images/home/australia-oceania.png',
             link: '/australia-oceania'
         },
         {
-            title: translate('region', 'Europe'),
+            title: translate('Europe', 'region'),
             image: '/images/home/europe.png',
             link: '/europe'
         }

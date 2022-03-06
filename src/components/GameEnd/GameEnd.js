@@ -69,7 +69,7 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
                     <p className='game-title'>{title}</p>
                 </article>
                 <article className="score">
-                    <p className='game-end-score'>{translate('misc', 'Score')}:
+                    <p className='game-end-score'>{translate('Score', 'misc')}:
                         {
                             <span style={{ color: colors.scoreColor || 'var(--primary)' }}>
                                 {` ${score.value}`}
@@ -79,8 +79,8 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
                     </p>
                     <Stopwatch on={time.on} time={time.value} color={colors.stopwatchColor} />
                 </article>
-                <p className='game-end-score'>{translate('misc', 'Points')}: {points === Math.floor(points) ? points : points.toFixed(1)}</p>
-                <Button onClick={() => navigate('/')}>{translate('misc', 'Home')}</Button>
+                <p className='game-end-score'>{translate('Points', 'misc')}: {points === Math.floor(points) ? points : points.toFixed(1)}</p>
+                <Button onClick={() => navigate('/')}>{translate('Home', 'misc')}</Button>
             </section>
         </div>
     )

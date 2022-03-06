@@ -118,7 +118,7 @@ export default function Region() {
     const { region } = useParams();
     const { translate } = useContext(LanguageContext);
 
-    const games = data[region].map(g => { return { ...g, key: g.title, title: translate('game', g.title) } })
+    const games = data[region].map(g => { return { ...g, key: g.title, title: translate(g.title, 'game') } })
 
     if (!data.hasOwnProperty(region)) {
         return (<p>404</p>)
