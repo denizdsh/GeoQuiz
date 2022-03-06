@@ -894,7 +894,7 @@ function flags(region) {
                 '/images/africa/flags/ROTC.svg': 'Republic of the Congo'
             },
             {
-                '/images/africa/flags/CoteDIvoire.svg': 'Cote d\'Ivoire'
+                '/images/africa/flags/CoteDIvoire.svg': 'Côte d\'Ivoire'
             },
             {
                 '/images/africa/flags/Djibouti.svg': 'Djibouti'

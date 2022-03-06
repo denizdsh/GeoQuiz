@@ -34,10 +34,12 @@
 
 .false, .false:hover {
     background: rgb(253, 36, 36) !important;
+    color: rgb(235, 234, 232) !important;
 }
 
 .true, .true:hover {
     background: rgb(8, 168, 2) !important;
+    color: rgb(235, 234, 232) !important;
 }
 
 .btn-container {
