@@ -260,7 +260,7 @@ article.stopwatch {
 
     .flags.quiz .game-img {
         width: 100%;
-        height: fit-content;
+        height: auto;
         box-shadow: var(--img-box-shadow);
         border-radius: 10px;
     }
