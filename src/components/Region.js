@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { LanguageContext } from '../contexts/LanguageContext';
 
 import Cards from "./Cards/Cards";
+import NotFound from "./NotFound/NotFound";
 
 const data = {
     africa: [
@@ -118,12 +119,12 @@ export default function Region() {
     const { region } = useParams();
     const { translate } = useContext(LanguageContext);
 
+    if (!data.hasOwnProperty(region)) {
+        return <NotFound />
+    }
+
     const games = data[region].map(g => { return { ...g, key: g.title, title: translate(g.title, 'game') } })
 
-    if (!data.hasOwnProperty(region)) {
-        return (<p>404</p>)
-        //TODO: error page
-    }
     return (
         <Cards cards={games} />
     )

@@ -33,7 +33,9 @@
         "Delay": "Отложи",
         "Skip": "Пропусни",
         "Turn off to enter speedrun mode": "Изключи за бърз режим",
-        "Show stopwatch": "Използвай хронометър"
+        "Show stopwatch": "Използвай хронометър",
+        "Page not found": "Страницата не е намерена",
+        "Return to home page": "Върни се към начална страница"
     },
     "country": {
         "Algeria": "Алжир",

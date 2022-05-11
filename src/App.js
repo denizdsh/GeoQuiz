@@ -24,6 +24,7 @@ import Home from './components/Home';
 import Region from './components/Region'
 import Quiz from './components/Quiz/Quiz';
 import MapsGame from './components/MapsGame/MapsGame';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -77,6 +78,7 @@ function App() {
                         <MapsGame title='Provinces of' />
                       </MapsProvider>
                     } />
+                    <Route path='*' element={<NotFound />} />
                   </Routes>
                 </CSSTransition>
               </TransitionGroup>
