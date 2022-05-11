@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Stopwatch.css';
 
-export default function Stopwatch({ run, on, time, setTime, color = 'var(--text-primary)', width = '25%' }) {
+export default function Stopwatch({ run, on, time, setTime, color = 'var(--text-primary)', width = 'fit-content' }) {
     useEffect(() => {
         let interval;
         if (run) {

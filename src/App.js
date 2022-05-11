@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router';
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { TransitionGroup } from 'react-transition-group'
 import { useNavigate, useLocation, useNavigationType } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
 
@@ -25,6 +25,7 @@ import Region from './components/Region'
 import Quiz from './components/Quiz/Quiz';
 import MapsGame from './components/MapsGame/MapsGame';
 import NotFound from './components/NotFound/NotFound';
+import { WithNavigationAnimation } from './components/Common/WithNavigationAnimation';
 
 function App() {
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -43,6 +44,9 @@ function App() {
     }
   }, [location.pathname, navType])
 
+
+  const withNavigationAnimation = (component) => <WithNavigationAnimation locationKey={location.key}>{component}</WithNavigationAnimation>
+
   library.add(faCircleCheck, faStopwatch, faCircleArrowLeft, faVolumeHigh, faVolumeXmark);
   return (
     <div className='app' data-theme={theme}>
@@ -52,37 +56,36 @@ function App() {
             <header>
               <Header theme={theme} switchThemeHandler={switchThemeHandler} />
             </header>
+
             <main>
-              <TransitionGroup component={null}>
-                <CSSTransition key={location.key} classNames='slide' timeout={400}>
-                  <Routes location={location}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/:region" element={<Region />} />
-                    <Route path="/:region/capitals" element={
-                      <QuizProvider>
-                        <Quiz game="capitals" />
-                      </QuizProvider>
-                    } />
-                    <Route path="/:region/flags" element={
-                      <QuizProvider>
-                        <Quiz game="flags" />
-                      </QuizProvider>
-                    } />
-                    <Route path='/:region/countries' element={
-                      <MapsProvider>
-                        <MapsGame />
-                      </MapsProvider>
-                    } />
-                    <Route path='/:region/provinces' element={
-                      <MapsProvider>
-                        <MapsGame title='Provinces of' />
-                      </MapsProvider>
-                    } />
-                    <Route path='*' element={<NotFound />} />
-                  </Routes>
-                </CSSTransition>
-              </TransitionGroup>
-              <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left" style={location.pathname === '/' ? { display: 'none' } : {}} className='back-btn' onClick={() => navigate(-1)} />
+              <Routes location={location}>
+                <Route path="/" element={withNavigationAnimation(<Home />)} />
+                <Route path="/:region" element={withNavigationAnimation(<Region />)} />
+                <Route path="/:region/capitals" element={
+                  <QuizProvider>
+                    {withNavigationAnimation(<Quiz game="capitals" />)}
+                  </QuizProvider>
+                } />
+                <Route path="/:region/flags" element={
+                  <QuizProvider>
+                    {withNavigationAnimation(<Quiz game="flags" />)}
+                  </QuizProvider>
+                } />
+                <Route path='/:region/countries' element={
+                  <MapsProvider>
+                    {withNavigationAnimation(<MapsGame />)}
+                  </MapsProvider>
+                } />
+                <Route path='/:region/provinces' element={
+                  <MapsProvider>
+                    {withNavigationAnimation(<MapsGame title='Provinces of' />)}
+                  </MapsProvider>
+                } />
+                <Route path='*' element={<NotFound />} />
+              </Routes>
+              <FontAwesomeIcon icon="fa-solid fa-circle-arrow-left"
+                style={location.pathname === '/' ? { display: 'none' } : {}}
+                className='back-btn' onClick={() => navigate(-1)} />
             </main>
           </NavProvider>
         </SoundProvider>

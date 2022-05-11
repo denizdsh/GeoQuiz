@@ -5,6 +5,7 @@
     padding: 2% 0;
     width: 80%;
     margin: auto;
+    position: relative;
 }
 
 @media all and (min-width: 2000px) {
@@ -12,8 +13,9 @@
         width: 60%;
     }
 }
-@media all and (max-width: 900px){
-    .cards{
+
+@media all and (max-width: 900px) {
+    .cards {
         width: 90%;
     }
 }

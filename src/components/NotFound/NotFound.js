@@ -14,10 +14,10 @@ export default function NotFound() {
                 404
             </h1>
             <p className={styles.content}>
-                {translate('Page not found')}
+                {translate('Page not found', 'misc')}
             </p>
             <Button className={styles.button} onClick={() => navigate('/', { replace: true })}>
-                {translate('Return to home page')}
+                {translate('Return to home page', 'misc')}
             </Button>
         </section>
     )

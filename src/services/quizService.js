@@ -389,7 +389,7 @@ function capitals(region) {
                 image: '/images/americas/capitals/TrinidadTobago.jpg'
             },
             {
-                'United States': 'Washington D.C.',
+                'USA': 'Washington D.C.',
                 image: '/images/americas/capitals/US.jpg'
             },
             {
