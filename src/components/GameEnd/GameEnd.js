@@ -61,7 +61,7 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
 
 
     return (
-        <div>
+        <>
             {confetti}
             {fireworks}
             <section className='game game-end'>
@@ -82,6 +82,6 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
                 <p className='game-end-score'>{translate('Points', 'misc')}: {points === Math.floor(points) ? points : points.toFixed(1)}</p>
                 <Button onClick={() => navigate('/')}>{translate('Home', 'misc')}</Button>
             </section>
-        </div>
+        </>
     )
 }

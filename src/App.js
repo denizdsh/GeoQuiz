@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router';
-import { TransitionGroup } from 'react-transition-group'
 import { useNavigate, useLocation, useNavigationType } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
 
@@ -44,7 +43,7 @@ function App() {
     }
   }, [location.pathname, navType])
 
-
+  // Game navigation animation handled in GameStartMenu.js
   const withNavigationAnimation = (component) => <WithNavigationAnimation locationKey={location.key}>{component}</WithNavigationAnimation>
 
   library.add(faCircleCheck, faStopwatch, faCircleArrowLeft, faVolumeHigh, faVolumeXmark);
@@ -56,29 +55,28 @@ function App() {
             <header>
               <Header theme={theme} switchThemeHandler={switchThemeHandler} />
             </header>
-
             <main>
               <Routes location={location}>
                 <Route path="/" element={withNavigationAnimation(<Home />)} />
                 <Route path="/:region" element={withNavigationAnimation(<Region />)} />
                 <Route path="/:region/capitals" element={
                   <QuizProvider>
-                    {withNavigationAnimation(<Quiz game="capitals" />)}
+                    <Quiz game="capitals" />
                   </QuizProvider>
                 } />
                 <Route path="/:region/flags" element={
                   <QuizProvider>
-                    {withNavigationAnimation(<Quiz game="flags" />)}
+                    <Quiz game="flags" />
                   </QuizProvider>
                 } />
                 <Route path='/:region/countries' element={
                   <MapsProvider>
-                    {withNavigationAnimation(<MapsGame />)}
+                    <MapsGame />
                   </MapsProvider>
                 } />
                 <Route path='/:region/provinces' element={
                   <MapsProvider>
-                    {withNavigationAnimation(<MapsGame title='Provinces of' />)}
+                    <MapsGame title='Provinces of' />
                   </MapsProvider>
                 } />
                 <Route path='*' element={<NotFound />} />

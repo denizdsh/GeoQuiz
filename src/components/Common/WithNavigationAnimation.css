@@ -3,21 +3,11 @@
     left: 100vw !important;
 }
 
-.slide-enter-active:not(.game) {
+.slide-enter-active {
     left: 0 !important;
     transition: left 400ms;
 }
 
 .game.slide-enter-active {
     left: 50% !important;
-    transition: left 400ms;
-}
-
-.slide-exit-active {
-    display: none !important;
-    z-index: -1 !important;
-}
-
-.slide-exit-active~div {
-    display: none !important;
 }

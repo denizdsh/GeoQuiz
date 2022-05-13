@@ -17,7 +17,7 @@ export default function Quiz({ game }) {
     const { translate } = useContext(LanguageContext);
     const { enableLogo, disableLogo } = useContext(NavContext);
     const { sounds } = useContext(SoundContext);
-    const [question, setQuestion] = useState({});
+    const [question, setQuestion] = useState();
     const [isAnswered, setIsAnswered] = useState(false);
     const [options, setOptions] = useState({ showAnswers: true, showStopwatch: true });
     const [time, setTime] = useState(0);
@@ -107,7 +107,7 @@ export default function Quiz({ game }) {
                                 {question?.image}
                             </article>
                             <div className={`btn-container ${isAnswered ? 'answered' : ''}`}>
-                                {question.answers.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.feature, answer)} key={answer}>{translate(answer, game === 'capitals' ? 'capital' : 'country')}</Button>)}
+                                {question?.answers?.map(answer => <Button onClick={(e) => answerQuestionHandler(e, question.feature, answer)} key={answer}>{translate(answer, game === 'capitals' ? 'capital' : 'country')}</Button>)}
                                 {(isAnswered && options.showAnswers) ?
                                     <article className="next-modal">
                                         <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{translate(ctx.questionsLeft > 0 ? 'Next' : 'End', 'misc')}</Button>
@@ -116,7 +116,7 @@ export default function Quiz({ game }) {
                         </section >
                     )
             )
-            : < GameStartMenu content={{ title: `${regionText}: ${gameDescText}`, image: `/images/${region}/${game}.png` }
-            } startGame={startGameHandler} region={region} game={game} />
+            : <GameStartMenu content={{ title: `${regionText}: ${gameDescText}`, image: `/images/${region}/${game}.png` }}
+                startGame={startGameHandler} region={region} game={game} />
     )
 }
