@@ -85,6 +85,10 @@
     top: 10px;
 }
 
+.map-features article.stopwatch, .map-features .title-container.score {
+    width: 15% !important;
+}
+
 @media all and (max-width: 800px) {
     .map-features {
         width: 100%;
@@ -103,10 +107,6 @@
         left: 0;
         width: 98%;
         margin-bottom: 3px;
-    }
-
-    .map-features article.stopwatch, .map-features .title-container.score {
-        width: 15% !important;
     }
 
     .action-buttons {
@@ -137,6 +137,10 @@
     .map-features~.back-btn {
         top: 50px;
     }
+
+    .delay, .skip {
+        font-size: 2vmax;
+    }
 }
 
 @media all and (max-height: 600px) {
@@ -149,11 +153,11 @@
     }
 
     .action-buttons {
-        top: 7px;
+        top: 5px;
     }
 
     .delay, .skip {
-        font-size: 1.4vmax;
+        font-size: 2vmax;
     }
 
     .map-features~.back-btn {
