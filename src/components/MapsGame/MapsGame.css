@@ -3,6 +3,11 @@
     width: 22vw;
 }
 
+.map-features{
+    z-index: 1001;
+    position: relative;
+}
+
 .map-header {
     z-index: 1;
     position: absolute;

@@ -10,10 +10,8 @@ export const coordinates = {
             lng: 0
         },
         bounds: {
-            north: 180,
-            south: -180,
-            west: -180,
-            east: 180
+            southWest: { lat: -180, lng: - 180 },
+            northEast: { lat: 180, lng: 180 }
         }
     },
     africa: {
@@ -22,10 +20,8 @@ export const coordinates = {
             lng: 16.442287
         },
         bounds: {
-            north: 38,
-            south: -38,
-            west: -30,
-            east: 66
+            southWest: { lat: -38, lng: -30 },
+            northEast: { lat: 38, lng: 66 }
         }
     },
     americas: {
@@ -34,10 +30,8 @@ export const coordinates = {
             lng: -69.157893
         },
         bounds: {
-            north: 69,
-            south: -60,
-            west: -177,
-            east: -6
+            southWest: { lat: -60, lng: -177 },
+            northEast: { lat: 69, lng: -6 }
         }
     },
     asia: {
@@ -46,10 +40,8 @@ export const coordinates = {
             lng: 69.317574
         },
         bounds: {
-            north: 80,
-            south: -11,
-            west: 18,
-            east: 1
+            southWest: { lat: -11, lng: 18 },
+            northEast: { lat: 80, lng: 1 }
         }
     },
     'australia-oceania': {
@@ -58,10 +50,8 @@ export const coordinates = {
             lng: 143.418669
         },
         bounds: {
-            north: 20,
-            south: -60,
-            west: 110,
-            east: 0
+            southWest: { lat: -60, lng: 110 },
+            northEast: { lat: 20, lng: 0 }
         }
     },
     europe: {
@@ -70,10 +60,8 @@ export const coordinates = {
             lng: 15
         },
         bounds: {
-            north: 78,
-            south: 14,
-            west: -26,
-            east: 56
+            southWest: { lat: 14, lng: - 26 },
+            northEast: { lat: 78, lng: 56 }
         }
     },
     bulgaria: {
@@ -82,10 +70,8 @@ export const coordinates = {
             lng: 25.110072
         },
         bounds: {
-            north: 45,
-            south: 39,
-            west: 21,
-            east: 29
+            southWest: { lat: 39, lng: 21 },
+            northEast: { lat: 45, lng: 29 }
         },
         zoom: window.innerWidth / 300
     }
@@ -137,7 +123,7 @@ export const smallCountries = {
         ['Vatican City', { lat: 41.903094, lng: 12.453412 }]
     ]
 }
-
+/*  function needed for google maps api
 export const formatToFeatureEvent = (x) => {
     return {
         feature: {
@@ -151,6 +137,7 @@ export const formatToFeatureEvent = (x) => {
         }
     }
 }
+*/
 
 export function countries(region) {
     const countries = {

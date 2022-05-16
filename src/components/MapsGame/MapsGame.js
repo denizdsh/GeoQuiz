@@ -1,16 +1,25 @@
-import { useState, useContext, memo, useEffect } from "react"
-import { useParams } from 'react-router-dom';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { useState, useContext, useRef, useEffect, memo } from "react"
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { MapContainer } from "react-leaflet/MapContainer";
+import { TileLayer } from "react-leaflet/TileLayer";
+import { GeoJSON } from "react-leaflet/GeoJSON";
+import { Marker } from "react-leaflet/Marker";
+
+import { DivIcon, Icon } from "leaflet";
+
 import { MapsContext } from "../../contexts/MapsContext";
-import { coordinates, smallCountries, formatToFeatureEvent } from "../../services/mapsService"
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { NavContext } from "../../contexts/NavContext";
 import { SoundContext } from "../../contexts/SoundContext";
+import { coordinates, smallCountries, formatToFeatureEvent } from "../../services/mapsService"
 
 import './MapsGame.css';
 import Stopwatch from '../Common/Stopwatch'
 import GameStartMenu from "../GameStartMenu/GameStartMenu";
 import GameEnd from '../GameEnd/GameEnd';
+import { } from "leaflet";
+import { LatLngBounds } from "leaflet";
 
 function MapsGame({ title }) {
     const [showStopwatch, setShowStopwatch] = useState(false);
@@ -83,112 +92,144 @@ function MapsGame({ title }) {
     )
 }
 
-const containerStyle = {
-    height: '100vh',
-};
-const options = (region) => {
-    return {
-        mapId: '4132498b700a9b11',
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false,
-        restriction: { latLngBounds: coordinates[region].bounds, strictBounds: false }
-    }
-}
-const label = (country) => {
-    return {
-        text: country,
-        className: 'marker-label'
-    }
-};
-const markerOptions = {
-    animation: 1
-};
-const icon = {
-    path: 0,
-    scale: 0,
-}
+const placeholder = <h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }}>Loading...</h1>;
+
 const zoom = window.innerWidth > 1000 ? 4.5 : 3
 function Map({ region }) {
+    const navigate = useNavigate();
+
     const ctx = useContext(MapsContext);
     const { sounds } = useContext(SoundContext);
-    const [markers, setMarkers] = useState([]);
-    const [smallMarkers, setSmallMarkers] = useState(region !== 'world' ? smallCountries[region] : Object.values(smallCountries).flat());
-    const [map, setMap] = useState();
-    const [e, setE] = useState();
-    const [prevE, setPrevE] = useState();
     const { translate } = useContext(LanguageContext);
 
-    const addMarker = (position, text) => {
-        setMarkers(markers => [...markers, { position, text }]);
-    }
+    const geojsonRef = useRef(null);
+    const [geojson, setGeojson] = useState(null);
+    const [markers, setMarkers] = useState([]);
+    const [smallMarkers, setSmallMarkers] = useState(region !== 'world'
+        ? smallCountries[region]
+        : Object.values(smallCountries).flat()
+    );
 
-    const loadGeoJson = async (map) => {
-        console.log(region)
-        const geojson = await (await fetch(`${process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000'}/geojson/${region}.geojson`)).json();
-        await map.data.addGeoJson(geojson);
-        map.data.setStyle({ icon: 0, fillColor: 'Gold', strokeWeight: 1, strokeColor: 'MediumSlateBlue' });
+    useEffect(() => {
+        //loadGeoJson()
+        (async () => {
+            try {
+                const res = await fetch(`${process.env.NODE_ENV === 'production'
+                    ? process.env.REACT_APP_URL
+                    : 'http://localhost:3000'}/geojson/${region}.geojson`);
 
-        setMap(map);
-        map.data.addListener('click', (e) => setE(e));
-    }
-
-    const countryClickHandler = (event) => {
-        if (!event) event = e;
-        const targetCountry = event.feature.j.ADMIN;
-
-        if (process.env.NODE_ENV === 'production') {
-            console.log(targetCountry)
-            console.log({ lat: event.latLng.lat(), lng: event.latLng.lng() });
-        }
-
-        const isSmallCountry = smallMarkers?.flat().includes(targetCountry);
-
-        if (prevE !== event) {
-            sounds.answer();
-            setPrevE(event);
-            if (ctx.countries.concat(ctx.country).includes(targetCountry)) {
-                ctx.updateScore(targetCountry);
-                let color = 'red';
-                if (targetCountry === ctx.country) {
-                    color = 'green';
-                    if (isSmallCountry) {
-                        color = 'purple';
-                        setSmallMarkers(smallMarkers => smallMarkers.filter(m => m[0] !== targetCountry));
-                    }
-                    addMarker({ lat: event.latLng.lat(), lng: event.latLng.lng() }, ctx.country);
-                    ctx.nextCountryHandler();
-                }
-                if (isSmallCountry) {
-                    const smallCountry = Object.values(map.data.h.h).find(c => c.j.ADMIN === targetCountry);
-                    map.data.overrideStyle(smallCountry, { fillColor: color });
-                }
-                map.data.overrideStyle(event.feature, { fillColor: color });
+                setGeojson((await res.json()));
+            } catch (err) {
+                navigate('/');
+                alert('Error occured. Please try again later.')
             }
+        })();
+    }, [])
+
+
+    const handleClick = (country, position) => {
+        if (!ctx.countries.concat(ctx.country).includes(country))
+            return;
+
+        const isSmallCountry = smallMarkers?.flat().includes(country);
+
+        sounds.answer();
+
+        ctx.updateScore(country);
+        let color = 'red';
+        if (country === ctx.country) {
+            color = 'green';
+            if (isSmallCountry) {
+                color = 'purple';
+                setSmallMarkers(smallMarkers => smallMarkers.filter(m => m[0] !== country));
+            }
+            setMarkers(markers => markers.concat({ country, position, isSmallCountry }))
+
+            ctx.nextCountryHandler();
         }
+
+        return color;
     }
+
+    const countryClickHandler = (e) => {
+        const country = e.sourceTarget.feature.properties.ADMIN;
+        const position = e.latlng;
+
+        let color = handleClick(country, position)
+
+        if (color)
+            e.sourceTarget.setStyle({ color });
+    }
+
+    const smallCountryMarkerClickHandler = (e) => {
+        const country = e.sourceTarget.options.country;
+        const position = e.latlng;
+
+        let color = handleClick(country, position);
+
+        //find geojson layer corresponding to the name of the country
+        if (color)
+            Object.values(geojsonRef.current._layers)
+                .find(l => l.feature.properties.ADMIN === country)
+                .setStyle({ color });
+    }
+
+
+    const smallCountryIconUrl = `${process.env.NODE_ENV === 'production'
+        ? process.env.REACT_APP_URL
+        : 'http://localhost:3000'}/icons/star_icon_marker.png`;
 
     return (
-        <div onClick={() => countryClickHandler()}>
-            <LoadScript
-                googleMapsApiKey={process.env.REACT_APP_MAPS_API}
-            >
-                <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    options={options(region)}
-                    center={coordinates[region].center}
-                    zoom={coordinates[region].zoom || zoom}
-                    onLoad={loadGeoJson}
-                >
-                    {markers && markers.map(m =>
-                        <Marker position={m.position} label={label(translate(m.text, 'country'))} options={markerOptions} icon={icon} key={`${m.text}-label`} />)}
+        <MapContainer className="map"
+            center={coordinates[region].center || [90, 0]}
+            zoom={coordinates[region].zoom || 5}
+            maxBounds={new LatLngBounds(coordinates[region].bounds.southWest, coordinates[region].bounds.northEast)}
+            placeholder={placeholder} >
+            <TileLayer
+                url={process.env.REACT_APP_MAPBOX_MAP_URL}
+            />
+            {
+                geojson
+                    ? <GeoJSON key="leaflet-map-geojson" data={geojson.features} ref={geojsonRef} eventHandlers={{
+                        click: countryClickHandler
+                    }}></GeoJSON>
+                    : placeholder
+            }
 
-                    {smallMarkers && smallMarkers.map(c =>
-                        c && <Marker position={c[1]} icon={`${process.env.NODE_ENV === 'production' ? process.env.REACT_APP_URL : 'http://localhost:3000'}/icons/star_icon_marker.png`}
-                            onClick={() => countryClickHandler(formatToFeatureEvent(c))} key={`${c[0]}-smallCountry`} />)}
-                </GoogleMap>
-            </LoadScript >
-        </div>
+            {
+                markers.map(m =>
+                    <Marker key={`${m.country}-marker-${Math.random()}`}
+                        position={m.position}
+                        className='leaflet-marker-icon'
+                        alt={m.country}
+                        title={m.country}
+                        icon={new DivIcon({
+                            html: (() => {
+                                let el = document.createElement('p');
+                                el.classList.add('leaflet-marker-text');
+                                if (m.isSmallCountry)
+                                    el.classList.add('purple-background');
+
+                                el.textContent = translate(m.country, 'country');
+                                return el;
+                            })()
+                        })}>
+                    </Marker>
+                )
+            }
+            {
+                smallMarkers?.map(m =>
+                    //LatLng {lat: 44.4725963410165, lng: 20.524929377945732}
+                    <Marker key={`${m.country}-popup-${Math.random()}`}
+                        icon={new Icon({ iconUrl: smallCountryIconUrl, iconAnchor: [24, 48] })}
+                        country={m[0]}
+                        position={m[1]}
+                        eventHandlers={{
+                            click: smallCountryMarkerClickHandler
+                        }} />
+                )
+            }
+        </MapContainer >
     )
 }
 export default memo(MapsGame);
