@@ -12,7 +12,7 @@ import { MapsContext } from "../../contexts/MapsContext";
 import { LanguageContext } from "../../contexts/LanguageContext";
 import { NavContext } from "../../contexts/NavContext";
 import { SoundContext } from "../../contexts/SoundContext";
-import { coordinates, smallCountries, formatToFeatureEvent } from "../../services/mapsService"
+import { coordinates, smallCountries } from "../../services/mapsService"
 
 import './MapsGame.css';
 import Stopwatch from '../Common/Stopwatch'

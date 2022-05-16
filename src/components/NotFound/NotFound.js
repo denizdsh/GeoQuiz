@@ -9,7 +9,7 @@ export default function NotFound() {
     const { translate } = useContext(LanguageContext);
 
     return (
-        <section className={styles.container}>
+        <section className={`${styles.container} slide`}>
             <h1 className={styles.title}>
                 404
             </h1>

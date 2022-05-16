@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router';
-import { useNavigate, useLocation, useNavigationType } from 'react-router-dom';
+import { useNavigate, useLocation, useNavigationType, useSearchParams } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
 
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -24,7 +24,6 @@ import Region from './components/Region'
 import Quiz from './components/Quiz/Quiz';
 import MapsGame from './components/MapsGame/MapsGame';
 import NotFound from './components/NotFound/NotFound';
-import { WithNavigationAnimation } from './components/Common/WithNavigationAnimation';
 
 function App() {
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -36,19 +35,24 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const navType = useNavigationType();
+  const [isBackNavigation, setIsBackNavigation] = useState(false);
 
   useEffect(() => {
-    if (navType !== 'POP') {
+    console.log(navType)
+    if (navType === 'POP') {
+      if (!isBackNavigation)
+        setIsBackNavigation(true);
+    } else {
+      if (isBackNavigation)
+        setIsBackNavigation(false);
+
       document.documentElement.scrollTo(0, 0);
     }
   }, [location.pathname, navType])
 
-  // Game navigation animation handled in GameStartMenu.js
-  const withNavigationAnimation = (component) => <WithNavigationAnimation locationKey={location.key}>{component}</WithNavigationAnimation>
-
   library.add(faCircleCheck, faStopwatch, faCircleArrowLeft, faVolumeHigh, faVolumeXmark);
   return (
-    <div className='app' data-theme={theme}>
+    <div className={`app${isBackNavigation ? ' back-navigation' : ''}`} data-theme={theme}>
       <LanguageProvider>
         <SoundProvider>
           <NavProvider>
@@ -57,8 +61,8 @@ function App() {
             </header>
             <main>
               <Routes location={location}>
-                <Route path="/" element={withNavigationAnimation(<Home />)} />
-                <Route path="/:region" element={withNavigationAnimation(<Region />)} />
+                <Route path="/" element={<Home />} />
+                <Route path="/:region" element={<Region />} />
                 <Route path="/:region/capitals" element={
                   <QuizProvider>
                     <Quiz game="capitals" />

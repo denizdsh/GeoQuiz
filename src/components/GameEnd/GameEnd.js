@@ -64,7 +64,7 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
         <>
             {confetti}
             {fireworks}
-            <section className='game game-end'>
+            <section className='game game-end slide'>
                 <article className="title-container title">
                     <p className='game-title'>{title}</p>
                 </article>

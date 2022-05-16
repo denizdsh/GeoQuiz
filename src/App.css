@@ -21,6 +21,46 @@
   color: var(--text-secondary);
 }
 
+/*Navigation transition*/
+:root {
+  --translateStart: ;
+  --translateEnd: ;
+  --leftStart: 100vw;
+  --leftEnd: 0;
+}
+
+.game {
+  --translateStart: translate(50%, -50%);
+  --translateEnd: translate(-50%, -50%);
+  --leftEnd: 50vw;
+}
+
+.back-navigation * {
+  --leftStart: -100vw;
+}
+
+.back-navigation .game {
+  --leftStart: 0;
+  --translateStart: translate(-100%, -50%);
+  --translateEnd: translate(-50%, -50%);
+}
+
+.slide {
+  animation: slide backwards 400ms;
+}
+
+@keyframes slide {
+  from {
+    transform: var(--translateStart);
+    left: var(--leftStart);
+  }
+
+  to {
+    transform: var(--translateEnd);
+    left: var(--leftEnd);
+  }
+}
+
 /*Scrollbar*/
 ::-webkit-scrollbar {
   width: 10px;
