@@ -1,0 +1,233 @@
+aside {
+    position: relative;
+
+    --a-red: rgb(238, 0, 0);
+    --a-orange: rgb(225, 96, 10);
+    --a-yellow: rgb(216, 172, 0);
+    --a-green: rgb(88, 170, 32);
+    --a-blue: rgb(76, 146, 206);
+    --a-indigo: indigo;
+    --a-purple: rgb(160, 58, 141);
+}
+
+.show-aside-container {
+    top: 70px;
+    position: absolute;
+    background-color: var(--item);
+    padding: 20px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 2;
+    line-height: 0;
+}
+
+.show-aside-close .arrow-2 {
+    transform: rotate(180deg);
+    animation: rotate180 0.4s;
+}
+
+.aside-content-close~.show-aside-container .arrow-2 {
+    transform: rotate(0deg) !important;
+    animation: rotate0 infinite 0.4s !important;
+}
+
+.show-aside {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    line-height: 0;
+}
+
+.arrow {
+    fill: transparent;
+    stroke: var(--text-primary);
+    stroke-width: 2px;
+}
+
+.aside-content {
+    width: 300px;
+    height: 300px;
+    background: var(--item);
+    position: absolute;
+    top: 70px;
+    z-index: 1;
+    animation: slideInContent 0.4s;
+    box-shadow: 1px 1px 5px 0px var(--item);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 60px;
+    padding-left: 15px;
+}
+
+.aside-content-close {
+    animation: hideContent 0.4s;
+}
+
+.aside-links-list {
+    list-style: none;
+    padding-left: 0;
+    line-height: 65px;
+}
+
+.aside-link {
+    font-size: 36px;
+}
+
+.aside-link a {
+    text-decoration: none;
+}
+
+.aside-link span {
+    margin-right: 5px;
+}
+
+.aside-link:hover>a, .aside-link:active>a {
+    text-decoration: underline;
+}
+
+.aside-links-list.red * {
+    color: var(--a-red);
+}
+
+.aside-links-list.orange * {
+    color: var(--a-orange);
+}
+
+.aside-links-list.yellow * {
+    color: var(--a-yellow);
+}
+
+.aside-links-list.green * {
+    color: var(--a-green);
+}
+
+.aside-links-list.blue * {
+    color: var(--a-blue);
+}
+
+.aside-links-list.indigo * {
+    color: var(--a-indigo);
+}
+
+.aside-links-list.purple * {
+    color: var(--a-purple);
+}
+
+.github {
+    position: absolute;
+    bottom: 0px;
+    left: calc(50% - 1.5rem);
+    margin: auto;
+    line-height: 0;
+}
+
+.github * {
+    color: rgba(255, 255, 255, 0.696);
+}
+
+.github.red:hover * {
+    color: var(--a-red);
+}
+
+.github.orange:hover * {
+    color: var(--a-orange);
+}
+
+.github.yellow:hover * {
+    color: var(--a-yellow);
+}
+
+.github.green:hover * {
+    color: var(--a-green);
+}
+
+.github.blue:hover * {
+    color: var(--a-blue);
+}
+
+.github.indigo:hover * {
+    color: var(--a-indigo);
+}
+
+.github.purple:hover * {
+    color: var(--a-purple);
+}
+
+
+@keyframes slideInContent {
+    0% {
+        left: -300px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+
+@keyframes hideContent {
+    0% {
+        left: 0;
+    }
+
+    100% {
+        left: -300px
+    }
+}
+
+@keyframes rotate180 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes rotate0 {
+    0% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@media all and (max-width: 700px) {
+    .aside-content, .show-aside-container {
+        top: 0;
+        opacity: 0.8;
+    }
+
+}
+
+@media all and (max-width: 500px) {
+    @keyframes hideContent {
+        0% {
+            left: 0;
+        }
+
+        100% {
+            left: -100%;
+        }
+    }
+
+    @keyframes slideInContent {
+        0% {
+            left: -100%;
+        }
+
+        100% {
+            left: 0;
+        }
+    }
+
+    .aside-content {
+        width: 100%;
+    }
+}

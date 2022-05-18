@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router';
-import { useNavigate, useLocation, useNavigationType, useSearchParams } from 'react-router-dom';
+import { useNavigate, useLocation, useNavigationType } from 'react-router-dom';
 import useLocalStorage from 'use-local-storage';
 
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -16,6 +16,8 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons/faCircleCheck';
 import { faCircleArrowLeft } from '@fortawesome/free-solid-svg-icons/faCircleArrowLeft';
 import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons/faVolumeHigh';
 import { faVolumeXmark } from '@fortawesome/free-solid-svg-icons/faVolumeXmark';
+import { faGithubSquare } from '@fortawesome/free-brands-svg-icons/faGithubSquare'
+import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
 
 import './App.css';
 import Header from './components/Header/Header';
@@ -24,6 +26,7 @@ import Region from './components/Region'
 import Quiz from './components/Quiz/Quiz';
 import MapsGame from './components/MapsGame/MapsGame';
 import NotFound from './components/NotFound/NotFound';
+import Aside from './components/Aside/Aside';
 
 function App() {
   const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -50,7 +53,7 @@ function App() {
     }
   }, [location.pathname, navType])
 
-  library.add(faCircleCheck, faStopwatch, faCircleArrowLeft, faVolumeHigh, faVolumeXmark);
+  library.add(faCircleCheck, faStopwatch, faCircleArrowLeft, faVolumeHigh, faVolumeXmark, faGithubSquare, faGithub);
   return (
     <div className={`app${isBackNavigation ? ' back-navigation' : ''}`} data-theme={theme}>
       <LanguageProvider>
@@ -60,6 +63,7 @@ function App() {
               <Header theme={theme} switchThemeHandler={switchThemeHandler} />
             </header>
             <main>
+              <Aside />
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
                 <Route path="/:region" element={<Region />} />
