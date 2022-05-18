@@ -94,7 +94,6 @@ function MapsGame({ title }) {
 
 const placeholder = <h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }}>Loading...</h1>;
 
-const zoom = window.innerWidth > 1000 ? 4.5 : 3
 function Map({ region }) {
     const navigate = useNavigate();
 
@@ -124,7 +123,7 @@ function Map({ region }) {
                 alert('Error occured. Please try again later.')
             }
         })();
-    }, [])
+    }, [navigate, region])
 
 
     const handleClick = (country, position) => {
@@ -182,7 +181,7 @@ function Map({ region }) {
     return (
         <MapContainer className="map"
             center={coordinates[region].center || [90, 0]}
-            zoom={coordinates[region].zoom || 5}
+            zoom={coordinates[region].zoom || 4}
             maxBounds={new LatLngBounds(coordinates[region].bounds.southWest, coordinates[region].bounds.northEast)}
             placeholder={placeholder} >
             <TileLayer

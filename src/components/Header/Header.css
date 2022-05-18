@@ -27,12 +27,17 @@
 }
 
 .nav-logo-planet {
-    max-height: inherit;
+    width: 100%;
+    height: 100%;
+    max-width: inherit;
+    max-width: inherit;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: var(--accent) 0px 0px 2.5px 1.5px;
+    background-color: var(--planet-bg);
+    box-shadow: var(--planet-bg) 0px 0px 1.5px 1.5px;
+    fill: var(--planet-fill);
     position: relative;
-    top: 6px;
+    stroke: none;
+    top: 5px;
 }
 
 .nav-logo-text {

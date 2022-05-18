@@ -46,7 +46,7 @@
 }
 
 .slide {
-  animation: slide backwards 400ms;
+  animation: slide 400ms;
 }
 
 @keyframes slide {

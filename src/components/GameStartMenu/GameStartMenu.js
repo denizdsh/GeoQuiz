@@ -1,5 +1,4 @@
 import { useState, useContext, } from 'react';
-import { useLocation } from 'react-router-dom';
 import { LanguageContext } from '../../contexts/LanguageContext';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,18 +8,14 @@ import '../Common/Game.css';
 import './GameStartMenu.css';
 
 export default function GameStartMenu({ content, startGame, game }) {
-    const location = useLocation();
     const [showAnswers, setShowAnswers] = useState(true);
     const [showStopwatch, setShowStopwatch] = useState(true);
-    const [stopAnimation, setStopAnimation] = useState(location.key === 'default' ? true : false);
     const { translate } = useContext(LanguageContext);
 
     const switchShowAnswersHandler = () => {
-        setStopAnimation(true);
         setShowAnswers(!showAnswers)
     }
     const switchShowStopwatchHandler = () => {
-        setStopAnimation(true);
         setShowStopwatch(!showStopwatch)
     }
 

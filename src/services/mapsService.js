@@ -10,7 +10,7 @@ export const coordinates = {
             lng: 0
         },
         bounds: {
-            southWest: { lat: -180, lng: - 180 },
+            southWest: { lat: -180, lng: -180 },
             northEast: { lat: 180, lng: 180 }
         }
     },
@@ -40,8 +40,8 @@ export const coordinates = {
             lng: 69.317574
         },
         bounds: {
-            southWest: { lat: -11, lng: 18 },
-            northEast: { lat: 80, lng: 1 }
+            southWest: { lat: -20, lng: 18 },
+            northEast: { lat: 85, lng: 190 }
         }
     },
     'australia-oceania': {
@@ -51,7 +51,7 @@ export const coordinates = {
         },
         bounds: {
             southWest: { lat: -60, lng: 110 },
-            northEast: { lat: 20, lng: 0 }
+            northEast: { lat: 20, lng: 190 }
         }
     },
     europe: {
