@@ -52,4 +52,8 @@
     .game-end-score, .game-end .score .stopwatch {
         font-size: 1.8vmax;
     }
+
+    .game.game-end {
+        top: 25vh;
+    }
 }

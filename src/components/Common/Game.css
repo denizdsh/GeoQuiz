@@ -6,7 +6,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, var(--absolute-translate-Y));
     z-index: 0;
     width: fit-content;
 }
@@ -174,23 +174,26 @@ article.stopwatch {
     animation: rotate .5s normal;
 }
 
+
 @keyframes rotate {
     30% {
-        transform: translate(-50%, -50%) rotate(-10deg);
+        transform: translate(-50%, var(--absolute-translate-Y)) rotate(-10deg);
     }
 
     80% {
-        transform: translate(-50%, -50%) rotate(10deg);
+        transform: translate(-50%, var(--absolute-translate-Y)) rotate(10deg);
     }
 
     100% {
-        transform: translate(-50%, -50%) rotate(0deg);
+        transform: translate(-50%, var(--absolute-translate-Y)) rotate(0deg);
     }
 }
 
 @media all and (max-height: 950px) {
     .game, .quiz.game {
         top: 55%;
+        position: relative;
+        top: 20px;
     }
 }
 
@@ -235,6 +238,8 @@ article.stopwatch {
 @media all and (max-width: 800px) {
     .game, .quiz.game {
         width: 95%;
+        position: relative;
+        top: 20px;
     }
 
     .quiz .game-img-container {

@@ -27,11 +27,24 @@
   --translateEnd: ;
   --leftStart: 100vw;
   --leftEnd: 0;
+  --absolute-translate-Y: -50%;
 }
 
-.game {
-  --translateStart: translate(50%, -50%);
-  --translateEnd: translate(-50%, -50%);
+@media all and (max-width: 800px) {
+  :root {
+    --absolute-translate-Y: 0;
+  }
+}
+
+@media all and (max-height: 950px) {
+  :root {
+    --absolute-translate-Y: 0;
+  }
+}
+
+.absolute {
+  --translateStart: translate(50%, var(--absolute-translate-Y));
+  --translateEnd: translate(-50%, var(--absolute-translate-Y));
   --leftEnd: 50vw;
 }
 
@@ -39,10 +52,10 @@
   --leftStart: -100vw;
 }
 
-.back-navigation .game {
+.back-navigation .absolute {
   --leftStart: 0;
-  --translateStart: translate(-100%, -50%);
-  --translateEnd: translate(-50%, -50%);
+  --translateStart: translate(-100%, var(--absolute-translate-Y));
+  --translateEnd: translate(-50%, var(--absolute-translate-Y));
 }
 
 .slide {
