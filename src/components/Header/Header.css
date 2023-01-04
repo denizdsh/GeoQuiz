@@ -3,7 +3,8 @@
     max-height: 9vh;
     max-width: 100vw;
     min-height: 50px;
-    padding: 6px 18px 12px 12px;
+    padding: 0.5rem 1.5rem 1rem 1rem;
+
     box-shadow: var(--accent) 0px 0px 15px 0px;
     display: flex;
     flex-wrap: wrap;
@@ -12,9 +13,9 @@
 }
 
 .nav-logo {
-    max-height: calc(9vh - 18px);
-    max-width: inherit;
+    max-height: calc(9vh - 1.5rem);
     height: 100%;
+    max-width: inherit;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -42,17 +43,16 @@
 }
 
 .nav-logo-text {
-    margin-left: 10px;
+    margin-left: 1rem;
+    min-height: calc(9vh - 2rem);
 }
 
-.env-options {
-    display: flex;
-    justify-content: space-between;
-    width: 195px;
+.env-options .switch:nth-child(2) {
+    margin-inline: 1rem;
 }
 
 .sounds-on, .sounds-off {
-    font-size: 17px;
+    font-size: 1em;
 }
 
 .sounds-on {
@@ -77,8 +77,8 @@
     border-radius: 50%;
     box-shadow: 0 0 -10px 3px var(--text-primary);
     top: 10vh;
-    left: 20px;
-    font-size: 2vmax;
+    left: 1rem;
+    font-size: 2rem;
     cursor: pointer;
 }
 
@@ -93,13 +93,14 @@
     }
 
     .back-btn {
-        top: calc(22px - 0.5vmax);
-        font-size: 3vmax;
+        top: calc(22px - 0.5rem);
+        font-size: 3rem;
     }
 
     .env-options {
-        justify-content: space-around;
+        display: flex;
+        justify-content: space-evenly;
         margin-top: 10px;
-        width: 215px;
+        width: 90%;
     }
 }
