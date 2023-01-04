@@ -20,7 +20,7 @@ function getAnimationSettings(originXA, originXB) {
         spread: 360,
         ticks: 60,
         zIndex: 0,
-        particleCount: 150,
+        particleCount: 50,
         origin: {
             x: randomInRange(originXA, originXB),
             y: Math.random() - 0.2
