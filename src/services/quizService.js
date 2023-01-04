@@ -390,7 +390,7 @@ function capitals(region) {
             },
             {
                 'USA': 'Washington D.C.',
-                image: '/images/americas/capitals/US.jpg'
+                image: '/images/americas/capitals/USA.jpg'
             },
             {
                 Uruguay: 'Montevideo',
@@ -1115,7 +1115,7 @@ function flags(region) {
                 '/images/americas/flags/TrinidadTobago.svg': 'Trinidad and Tobago'
             },
             {
-                '/images/americas/flags/US.svg': 'United States'
+                '/images/americas/flags/USA.svg': 'United States'
             },
             {
                 '/images/americas/flags/Uruguay.svg': 'Uruguay'
