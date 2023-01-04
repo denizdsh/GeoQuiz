@@ -1,0 +1,74 @@
+.game-options {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.option-container {
+    display: flex;
+    align-items: center;
+}
+
+.option-container:nth-child(1) {
+    margin-right: 0.5rem;
+}
+
+.option-container:nth-child(2) {
+    margin-left: 0.5rem;
+}
+
+.option-container .fas {
+    max-width: 1em;
+    max-height: 1em;
+}
+
+.fas * {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.inactive * {
+    color: var(--textSecondary);
+}
+
+.active.stopwatch * {
+    color: var(--stopwatch);
+}
+
+.active.green * {
+    color: var(--green);
+}
+
+/* on hover label */
+/* [data-title] {
+    position: relative;
+}
+
+[data-title]:hover::before {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 50px;
+    left: calc(-40px - 1.5rem);
+    display: inline-block;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    background: var(--nav);
+    color: rgb(235, 234, 232);
+    box-shadow: var(--item) 0px 0px 2px 1px;
+    font-size: 1rem;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+[data-title]:hover::after {
+    content: '';
+    position: absolute;
+    bottom: 36px;
+    left: 8px;
+    display: inline-block;
+    border: 8px solid transparent;
+    border-top: 8px solid var(--nav);
+    z-index: 1;
+} */

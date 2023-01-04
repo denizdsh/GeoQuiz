@@ -1,8 +1,8 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { QuizContext } from '../../contexts/QuizContext';
 import { LanguageContext } from '../../contexts/LanguageContext';
-import { NavContext } from '../../contexts/NavContext';
+import { ElementsContext } from '../../contexts/ElementsContext';
 import { SoundContext } from '../../contexts/SoundContext';
 
 import Button from '../Common/Button';
@@ -10,19 +10,28 @@ import Stopwatch from '../Common/Stopwatch';
 import GameStartMenu from '../GameStartMenu/GameStartMenu';
 import '../Common/Game.css';
 import GameEnd from '../GameEnd/GameEnd';
+import { getPoints } from '../../helper/calculateScore';
 
-export default function Quiz({ game }) {
-    const { region } = useParams();
+export default function Quiz({ game, multiplayerData }) {
+    const region = useParams().region || multiplayerData.region;
     const ctx = useContext(QuizContext);
     const { translate } = useContext(LanguageContext);
-    const { enableLogo, disableLogo } = useContext(NavContext);
+    const { enableLogo, disableLogo } = useContext(ElementsContext);
     const { sounds } = useContext(SoundContext);
     const [question, setQuestion] = useState();
     const [isAnswered, setIsAnswered] = useState(false);
     const [options, setOptions] = useState({ showAnswers: true, showStopwatch: true });
     const [time, setTime] = useState(0);
     const [runStopwatch, setRunStopwatch] = useState(false);
-    const [rotate, setRotate] = useState(false);
+    const [shake, setShake] = useState(false);
+
+
+    useEffect(() => {
+        if (!multiplayerData)
+            return;
+
+        startGameHandler(multiplayerData.options);
+    }, [])
 
     const startGameHandler = ({ showAnswers, showStopwatch }) => {
         setOptions({ showAnswers, showStopwatch });
@@ -32,30 +41,37 @@ export default function Quiz({ game }) {
     }
 
     const answerQuestionHandler = (e, country, answer) => {
-        if (!isAnswered) {
-            setIsAnswered(true);
-            sounds.answer();
-            const [isCorrect, correct] = ctx.answerQuestion(country, answer);
-            if (options.showAnswers) {
-                if (isCorrect) {
-                    e.currentTarget.classList.add('true');
-                } else {
-                    e.currentTarget.classList.add('false');
-                    [...e.currentTarget.parentNode.children]
-                        .find(x => x.textContent === translate(correct, game === 'capitals' ? 'capital' : 'country'))
-                        .classList.add('true');
+        if (isAnswered)
+            return;
 
-                    setRotate(true);
-                }
-            }
+        setIsAnswered(true);
+        sounds.answer();
 
-            console.log(isCorrect);
-            if (!options.showAnswers) {
-                setIsAnswered(false);
-                setQuestion(ctx.nextQuestion(country));
-            } else if (options.showStopwatch) {
-                stopStopwatch();
+        const [isCorrect, correct, newScore] = ctx.answerQuestion(country, answer);
+
+        if (options.showAnswers) {
+            if (isCorrect) {
+                e.currentTarget.classList.add('true');
+            } else {
+                e.currentTarget.classList.add('false');
+                [...e.currentTarget.parentNode.children]
+                    .find(x => x.textContent === translate(correct, game === 'capitals' ? 'capital' : 'country'))
+                    .classList.add('true');
+
+                setShake(true);
             }
+        }
+
+        console.log(isCorrect);
+        if (!options.showAnswers) {
+            setIsAnswered(false);
+            setQuestion(ctx.nextQuestion(country));
+        } else if (options.showStopwatch) {
+            stopStopwatch();
+        }
+
+        if (multiplayerData) {
+            multiplayerData.updateScore(getPoints({ value: newScore, max: ctx.data.length }, { value: time }))
         }
     }
 
@@ -66,7 +82,7 @@ export default function Quiz({ game }) {
                 ? btn.classList.remove('true') & btn.classList.remove('false')
                 : null);
         setQuestion(ctx.nextQuestion(country));
-        if (options.showAnswers && rotate) setRotate(false);
+        if (options.showAnswers && shake) setShake(false);
         if (options.showStopwatch && ctx.questionsLeft > 0) startStopwatch();
     }
 
@@ -78,7 +94,10 @@ export default function Quiz({ game }) {
         setRunStopwatch(false);
     }
 
-    if (ctx.data.length === 0) enableLogo();
+    if (ctx.data.length === 0) {
+        enableLogo();
+    }
+
     const regionText = translate(region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O'), 'region');
     const gameDescText = translate(`${game[0].toLocaleUpperCase().concat(game.slice(1))} Quiz`, 'misc');
     return (
@@ -90,8 +109,8 @@ export default function Quiz({ game }) {
                             score={{ value: ctx.score, max: ctx.data.length }} time={{ value: time, on: options.showStopwatch }} />
                     )
                     :
-                    (   //Game
-                        <section className={`game quiz ${game}${rotate ? ' rotate' : ''}`}>
+                    (   //Game             
+                        <section className={`game quiz ${game}${shake ? ' shake' : ''}`}>
                             <header className="header">
                                 <Stopwatch run={runStopwatch} on={options.showStopwatch} time={time} setTime={setTime} width={game !== 'flags' ? '25%' : '49%'} />
                                 {game !== 'flags' ?
@@ -113,7 +132,7 @@ export default function Quiz({ game }) {
                                         <Button className='next-btn' onClick={(e) => nextQuestionHandler(e, question.country)}>{translate(ctx.questionsLeft > 0 ? 'Next' : 'End', 'misc')}</Button>
                                     </article> : ''}
                             </div>
-                        </section >
+                        </section>
                     )
             )
             : <GameStartMenu content={{ title: `${regionText}: ${gameDescText}`, image: `/images/${region}/${game}.png` }}

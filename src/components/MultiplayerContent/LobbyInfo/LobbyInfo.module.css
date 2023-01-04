@@ -1,0 +1,248 @@
+.actionContainer {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    background: var(--item);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 100%;
+}
+
+.inputsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.nameContainer {
+    margin-right: 0.5rem;
+}
+
+.container h2 {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.nameContainer, .passwordContainer {
+    width: 40%;
+}
+
+.input {
+    outline: none;
+    border: none;
+    background: var(--background);
+    /* or --nav */
+    border-radius: 15px;
+    font-size: 1.4rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.input:focus {
+    box-shadow: 0 0 0px 2px cornflowerblue;
+}
+
+.name:disabled, .password:disabled {
+    filter: grayscale(0.1);
+    color: var(--text-secondary);
+}
+
+.game {
+    margin-top: 0.4rem;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.game h2 {
+    margin-bottom: calc(50px - 1.6rem + 0.2rem);
+    /*button height - line-height of h2 + the actual margin (.2rem) bellow button (button is absolute) */
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+}
+
+@media all and (min-width: 3400px) and (min-height: 1800px) {
+    .game h2 {
+        margin-bottom: calc(50px + 1.5vh - 1.6rem);
+    }
+}
+
+.button {
+    height: 100%;
+    position: absolute;
+    width: fit-content;
+    margin: 0;
+    bottom: 0;
+    background: none;
+    z-index: 2;
+}
+
+.button:hover, .button:active {
+    background: var(--accent);
+}
+
+.button.disabled * {
+    color: gray;
+}
+
+.button.disabled:hover, .button.disabled:active {
+    background: none;
+}
+
+.button:active {
+    top: unset;
+}
+
+.prev {
+    left: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 20px 0px 50px 1px #0000003b;
+}
+
+.next {
+    right: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    box-shadow: -20px 0px 50px 1px #0000003b;
+}
+
+.backToRegion {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    margin: 0;
+}
+
+.slider {
+    display: flex;
+    padding: 0.5rem 0;
+    border-radius: 0.5rem;
+    transition: transform ease-in-out 0.4s;
+}
+
+.sliderWrapper {
+    position: inherit;
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.sliderTransition {
+    animation: slide 0.4s;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(2%);
+    }
+}
+
+.slider section {
+    min-width: 30%;
+    max-width: 30%;
+    margin-bottom: 0;
+    margin: 0 1%;
+}
+
+.slider article {
+    width: 100%;
+}
+
+.slider button {
+    width: 90%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.optionsContainer>h2 {
+    padding: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+    width: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.options {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+.actionButton {
+    background-color: var(--item);
+    margin: 0;
+    margin-top: 3%;
+}
+
+.actionButton.disabled {
+    background-color: rgba(128, 128, 128, 0.505);
+    color: rgb(235, 234, 232);
+}
+
+.actionButton.disabled:hover, .actionButton.disabled:active {
+    color: rgb(235, 234, 232);
+    text-shadow: none;
+}
+
+.actionButton.disabled:active {
+    top: unset;
+}
+
+.copyLinkContainer {
+    position: relative;
+    width: 100%;
+    background: var(--item);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-top: 3%;
+}
+
+.copyLinkContainer h2 {
+    margin: 0;
+    margin-bottom: 0.3rem;
+    padding-left: 0.2rem;
+}
+
+.linkContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.link {
+    width: calc(100% - 3.4rem);
+    margin: 0;
+}
+
+.copy {
+    margin: 0;
+    width: fit-content;
+    height: 100%;
+    font-size: 1.4rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 15px;
+}
+
+.copy:hover *, .copy:active * {
+    color: var(--item);
+}

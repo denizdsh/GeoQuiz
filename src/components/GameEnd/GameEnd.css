@@ -19,7 +19,7 @@
 
 .game-end .title-container {
     width: 100%;
-    font-size: 1.4vmax;
+    font-size: 1.4rem;
 }
 
 .game-end .game-title {
@@ -27,7 +27,7 @@
 }
 
 .game-end-score, .game-end .score .stopwatch {
-    font-size: 1.35vmax;
+    font-size: 1.35rem;
 }
 
 .game-end-score {
@@ -38,19 +38,19 @@
 
 @media all and (max-width: 1600px) {
     .game-end-score, .game-end .score .stopwatch {
-        font-size: 1.05vmax;
+        font-size: 1.05rem;
     }
 }
 
 @media all and (max-width: 1200px) {
     .game-end-score, .game-end .score .stopwatch {
-        font-size: 1.35vmax;
+        font-size: 1.35rem;
     }
 }
 
 @media all and (max-width: 800px) {
     .game-end-score, .game-end .score .stopwatch {
-        font-size: 1.8vmax;
+        font-size: 1.8rem;
     }
 
     .game.game-end {

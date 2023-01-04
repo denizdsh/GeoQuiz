@@ -20,15 +20,15 @@
 }
 
 .title {
-    font-size: 10vmin;
+    font-size: 10rem;
 }
 
 .content {
-    font-size: 5vmin;
+    font-size: 5rem;
 }
 
 .button {
-    font-size: 3vmin;
+    font-size: 3rem;
     width: 100%;
     height: fit-content;
     padding: 20px;

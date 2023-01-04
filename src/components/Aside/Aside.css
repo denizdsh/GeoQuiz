@@ -8,27 +8,36 @@ aside {
     --a-blue: rgb(76, 146, 206);
     --a-indigo: indigo;
     --a-purple: rgb(160, 58, 141);
+    --top: calc(1vh + 2.5rem);
+}
+
+.show-aside{
+    font-size: 1rem;
 }
 
 .show-aside-container {
-    top: 70px;
+    top: var(--top);
     position: absolute;
     background-color: var(--item);
-    padding: 20px;
+    padding: 1em;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     z-index: 2;
     line-height: 0;
 }
 
-.show-aside-close .arrow-2 {
+.arrow-2 {
+    transform: rotate(0deg);
+}
+
+.show-aside-container-close .arrow-2 {
     transform: rotate(180deg);
     animation: rotate180 0.4s;
 }
 
-.aside-content-close~.show-aside-container .arrow-2 {
-    transform: rotate(0deg) !important;
-    animation: rotate0 infinite 0.4s !important;
+.aside-content-close~.show-aside-container-close .arrow-2 {
+    transform: rotate(0deg);
+    animation: rotate0 0.4s;
 }
 
 .show-aside {
@@ -48,32 +57,41 @@ aside {
 }
 
 .aside-content {
-    width: 300px;
-    height: 300px;
+    --size: calc(15em);
+}
+
+.aside-content {
+    width: var(--size);
+    height: calc(var(--size) - 1em);
     background: var(--item);
     position: absolute;
-    top: 70px;
+    top: var(--top);
     z-index: 1;
     animation: slideInContent 0.4s;
     box-shadow: 1px 1px 5px 0px var(--item);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    padding-top: 60px;
-    padding-left: 15px;
+    padding-top: 3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .aside-content-close {
+    left: calc(-1 * var(--size));
     animation: hideContent 0.4s;
 }
 
 .aside-links-list {
     list-style: none;
-    padding-left: 0;
-    line-height: 65px;
+    padding: 0;
+    margin: 0;
+    line-height: 3.5em;
 }
 
 .aside-link {
-    font-size: 36px;
+    font-size: 1.5em;
 }
 
 .aside-link a {
@@ -117,9 +135,6 @@ aside {
 }
 
 .github {
-    position: absolute;
-    bottom: 0px;
-    left: calc(50% - 1.5rem);
     margin: auto;
     line-height: 0;
 }
@@ -159,7 +174,7 @@ aside {
 
 @keyframes slideInContent {
     0% {
-        left: -300px;
+        left: calc(-1 * var(--size));
     }
 
     100% {
@@ -174,7 +189,7 @@ aside {
     }
 
     100% {
-        left: -300px
+        left: calc(-1 * var(--size))
     }
 }
 
@@ -199,6 +214,10 @@ aside {
 }
 
 @media all and (max-width: 700px) {
+    .aside-content, .show-aside {
+        font-size: 2rem;
+    }
+
     .aside-content, .show-aside-container {
         top: 0;
         opacity: 0.8;
@@ -215,6 +234,10 @@ aside {
         100% {
             left: -100%;
         }
+    }
+
+    .aside-content-close {
+        left: -100%;
     }
 
     @keyframes slideInContent {

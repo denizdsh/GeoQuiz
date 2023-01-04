@@ -1,8 +1,9 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    font-size: 1.3rem;
+    width: 3.4em;
+    height: 1.7em;
 }
 
 .switch input {
@@ -12,6 +13,7 @@
 }
 
 .slider {
+    font-size: 1em;
     position: absolute;
     cursor: pointer;
     user-select: auto;
@@ -24,17 +26,24 @@
     transition: .4s;
 }
 
-.game .slider {
-    background-color: rgba(111, 113, 129, 0.548);
+.slider * {
+    cursor: help;
+    transition: opacity .4s ease-in;
+    line-height: 0;
+}
+
+.disabled-switch .slider {
+    cursor: default;
 }
 
 .slider:before {
+    z-index: 2;
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
+    height: 1.3em;
+    width: 1.3em;
+    left: 0.3em;
+    bottom: 0.2em;
     background-color: var(--item);
     -webkit-transition: .4s;
     transition: .4s;
@@ -49,17 +58,16 @@ input:focus+.slider {
 }
 
 input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(1.5em);
+    -ms-transform: translateX(1.5em);
+    transform: translateX(1.5em);
 }
 
 .slider.round {
-    border-radius: 34px;
-    font-size: 19.5px;
+    border-radius: 1.3em;
     user-select: none;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,13 +83,42 @@ input:checked+.slider:before {
 
 .language-icon {
     border-radius: 50%;
-    width: 20.5px;
+    width: 1em;
 }
 
 .slider .language-icon:nth-child(1) {
-    padding-left: 1px;
+    padding-left: 0.1em;
 }
 
 .slider .language-icon:nth-child(2) {
-    padding-right: 1px;
+    padding-right: 0.1em;
+}
+
+.slider .language-icon {
+    width: 1.1em;
+}
+
+.slider .sounds-on, .slider .sounds-off {
+    font-size: 0.95em;
+}
+
+.slider svg {
+    font-size: 1.2em;
+}
+
+
+@media all and (max-width: 1400px) {
+    .switch {
+        font-size: 1.5rem;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .switch {
+        font-size: 2.4rem;
+    }
+
+    .slider .sounds-off {
+        font-size: 0.9em;
+    }
 }

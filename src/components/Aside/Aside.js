@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ElementsContext } from '../../contexts/ElementsContext';
 import './Aside.css';
 
 const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'purple'];
 
 export default function Aside() {
+    const { displayAside } = useContext(ElementsContext);
+
     const [showAside, setShowAside] = useState(true);
     const [githubHover, setGithubHover] = useState(false);
     const [stateInterval, setStateInterval] = useState(null);
@@ -15,21 +18,21 @@ export default function Aside() {
     const aside = useRef(null);
 
     useEffect(() => {
-        const closeAsideHandler = (e) => {
-            if (
-                aside.current
-                && showAside
-                && !aside.current.contains(e.target)
-            ) {
-                asideHandler();
-            }
-        }
-
         window.addEventListener('click', closeAsideHandler)
 
         return () => window.removeEventListener('click', closeAsideHandler);
-    }, [showAside])
+    }, [])
 
+
+    const closeAsideHandler = useCallback((e) => {
+        if (
+            aside.current
+            && showAside
+            && !aside.current.contains(e.target)
+        ) {
+            asideHandler();
+        }
+    }, [showAside, aside])
 
     const asideHandler = () => {
         if (showAside) {
@@ -67,7 +70,7 @@ export default function Aside() {
         })
     }
 
-    return (
+    return (displayAside &&
         <aside ref={aside}>
             {showAside &&
                 <div className='aside-content' ref={content}>
@@ -93,11 +96,11 @@ export default function Aside() {
             }
 
             <article className={`show-aside-container${showAside ? ' show-aside-container-close' : ''}`}>
-                <button className={`show-aside${showAside ? ' show-aside-close' : ''}`} onClick={asideHandler}>
-                    <svg width="10px" height="20px" className='arrow arrow-1'>
+                <button style={{ width: 'fit-content' }} className={`show-aside${showAside ? ' show-aside-close' : ''}`} onClick={asideHandler}>
+                    <svg width='0.6em' height='1.2em' viewBox='0 0 10 20' className='arrow arrow-1'>
                         <path d='M 0 20 L 0 20 L 10 10 L 0 0' />
                     </svg>
-                    <svg width="10px" height="20px" className='arrow arrow-2'>
+                    <svg width='0.6em' height='1.2em' viewBox='0 0 10 20' className='arrow arrow-2'>
                         <path d='M 0 20 L 0 20 L 10 10 L 0 0' />
                     </svg>
                 </button>

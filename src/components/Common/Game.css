@@ -56,6 +56,10 @@
     text-align: center;
 }
 
+.quiz.game .game-title {
+    user-select: none;
+}
+
 .game .game-title {
     margin-top: 10px;
 }
@@ -110,7 +114,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px 0px 15px;
-    font-size: 1.1vmax;
+    font-size: 1.1rem;
 }
 
 .header article {
@@ -169,11 +173,25 @@ article.stopwatch {
     border-bottom-right-radius: 10px;
 }
 
-.rotate {
+.shake {
     transform-origin: center;
-    animation: rotate .5s normal;
+    animation: shake 0.3s normal;
 }
 
+@keyframes shake {
+    25% {
+        transform: translate(-55%, var(--absolute-translate-Y));
+    }
+
+    75% {
+        transform: translate(-45%, var(--absolute-translate-Y));
+    }
+}
+
+.rotate {
+    transform-origin: center;
+    animation: rotate 0.4s normal;
+}
 
 @keyframes rotate {
     30% {
@@ -189,41 +207,40 @@ article.stopwatch {
     }
 }
 
-@media all and (max-height: 950px) {
+@media all and (max-height: 900px) {
     .game, .quiz.game {
-        top: 55%;
         position: relative;
-        top: 20px;
+        top: 1rem;
     }
 }
 
 @media all and (max-width: 1600px) {
     .game-title {
-        font-size: 1.2vmax;
+        font-size: 1.2rem;
     }
 
     .title-container.title .game-title {
-        font-size: 1.5vmax;
+        font-size: 1.5rem;
     }
 
     [data-title]:hover::before {
-        font-size: 1.2vmax;
-        bottom: -2.3vmax;
+        font-size: 1.2rem;
+        bottom: -2.3rem;
     }
 }
 
 @media all and (max-width: 1200px) {
     .game-title {
-        font-size: 1.5vmax;
+        font-size: 1.5rem;
     }
 
     .title-container.title .game-title {
-        font-size: 1.7vmax;
+        font-size: 1.7rem;
     }
 
     [data-title]:hover::before {
-        font-size: 1.5vmax;
-        bottom: -3vmax;
+        font-size: 1.5rem;
+        bottom: -3rem;
     }
 
     [data-title]:hover::after {
@@ -231,7 +248,7 @@ article.stopwatch {
     }
 
     .header {
-        font-size: 1.5vmax;
+        font-size: 1.5rem;
     }
 }
 
@@ -247,11 +264,15 @@ article.stopwatch {
     }
 
     .game-title, article.stopwatch, .game-start .title-container .game-title {
-        font-size: 1.8vmax;
+        font-size: 1.8rem;
     }
 
     .title-container.title .game-title {
-        font-size: 2vmax;
+        font-size: 2rem;
+    }
+
+    .rotate, .shake {
+        animation: none;
     }
 }
 
@@ -269,5 +290,11 @@ article.stopwatch {
         height: auto;
         box-shadow: var(--img-box-shadow);
         border-radius: 10px;
+    }
+}
+
+@media all and (min-width: 3400px) and (min-height: 1800px) {
+    .game.quiz {
+        --quiz-width: 950px;
     }
 }

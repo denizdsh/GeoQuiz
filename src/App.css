@@ -14,18 +14,20 @@
   height: 100%;
   width: 100%;
   background: var(--background);
+  padding-bottom: 1rem;
 }
 
 .fab, .fas {
-  font-size: 2vmax;
+  font-size: 2rem;
   color: var(--text-secondary);
 }
 
 /*Navigation transition*/
 :root {
+  font-size: 1vmax;
   --translateStart: ;
   --translateEnd: ;
-  --leftStart: 100vw;
+  --leftStart: 100%;
   --leftEnd: 0;
   --absolute-translate-Y: -50%;
 }
@@ -36,7 +38,9 @@
   }
 }
 
-@media all and (max-height: 950px) {
+@media all and (max-height: 900px) {
+  /*--relative-component-max-height*/
+
   :root {
     --absolute-translate-Y: 0;
   }
@@ -45,11 +49,16 @@
 .absolute {
   --translateStart: translate(50%, var(--absolute-translate-Y));
   --translateEnd: translate(-50%, var(--absolute-translate-Y));
-  --leftEnd: 50vw;
+  --leftEnd: 50%;
+}
+
+.absoluteY {
+  --translateStart: translateY(var(--absolute-translate-Y));
+  --translateEnd: translateY(var(--absolute-translate-Y));
 }
 
 .back-navigation * {
-  --leftStart: -100vw;
+  --leftStart: -100%;
 }
 
 .back-navigation .absolute {
@@ -64,13 +73,29 @@
 
 @keyframes slide {
   from {
+    opacity: 0;
     transform: var(--translateStart);
     left: var(--leftStart);
   }
 
   to {
+    opacity: 1;
     transform: var(--translateEnd);
     left: var(--leftEnd);
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
 
@@ -94,4 +119,11 @@
 
 ::-webkit-scrollbar-corner {
   background: rgb(40, 54, 116);
+}
+
+/* mobile input */
+@media all and (max-width: 800px) {
+  input:focus {
+    font-size: 16px;
+  }
 }

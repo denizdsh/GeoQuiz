@@ -13,8 +13,16 @@ body {
   background-size: cover;
 }
 
+img {
+  user-select: none;
+}
+
 :root {
+  background-color: rgb(40, 54, 116);
   text-shadow: 0 0 1px rgb(4, 0, 26);
+
+  --relative-component-max-height: 900px;
+
   --nav: #1f3064;
   --background: rgb(40, 54, 116);
   --item: #162757;
@@ -27,10 +35,12 @@ body {
   --green: rgb(68, 190, 38);
   --stopwatch: rgb(123, 205, 233);
   --inverted-text-shadow-color: rgb(211, 248, 253);
-  --gradient: linear-gradient(45deg, #00b7ff, #0062ff, #002bff, #2779fd);
+  --gradient: linear-gradient(45deg, #00b7ff93, #0062ffa0, #002aff9e, #2779fd90);
 }
 
 [data-theme='light'] {
+  background-color: rgb(255, 21, 21);
+
   text-shadow: 0 0 1px rgb(211, 248, 253);
   --nav: var(--gradient);
   --background: #b7d6fa;
@@ -40,47 +50,15 @@ body {
   --planet-bg: rgb(115, 128, 245);
   --planet-fill: gold;
   --switch-background: rgb(129, 165, 248);
-  --green: rgb(43, 143, 43);
-  --stopwatch: rgb(57, 28, 219);
+  --green: rgba(2, 127, 92, 0.908);
+  --stopwatch: rgb(74, 48, 222);
   --inverted-text-shadow-color: rgb(4, 0, 26);
   --gradient: linear-gradient(45deg, #9997ff, #a494fb, #8294f8);
 }
 
 html {
-  background-color: rgb(40, 54, 116);
   background-size: cover;
   padding-top: env(safe-area-inset-top);
   -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
-}
-
-/* leaflet map */
-.map {
-  width: 100vw;
-  height: 100vh;
-}
-
-.map h1 {
-  padding: 100px;
-  background-color: rgba(0, 3, 41, 0.683);
-}
-
-.leaflet-popup-content {
-  text-align: center;
-  color: black;
-}
-
-.leaflet-marker-text {
-  font-size: 1rem;
-  color: black;
-  width: fit-content;
-  transform: translate(-50%, -100%);
-  background: rgba(81, 249, 134, 0.785);
-  padding: 3px;
-  border-radius: 5px;
-  line-height: 1.2rem;
-}
-
-.leaflet-marker-text.purple-background {
-  background: rgba(249, 81, 249, 0.785);
 }

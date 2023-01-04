@@ -5,12 +5,12 @@
 }
 
 .running {
-    font-size: 1.65vmax;
+    font-size: 1.65rem;
     margin-right: 10px;
 }
 
 @media all and (max-width: 1420px) {
     .fa-stopwatch.running {
-        font-size: 2vmax;
+        font-size: 2rem;
     }
 }

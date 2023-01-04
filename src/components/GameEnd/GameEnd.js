@@ -4,52 +4,32 @@ import { LanguageContext } from '../../contexts/LanguageContext';
 import { SoundContext } from '../../contexts/SoundContext';
 import useOnClickConfetti from '../../hooks/useOnClickConfetti';
 import useFireworksConfetti from '../../hooks/useFireworksConfetti';
+import { calculateScore } from '../../helper/calculateScore';
 import Button from '../Common/Button';
 import Stopwatch from '../Common/Stopwatch';
 import './GameEnd.css';
 
-export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
+
+export default function GameEnd({ title, score, time }) {
     const navigate = useNavigate();
     const { translate } = useContext(LanguageContext);
     const { sounds } = useContext(SoundContext);
     const [colors, setColors] = useState({});
+    const [points, setPoints] = useState(0);
     const [confetti, fire] = useOnClickConfetti();
     const [fireworks, start] = useFireworksConfetti();
 
-    let points = score.value * (60 - time.value / score.value) || 0;
 
     useEffect(() => {
-        let average = 0;
-        let scoreColor;
-        if (score.value >= score.max - Math.ceil(0.1 * score.max)) {
-            scoreColor = 'green';
-            points *= 2;
-            average++;
-        } else if (score.value < score.max / 2) {
-            scoreColor = 'red';
-            points /= 2;
-        } else {
-            average += 0.5;
-        }
+        const { value, colors: newColors } = calculateScore(score, time);
 
-        let stopwatchColor;
-        if (score.value * timePerQuestion >= time.value) {
-            stopwatchColor = 'green';
-            points *= 1.5;
-            average++;
-        } else if (score.value * 3 * timePerQuestion <= time.value) {
-            stopwatchColor = 'red';
-            points /= 1.8;
-        } else {
-            average += 0.5;
-        }
+        setPoints(value.points);
+        setColors(newColors);
 
-        setColors({ scoreColor, stopwatchColor })
-
-        if (average >= 1) {
+        if (value.average >= 1) {
             start();
             sounds.excellentScore();
-        } else if (average < 1) {
+        } else if (value.average < 1) {
             window.addEventListener('click', fire);
             sounds.badScore();
         }
@@ -71,15 +51,17 @@ export default function GameEnd({ title, score, time, timePerQuestion = 6 }) {
                 <article className="score">
                     <p className='game-end-score'>{translate('Score', 'misc')}:
                         {
-                            <span style={{ color: colors.scoreColor || 'var(--primary)' }}>
+                            <span style={{ color: colors.score || 'var(--primary)' }}>
                                 {` ${score.value}`}
                             </span>
                         }
                         {`/${score.max}`}
                     </p>
-                    <Stopwatch on={time.on} time={time.value} color={colors.stopwatchColor} />
+                    <Stopwatch on={time.on} time={time.value} color={colors.stopwatch} />
                 </article>
-                <p className='game-end-score'>{translate('Points', 'misc')}: {points === Math.floor(points) ? points : points.toFixed(1)}</p>
+                <p className='game-end-score' style={{ color: colors.points || 'var(--primary)' }}>
+                    {translate('Points', 'misc')}: {points === Math.floor(points) ? points : points.toFixed(1)}
+                </p>
                 <Button onClick={() => navigate('/')}>{translate('Home', 'misc')}</Button>
             </section>
         </>
