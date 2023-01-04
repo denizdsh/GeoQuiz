@@ -10,28 +10,44 @@ import { DivIcon, Icon } from "leaflet";
 
 import { MapsContext } from "../../contexts/MapsContext";
 import { LanguageContext } from "../../contexts/LanguageContext";
-import { NavContext } from "../../contexts/NavContext";
+import { ElementsContext } from "../../contexts/ElementsContext";
 import { SoundContext } from "../../contexts/SoundContext";
 import { coordinates, smallCountries } from "../../services/mapsService"
 
 import './MapsGame.css';
 import Stopwatch from '../Common/Stopwatch'
+import Loader from '../Common/Loader'
 import GameStartMenu from "../GameStartMenu/GameStartMenu";
 import GameEnd from '../GameEnd/GameEnd';
 import { } from "leaflet";
 import { LatLngBounds } from "leaflet";
+import { getPoints } from "../../helper/calculateScore";
 
-function MapsGame({ title }) {
+function MapsGame({ title, multiplayerData = null }) {
     const [showStopwatch, setShowStopwatch] = useState(false);
     const [time, setTime] = useState(0);
     const [runStopwatch, setRunStopwatch] = useState(false);
 
     const ctx = useContext(MapsContext);
     const { translate } = useContext(LanguageContext);
-    const { enableNav, disableNav } = useContext(NavContext);
+    const { enableNav, disableNav } = useContext(ElementsContext);
     const { sounds } = useContext(SoundContext);
 
-    const { region } = useParams();
+    const region = useParams().region || multiplayerData.region;
+
+    useEffect(() => {
+        if (!multiplayerData) {
+            return;
+        }
+
+        startGameHandler(multiplayerData.options);
+    }, [])
+
+    useEffect(() => {
+        if (ctx.score.max && !ctx.country) {
+            enableNav()
+        }
+    }, [ctx.score.max, ctx.country, enableNav])
 
     const startGameHandler = ({ showStopwatch }) => {
         disableNav();
@@ -39,11 +55,11 @@ function MapsGame({ title }) {
         setShowStopwatch(showStopwatch);
         if (showStopwatch) setRunStopwatch(true);
     }
-    useEffect(() => {
-        if (ctx.score.max && !ctx.country) {
-            enableNav()
-        }
-    }, [ctx.score.max, ctx.country, enableNav])
+
+    const multiplayerUpdateScore = (scoreObj) => {
+        multiplayerData?.updateScore(getPoints(scoreObj, { value: time }));
+    }
+
 
     if (!title) {
         title = `${translate(region[0].toLocaleUpperCase().concat(region.slice(1)).replace('-o', ' & O'), 'region')}: ${translate('Countries', 'misc')}`;
@@ -54,9 +70,8 @@ function MapsGame({ title }) {
         ctx.score.max ?
             !ctx.country ?
                 <GameEnd title={title}
-                    score={{ value: ctx.score.current, max: ctx.score.max }}
-                    time={{ value: time, on: showStopwatch }}
-                    timePerQuestion={10} />
+                    score={ctx.score}
+                    time={{ value: time, on: showStopwatch, perQuestion: 10 }} />
                 :
                 <>
                     <section className="map-features">
@@ -66,7 +81,7 @@ function MapsGame({ title }) {
                                 <p className='game-title'>{translate(ctx.country, 'country')}</p>
                             </article>
                             <article className="title-container score">
-                                <p className='game-title'>{`${ctx.score.current} / ${ctx.score.max}`}</p >
+                                <p className='game-title'>{`${ctx.score.value} / ${ctx.score.max}`}</p >
                             </article >
                         </section >
                         <article className="action-buttons">
@@ -85,19 +100,21 @@ function MapsGame({ title }) {
                         </article>
                     </section >
 
-                    <Map region={region} />
+                    <Map region={region} ctx={ctx} multiplayerUpdateScore={multiplayerUpdateScore} />
                 </>
 
             : <GameStartMenu content={{ title, image: `/images/${region}/map.png` }} startGame={startGameHandler} region={'world'} />
     )
 }
 
-const placeholder = <h1 style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }}>Loading...</h1>;
+const placeholder = <div className="map-loader">
+    <Loader className='relative-loader large-loader' />
+    <h1>Loading</h1>
+</div>;
 
-function Map({ region }) {
+function Map({ region, ctx, multiplayerUpdateScore }) {
     const navigate = useNavigate();
 
-    const ctx = useContext(MapsContext);
     const { sounds } = useContext(SoundContext);
     const { translate } = useContext(LanguageContext);
 
@@ -134,7 +151,7 @@ function Map({ region }) {
 
         sounds.answer();
 
-        ctx.updateScore(country);
+        const scoreObj = ctx.updateScore(country);
         let color = 'red';
         if (country === ctx.country) {
             color = 'green';
@@ -146,6 +163,8 @@ function Map({ region }) {
 
             ctx.nextCountryHandler();
         }
+
+        multiplayerUpdateScore(scoreObj);
 
         return color;
     }
@@ -189,9 +208,11 @@ function Map({ region }) {
             />
             {
                 geojson
-                    ? <GeoJSON key="leaflet-map-geojson" data={geojson.features} ref={geojsonRef} eventHandlers={{
-                        click: countryClickHandler
-                    }}></GeoJSON>
+                    ? <GeoJSON key="leaflet-map-geojson"
+                        data={geojson.features}
+                        ref={geojsonRef}
+                        eventHandlers={{ click: countryClickHandler }}>
+                    </GeoJSON>
                     : placeholder
             }
 

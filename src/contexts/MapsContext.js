@@ -6,12 +6,12 @@ export const MapsContext = createContext();
 export function MapsProvider({ children }) {
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState('');
-    const [score, setScore] = useState({ current: 0, max: 0 });
+    const [score, setScore] = useState({ value: 0, max: 0 });
     const [delayed, setDelayed] = useState([]);
 
     const startGame = (region) => {
         const data = getCountries(region);
-        setScore({ current: 0, max: data.length });
+        setScore({ value: 0, max: data.length });
         nextCountryHandler(data);
     }
 
@@ -75,7 +75,15 @@ export function MapsProvider({ children }) {
 
     const updateScore = (targetCountry) => {
         const points = targetCountry === country ? 1 : -0.5;
-        setScore(score => { return { current: score.current + points, max: score.max } });
+
+        let newScore = score;
+
+        setScore(score => {
+            newScore = { value: score.value + points, max: score.max };
+            return newScore;
+        });
+
+        return newScore;
     }
 
     const isSmallCountryAnswered = (smallCountry) => {
@@ -83,7 +91,15 @@ export function MapsProvider({ children }) {
     }
 
     return (
-        <MapsContext.Provider value={{ countries, country, score, startGame, updateScore, nextCountryHandler, delayCountryHandler, skipCountryHandler, isSmallCountryAnswered }}>
+        <MapsContext.Provider value={
+            {
+                countries, country, score,
+                startGame,
+                updateScore,
+                nextCountryHandler, delayCountryHandler, skipCountryHandler,
+                isSmallCountryAnswered
+            }
+        }>
             {children}
         </MapsContext.Provider>
     )

@@ -1,9 +1,14 @@
+.map {
+    width: 100vw;
+    height: 100vh;
+}
+
 .game.maps-end {
     min-width: 330px;
     width: 22vw;
 }
 
-.map-features{
+.map-features {
     z-index: 1001;
     position: relative;
 }
@@ -32,11 +37,28 @@
 
 .map-header .game-title, .map-header .time {
     margin: 0;
-    font-size: 1.1vmax;
+    font-size: 1.1rem;
 }
 
 .map-header .title p {
-    font-size: 1.4vmax;
+    font-size: 1.4rem;
+}
+
+.map-loader {
+    padding: 75px;
+    background-color: rgba(0, 3, 41, 0.683);
+    border-radius: 3px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.map-loader h1 {
+    margin: auto;
+    margin-top: 10px;
+    width: fit-content;
 }
 
 .action-buttons {
@@ -47,36 +69,50 @@
     display: flex;
     z-index: 1;
     border-radius: 15px;
-    box-shadow: var(--nav) 0px 0px 20px -5px;
 }
 
 .delay, .skip {
+    position: relative;
     background: var(--nav);
-    padding: calc(2px + 0.2vmax) calc(10px + 0.4vmax);
-    font-size: 0.9vmax;
-    border: 1px solid var(--nav);
-    border-top-color: rgb(134, 148, 226);
+    padding: calc(2px + 0.2rem) calc(10px + 0.4rem);
+    font-size: 0.9rem;
+    border: 2px solid var(--nav);
+    border-bottom: 6px solid var(--item);
     border-radius: 2px;
     color: rgb(235, 234, 232);
+    transition: all 0.1s linear;
 }
 
 .delay {
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    border-right: 2px solid var(--item);
-    border-left-color: rgb(134, 148, 226);
+    border-right: 4px solid var(--item);
 }
 
 .skip {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    border-left: 2px solid var(--item);
-    border-right-color: rgb(134, 148, 226);
+    border-left: 4px solid var(--item);
 }
 
 .delay:active, .skip:active {
-    border-color: var(--nav);
-    border-bottom-color: rgb(134, 148, 226);
+    border-width: 0px;
+    border-bottom-width: 4px;
+    border-bottom-color: var(--nav);
+    top: 2px;
+    opacity: 0.95;
+}
+
+.delay:active {
+    border-right-color: var(--nav);
+    border-right-width: 2px;
+    left: 2px;
+}
+
+.skip:active {
+    border-left-color: var(--nav);
+    border-left-width: 2px;
+    right: 2px;
 }
 
 .marker-label {
@@ -92,6 +128,27 @@
 
 .map-features article.stopwatch, .map-features .title-container.score {
     width: 15% !important;
+}
+
+/* leaflet map */
+.leaflet-popup-content {
+    text-align: center;
+    color: black;
+}
+
+.leaflet-marker-text {
+    font-size: 1rem;
+    color: black;
+    width: fit-content;
+    transform: translate(-50%, -100%);
+    background: rgba(81, 249, 134, 0.785);
+    padding: 3px;
+    border-radius: 5px;
+    line-height: 1.2rem;
+}
+
+.leaflet-marker-text.purple-background {
+    background: rgba(249, 81, 249, 0.785);
 }
 
 @media all and (max-width: 800px) {
@@ -130,13 +187,13 @@
     }
 
     .map-header .game-title, .map-header .time, .delay, .skip {
-        font-size: 1.55vmax;
+        font-size: 1.55rem;
     }
 
     .map-features~.back-btn {
         top: 11px;
         left: 5px;
-        font-size: 3vmax;
+        font-size: 3rem;
     }
 
     .map-features~.back-btn {
@@ -144,7 +201,7 @@
     }
 
     .delay, .skip {
-        font-size: 2vmax;
+        font-size: 2rem;
     }
 }
 
@@ -154,7 +211,7 @@
     }
 
     .map-header .game-title, .map-header .time {
-        font-size: 1.55vmax;
+        font-size: 1.55rem;
     }
 
     .action-buttons {
@@ -162,11 +219,11 @@
     }
 
     .delay, .skip {
-        font-size: 2vmax;
+        font-size: 2rem;
     }
 
     .map-features~.back-btn {
         top: 7px;
-        font-size: 3vmax;
+        font-size: 3rem;
     }
 }

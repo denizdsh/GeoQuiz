@@ -39,6 +39,57 @@ export function getData(game, region) {
     return functions[game](region);
 }
 
+/*
+const images = {
+    base: '/images',
+    africa: {
+        path: this.base + '/africa',
+        capitals: {
+            path: this.africa.path + '/capitals'
+        },
+        flags: {
+            path: this.africa.path + '/flags'
+        }
+    },
+    americas: {
+        path: this.base + '/americas',
+        capitals: {
+            path: this.americas.path + '/capitals'
+        },
+        flags: {
+            path: this.americas.path + '/flags'
+        }
+    },
+    asia: {
+        path: this.base + '/asia',
+        capitals: {
+            path: this.asia.path + '/capitals'
+        },
+        flags: {
+            path: this.asia.path + '/flags'
+        }
+    },
+    'australia-oceania': {
+        path: this.base + '/australia-oceania',
+        capitals: {
+            path: this['australia- oceania'].path + '/capitals'
+        },
+        flags: {
+            path: this['australia- oceania'].path + '/flags'
+        }
+    },
+    europe: {
+        path: this.base + '/europe',
+        capitals: {
+            path: this.europe.path + '/capitals'
+        },
+        flags: {
+            path: this.europe.path + '/flags'
+        }
+    }
+}
+*/
+
 function capitals(region) {
     const capitals = {
         africa: [
