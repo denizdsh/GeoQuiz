@@ -7,6 +7,8 @@ const types = ['game', 'region', 'misc', 'country', 'capital'];
 const defaultBulgarian = window.navigator.language === 'bg';
 
 export function LanguageProvider({ children }) {
+    // TODO: separate into service and context
+    
     const [language, setLanguage] = useLocalStorage('language', defaultBulgarian ? 'bg' : 'en');
     const [translation, setTranslation] = useState({});
 
