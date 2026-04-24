@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useCallback } from 'react';
-import { MultiplayerContext, getRandomAvatar } from '../../../contexts/MultiplayerContext';
+import { MultiplayerContext } from '../../../contexts/MultiplayerContext';
+import { getRandomAvatar } from '../../../services/multiplayerService';
 import Button from '../../Common/Button';
 import Loader from '../../Common/Loader';
 import styles from './You.module.css';

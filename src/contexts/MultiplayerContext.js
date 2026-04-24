@@ -1,402 +1,267 @@
-import { createContext, useState, useEffect, useCallback } from 'react';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
-import 'firebase/compat/auth';
+import { createContext, useState, useEffect, useCallback } from "react";
+import * as multiplayer from "../services/multiplayerService";
 
-// THIS FILE ACTS AS A SERVICE AND CONTEXT (AND PROVIDER)
-
-// Firebase init
-const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: "gamegeoquiz.web.app",
-    databaseURL: process.env.REACT_APP_FIREBASE_REALTIME_DATABASE_URL,
-    projectId: "gamegeoquiz",
-    storageBucket: "gamegeoquiz.appspot.com",
-    messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID
-};
-
-firebase.initializeApp(firebaseConfig);
-
-// variables
-const LOBBY_MIN_PLAYER_COUNT = 0;
-
-const persistedUsername = window.localStorage.getItem('username');
-const persistedAvatar = window.localStorage.getItem('avatar');
-
-const lobbiesRef = firebase.database().ref('lobbies');
-
-export const defaultLobby = {
-    name: `Lobby-${random()}${random()}${random()}${random()}`,
-    game: '/europe/flags',
-    password: '',
-    options: { showAnswers: true, showStopwatch: true },
-    players: {},
-    inGame: false,
-    default: true
-}
-
-const defaultPlayer = {
-    uid: null,
-    username: persistedUsername || `Geographer-${random()}${random()}${random()}${random()}`,
-    avatar: persistedAvatar || getRandomAvatar(),
-    score: 0,
-    default: true
-};
-
-// private functions
-function random(max = 10) {
-    return Math.floor(Math.random() * max);
-}
-
-async function initUser() {
-    if (defaultPlayer.uid) {
-        console.log('default uid');
-        return defaultPlayer.uid;
-    }
-
-    try {
-        const res = await firebase.auth().signInAnonymously();
-        defaultPlayer.uid = res.user.uid;
-        return res.user.uid;
-    } catch (err) {
-        console.error(err.message);
-    }
-}
-
-async function getLobbies() {
-    try {
-        const lobbies = (await lobbiesRef.get()).val();
-
-        if (!lobbies) {
-            return [];
-        }
-
-        return lobbies;
-    } catch (err) {
-        console.error(err.message)
-        return {};
-    }
-}
-
-async function getLobbyByRef(ref) {
-    const lobby = (await ref.get()).val();
-
-    if (!lobby)
-        throw new Error('Lobby not found');
-
-    return lobby;
-}
-
-async function createLobbyFn(lobby = defaultLobby) {
-    const lobbyRef = lobbiesRef.child(lobby.name);
-
-    if ((await lobbyRef.get()).val()) {
-        throw new Error(`There is already a lobby with the name ${lobby.name}.`)
-    }
-
-    lobbyRef.set(lobby);
-
-    return lobbyRef;
-}
-
-function addLobby(ls, newLobby) {
-    if (!ls) return ls;
-
-    const newLobbies = Object.assign({}, ls);
-    newLobbies[newLobby.name] = newLobby;
-
-    return newLobbies;
-}
-
-function removeLobby(ls, name) {
-    if (!ls) return ls;
-
-    const newLobbies = Object.assign({}, ls);
-
-    delete newLobbies[name];
-
-    return newLobbies;
-}
-
-async function joinLobby(name, player = defaultPlayer) {
-    player.uid = await initUser();
-
-    const lobbyRef = lobbiesRef.child(name);
-
-    const lobby = await getLobbyByRef(lobbyRef);
-
-    if (!lobby) {
-        return;
-    }
-
-    if (Object.values(lobby.players).some(p => p.username === player.username)) {
-        throw new Error('There is already a player in the lobby with that username' + ' ' + player.username)
-    }
-
-    const players = lobby.players || {};
-    players[player.uid] = player;
-
-    lobbyRef.update({ players })
-
-    const currentPlayerRef = lobbyRef.child(`players/${player.uid}`);
-    currentPlayerRef.onDisconnect().remove();
-}
-
-async function startGameFn(lobbyName) {
-    const lobbyRef = firebase.database().ref(`lobbies/${lobbyName}`);
-
-    const lobby = await getLobbyByRef(lobbyRef);
-
-    // double check with real-time data
-    if (lobby.default
-        || !lobby.players || Object.keys(lobby.players).length < LOBBY_MIN_PLAYER_COUNT) {
-        throw new Error('Lobby must have at least 2 players to start the game');
-    }
-
-    lobby.inGame = true;
-    lobbyRef.update({ inGame: true });
-
-    return lobby;
-}
-
-function updateScoreFn(lobbyName, playerUID, score) {
-    firebase.database().ref(`lobbies/${lobbyName}/players/${playerUID}`).update({ score });
-}
-
-// public functions
-export function getRandomAvatar() {
-    return `https://avatars.dicebear.com/api/pixel-art/${random(1000)}.svg`;
-}
-
-export async function getLobbyByName(name) {
-    try {
-        console.log(name)
-        const ref = firebase.database().ref(`lobbies/${name}`);
-
-        const lobby = (await ref.get()).val();
-
-        if (!lobby)
-            throw new Error('Lobby not found');
-
-        return lobby;
-    } catch (err) {
-        console.error(err.message)
-        throw err;
-    }
-}
-
-// context
 export const MultiplayerContext = createContext();
 
 export function MultiplayerProvider({ children }) {
-    const [lobbies, setLobbies] = useState(null);
-    const [lobby, setLobby] = useState(defaultLobby);
+  const [lobbies, setLobbies] = useState(null);
+  const [lobby, setLobby] = useState(multiplayer.defaultLobby);
 
-    const [player, setPlayer] = useState(defaultPlayer);
+  const [player, setPlayer] = useState(multiplayer.defaultPlayer);
 
-    const [username, setUsername] = useState(persistedUsername ? persistedUsername : '');
+  const [username, setUsername] = useState(
+    multiplayer.persistedUsername ? multiplayer.persistedUsername : "",
+  );
 
-    const [avatar, setAvatar] = useState(persistedAvatar || defaultPlayer.avatar);
-    const [avatarHistory, setAvatarHistory] = useState([avatar || player.avatar]);
+  const [avatar, setAvatar] = useState(
+    multiplayer.persistedAvatar || multiplayer.defaultPlayer.avatar,
+  );
+  const [avatarHistory, setAvatarHistory] = useState([avatar || player.avatar]);
 
-    const [questions, setQuestions] = useState([]);
+  //   TODO: sync questions with lobby in context and remove from game view state
+  const [questions, setQuestions] = useState([]);
 
+  const resetLobby = useCallback(() => {
+    setLobby(multiplayer.defaultLobby);
+    console.log("reset lobby");
+  }, []);
 
-    const resetLobby = () => {
-        setLobby(defaultLobby);
-        console.log('reset lobby');
-    }
+  const resetPlayer = useCallback(() => {
+    setPlayer(multiplayer.defaultPlayer);
+    console.log("reset player");
+  }, []);
 
-    const resetPlayer = () => {
-        setPlayer(defaultPlayer);
-        console.log('reset player');
-    }
+  const resetStates = useCallback(() => {
+    resetLobby();
+    resetPlayer();
 
-    const resetStates = () => {
-        resetLobby();
-        resetPlayer();
+    setQuestions([]);
+  }, [resetLobby, resetPlayer]);
 
-        setQuestions([]);
-    }
+  useEffect(() => {
+    // connect when context is active and disconnect when not
+    multiplayer.firebase.database().goOnline();
+    console.log("ACTIVATED MULTIPLAYER (ON)");
 
-    useEffect(() => { // connect when context is active and disconnect when not 
-        firebase.database().goOnline();
-        console.log('ACTIVATED MULTIPLAYER (ON)');
+    return () => {
+      multiplayer.firebase.database().goOffline();
+      console.log("DISABLED MULTIPLAYER (OFF)");
+    };
+  }, []);
 
-        return () => {
-            firebase.database().goOffline();
-            console.log('DISABLED MULTIPLAYER (OFF)');
+  useEffect(() => {
+    // sign in anonimously
+    // auth listener
+    const authUnsubscribeFn = multiplayer.firebase
+      .auth()
+      .onAuthStateChanged((user) => {
+        if (user) {
+          multiplayer.defaultPlayer.uid = user.uid;
+
+          setPlayer((p) => {
+            const newPlayer = Object.assign({}, p || multiplayer.defaultPlayer);
+            newPlayer.uid = user.uid;
+
+            return newPlayer;
+          });
+
+          console.log(
+            "anonymous user",
+            multiplayer.defaultPlayer.uid.substring(0, 5),
+          );
         }
-    }, [])
+      });
 
-    useEffect(() => { // sign in anonimously  
-        // auth listener 
-        const authUnsubscribeFn = firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                defaultPlayer.uid = user.uid;
+    // sign in and provoke listner
+    (async () => {
+      console.log("signing in...");
+      await multiplayer.initUser();
+    })();
 
-                setPlayer(p => {
-                    const newPlayer = Object.assign({}, p || defaultPlayer);
-                    newPlayer.uid = user.uid;
+    return () => {
+      // clear listener
+      authUnsubscribeFn();
+      console.log("clear auth listener");
+    };
+  }, []);
 
-                    return newPlayer;
-                });
+  useEffect(() => {
+    // load lobbies and add lobby listeners
+    // load lobbies
+    (async () => {
+      setLobbies(await multiplayer.getLobbies());
+    })();
 
-                console.log('anonymous user', defaultPlayer.uid.substring(0, 5));
-            }
+    const onLobbyAdded = multiplayer.lobbiesRef.on(
+      "child_added",
+      (snapshot) => {
+        const newLobby = snapshot.val();
+
+        setLobbies((ls) => multiplayer.addLobby(ls, newLobby));
+      },
+    );
+
+    const onLobbyRemoved = multiplayer.lobbiesRef.on(
+      "child_removed",
+      (snapshot) => {
+        const name = snapshot.val().name;
+
+        setLobbies((ls) => {
+          const newLobbies = multiplayer.removeLobby(ls, name);
+
+          if (!newLobbies.hasOwnProperty(lobby.name)) {
+            setLobby(multiplayer.defaultLobby);
+          }
+
+          return newLobbies;
         });
+      },
+    );
 
-        // sign in and provoke listner
-        (async () => {
-            console.log('signing in...');
-            await initUser();
-        })();
+    const onLobbyUpdated = multiplayer.lobbiesRef.on(
+      "child_changed",
+      (snapshot) => {
+        const changedLobby = snapshot.val();
 
-        return () => { // clear listener 
-            authUnsubscribeFn();
-            console.log('clear auth listener');
-        };
-    }, [])
+        setLobbies((ls) => {
+          const withoutChanged = multiplayer.removeLobby(ls, changedLobby.name);
+          const newLobbies = multiplayer.addLobby(withoutChanged, changedLobby);
 
-    useEffect(() => { // load lobbies and add lobby listeners 
-        // load lobbies
-        (async () => {
-            setLobbies(await getLobbies());
-        })();
+          if (newLobbies.hasOwnProperty(lobby.name)) {
+            setLobby(changedLobby);
+          }
 
-        const onLobbyAdded = lobbiesRef.on('child_added', (snapshot) => {
-            const newLobby = snapshot.val();
+          return newLobbies;
+        });
+      },
+    );
 
-            setLobbies(ls => addLobby(ls, newLobby));
-        })
+    return () => {
+      multiplayer.lobbiesRef.off("child_added", onLobbyAdded);
+      multiplayer.lobbiesRef.off("child_removed", onLobbyRemoved);
+      multiplayer.lobbiesRef.off("child_changed", onLobbyUpdated);
 
-        const onLobbyRemoved = lobbiesRef.on('child_removed', (snapshot) => {
-            const name = snapshot.val().name;
+      console.log("clear lobby listeners");
+    };
+  }, [lobby.name]);
 
-            setLobbies(ls => {
-                const newLobbies = removeLobby(ls, name);
+  const createPlayer = useCallback(
+    async (join = true, additionalDataKVPs = []) => {
+      const newUsername = (
+        username || multiplayer.defaultPlayer.username
+      ).trim();
 
-                if (!newLobbies.hasOwnProperty(lobby.name)) {
-                    setLobby(defaultLobby);
-                }
+      if (newUsername.length > 15) {
+        throw new Error("Username cannot exceed 15 characters");
+      }
 
-                return newLobbies;
-            });
-        })
+      const newPlayer = {
+        uid: await multiplayer.initUser(),
+        username: newUsername,
+        avatar: avatar || multiplayer.defaultPlayer.avatar,
+        score: 0,
+      };
 
-        const onLobbyUpdated = lobbiesRef.on('child_changed', (snapshot) => {
-            const changedLobby = snapshot.val();
+      for (const kvp of additionalDataKVPs) {
+        // add additional props to player object (admin: true; etc)
+        newPlayer[kvp[0]] = kvp[1];
+      }
 
-            setLobbies(ls => {
-                const withoutChanged = removeLobby(ls, changedLobby.name);
-                const newLobbies = addLobby(withoutChanged, changedLobby);
+      setPlayer(newPlayer);
+      window.localStorage.setItem("username", newPlayer.username);
+      window.localStorage.setItem("avatar", newPlayer.avatar);
 
-                if (newLobbies.hasOwnProperty(lobby.name)) {
-                    setLobby(changedLobby);
-                }
+      if (join && !lobby.default)
+        await multiplayer.joinLobby(lobby.name, newPlayer);
 
-                return newLobbies;
-            })
-        })
+      return newPlayer;
+    },
+    [username, avatar, lobby.name, lobby.default],
+  );
 
-        return () => {
-            lobbiesRef.off('child_added', onLobbyAdded);
-            lobbiesRef.off('child_removed', onLobbyRemoved);
-            lobbiesRef.off('child_changed', onLobbyUpdated);
+  const createLobby = useCallback(
+    async (lobbyData) => {
+      const lobbyOwner = await createPlayer(false, [["admin", true]]);
 
-            console.log('clear lobby listeners')
-        }
-    }, [lobby.name])
+      const name = (lobbyData.name || multiplayer.defaultLobby.name).trim();
 
-    const createPlayer = useCallback(async (join = true, additionalDataKVPs = []) => {
-        const newUsername = (username || defaultPlayer.username).trim();
+      if (name.length > 15) {
+        throw new Error("Lobby name cannot exceed 15 characters");
+      }
 
-        if (newUsername.length > 15) {
-            throw new Error('Username cannot exceed 15 characters');
-        }
+      const newLobby = {
+        name,
+        game: lobbyData.game || multiplayer.defaultLobby.game,
+        password: lobbyData.password || multiplayer.defaultLobby.password,
+        options: lobbyData.options,
+        players: { [lobbyOwner.uid]: lobbyOwner },
+        inGame: false,
+      };
 
-        const newPlayer = {
-            uid: await initUser(),
-            username: newUsername,
-            avatar: avatar || defaultPlayer.avatar,
-            score: 0
-        };
+      const lobbyRef = await multiplayer.createLobby(newLobby);
 
-        for (const kvp of additionalDataKVPs) { // add additional props to player object (admin: true; etc)
-            newPlayer[kvp[0]] = kvp[1];
-        }
+      setLobby(newLobby);
 
-        setPlayer(newPlayer);
-        window.localStorage.setItem('username', newPlayer.username);
-        window.localStorage.setItem('avatar', newPlayer.avatar);
+      // delete lobby when owner of lobby disconnects
+      lobbyRef.onDisconnect().remove();
 
-        if (join && !lobby.default)
-            await joinLobby(lobby.name, newPlayer);
+      return newLobby;
+    },
+    [createPlayer],
+  );
 
-        return newPlayer;
-    }, [username, avatar, lobby.name, lobby.default])
+  const startGame = useCallback(async () => {
+    try {
+      if (player.default || !lobby.players[player.uid].admin) {
+        throw new Error("You are not authorized to start this game");
+      }
 
-    const createLobby = useCallback(async (lobbyData) => {
-        const lobbyOwner = await createPlayer(false, [['admin', true]]);
+      if (
+        lobby.default ||
+        !lobby.players ||
+        Object.keys(lobby.players).length < multiplayer.LOBBY_MIN_PLAYER_COUNT
+      ) {
+        throw new Error("Lobby must have at least 2 players to start the game");
+      }
 
-        const name = (lobbyData.name || defaultLobby.name).trim();
+      const l = await multiplayer.startGame(lobby.name); // function returns current state of lobby
+      setLobby(l);
+    } catch (err) {
+      window.alert(err.message);
+    }
+  }, [player.default, player.uid, lobby.default, lobby.name, lobby.players]);
 
-        if (name.length > 15) {
-            throw new Error('Lobby name cannot exceed 15 characters')
-        }
+  const updateScore = useCallback(
+    (score) => {
+      multiplayer.updateScore(lobby.name, player.uid, score);
+    },
+    [lobby, player],
+  );
 
-        const newLobby = {
-            name,
-            game: lobbyData.game || defaultLobby.game,
-            password: lobbyData.password || defaultLobby.password,
-            options: lobbyData.options,
-            players: { [lobbyOwner.uid]: lobbyOwner },
-            inGame: false
-        };
-
-        const lobbyRef = await createLobbyFn(newLobby);
-
-        setLobby(newLobby);
-
-        // delete lobby when owner of lobby disconnects
-        lobbyRef.onDisconnect().remove();
-
-        return newLobby;
-    }, [createPlayer])
-
-    const startGame = useCallback(async () => {
-        try {
-            if (player.default || !lobby.players[player.uid].admin) {
-                throw new Error('You are not authorized to start this game');
-            }
-
-            if (lobby.default
-                || !lobby.players || Object.keys(lobby.players).length < LOBBY_MIN_PLAYER_COUNT) {
-                throw new Error('Lobby must have at least 2 players to start the game');
-            }
-
-            const l = await startGameFn(lobby.name); // function returns current state of lobby
-            setLobby(l);
-        } catch (err) {
-            window.alert(err.message);
-        }
-    }, [player.default, player.uid, lobby.default, lobby.name, lobby.players])
-
-    const updateScore = useCallback((score) => {
-        updateScoreFn(lobby.name, player.uid, score);
-    }, [lobby, player])
-
-    return (
-        <MultiplayerContext.Provider value={{
-            lobbies: lobbies ? Object.values(lobbies) : null,
-            lobby, setLobby, createLobby, startGame, updateScore,
-            player, setPlayer, createPlayer,
-            username, setUsername, avatar, setAvatar,
-            avatarHistory, setAvatarHistory,
-            resetLobby, resetPlayer, resetStates
-        }}>
-            {children}
-        </MultiplayerContext.Provider>
-    )
+  return (
+    <MultiplayerContext.Provider
+      value={{
+        lobbies: lobbies ? Object.values(lobbies) : null,
+        lobby,
+        setLobby,
+        createLobby,
+        startGame,
+        updateScore,
+        player,
+        setPlayer,
+        createPlayer,
+        username,
+        setUsername,
+        avatar,
+        setAvatar,
+        avatarHistory,
+        setAvatarHistory,
+        resetLobby,
+        resetPlayer,
+        resetStates,
+      }}
+    >
+      {children}
+    </MultiplayerContext.Provider>
+  );
 }
