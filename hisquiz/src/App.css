@@ -1,0 +1,131 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bolder;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
+}
+
+.app {
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  background: var(--background);
+}
+
+.fab,
+.fas {
+  font-size: 2rem;
+  color: var(--text-secondary);
+}
+
+/*Navigation transition*/
+:root {
+  font-size: 1vmax;
+  --translateStart: ;
+  --translateEnd: ;
+  --leftStart: 100%;
+  --leftEnd: 0;
+  --absolute-translate-Y: -50%;
+}
+
+@media all and (max-width: 800px) {
+  :root {
+    --absolute-translate-Y: 0;
+  }
+}
+
+@media all and (max-height: 900px) {
+  /*--relative-component-max-height*/
+
+  :root {
+    --absolute-translate-Y: 0;
+  }
+}
+
+.absolute {
+  --translateStart: translate(50%, var(--absolute-translate-Y));
+  --translateEnd: translate(-50%, var(--absolute-translate-Y));
+  --leftEnd: 50%;
+}
+
+.absoluteY {
+  --translateStart: translateY(var(--absolute-translate-Y));
+  --translateEnd: translateY(var(--absolute-translate-Y));
+}
+
+.back-navigation * {
+  --leftStart: -100%;
+}
+
+.back-navigation .absolute {
+  --leftStart: 0;
+  --translateStart: translate(-100%, var(--absolute-translate-Y));
+  --translateEnd: translate(-50%, var(--absolute-translate-Y));
+}
+
+.slide {
+  animation: slide 400ms;
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: var(--translateStart);
+    left: var(--leftStart);
+  }
+
+  to {
+    opacity: 1;
+    transform: var(--translateEnd);
+    left: var(--leftEnd);
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-heath-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-heath);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-heath-dark);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-heath-light);
+}
+
+/* mobile input */
+@media all and (max-width: 800px) {
+  input:focus {
+    font-size: 16px;
+  }
+}

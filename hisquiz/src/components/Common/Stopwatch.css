@@ -1,0 +1,25 @@
+.stopwatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stopwatch-reversed {
+  flex-direction: row-reverse;
+}
+
+.running {
+  font-size: 1.65rem;
+  margin-right: 10px;
+}
+
+.stopwatch-reversed .running {
+  margin-right: 0px;
+  margin-left: 10px;
+}
+
+@media all and (max-width: 1420px) {
+  .fa-stopwatch.running {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "Gold and lapis lazuli necklace": "ancient-egypt",
+    "image": "/images/artefacts/(1).webp"
+  },
+  {
+    "Papyrus scroll with hieroglyphics": "ancient-egypt",
+    "image": "/images/artefacts/(2).webp"
+  },
+  {
+    "Bronze Corinthian helmet": "classical-greece",
+    "image": "/images/artefacts/(3).webp"
+  },
+  {
+    "Terracotta amphora with black-figure painting": "classical-greece",
+    "image": "/images/artefacts/(4).webp"
+  },
+  {
+    "Silver denarius coin featuring Emperor Augustus": "roman-empire",
+    "image": "/images/artefacts/(5).webp"
+  },
+  {
+    "Mosaic floor depicting Neptune": "roman-empire",
+    "image": "/images/artefacts/(6).webp"
+  },
+  {
+    "Astrolabe": "exploration",
+    "image": "/images/artefacts/(7).webp"
+  },
+  {
+    "A harpsichord": "renaissance",
+    "image": "/images/artefacts/(8).webp"
+  },
+  {
+    "Venetian glass goblet": "renaissance",
+    "image": "/images/artefacts/(9).webp"
+  },
+  {
+    "Knight's suit of armor": "middle-ages",
+    "image": "/images/artefacts/(10).webp"
+  },
+  {
+    "A broadsword": "middle-ages",
+    "image": "/images/artefacts/(11).webp"
+  },
+  {
+    "An early model of the PC": "modern-history",
+    "image": "/images/artefacts/(12).webp"
+  },
+  {
+    "A classic radio": "modern-history",
+    "image": "/images/artefacts/(13).webp"
+  },
+  {
+    "Sextant": "exploration",
+    "image": "/images/artefacts/(14).webp"
+  },
+  {
+    "Noh mask": "edo-japan",
+    "image": "/images/artefacts/(15).webp"
+  },
+  {
+    "Katana sword": "edo-japan",
+    "image": "/images/artefacts/(16).webp"
+  }
+]

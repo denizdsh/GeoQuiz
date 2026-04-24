@@ -1,0 +1,61 @@
+.game-end {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.game-end p {
+  margin: 0px;
+}
+
+.game-end .title-container {
+  width: 100%;
+  font-size: 1.4rem;
+}
+
+.game-end .game-title {
+  margin: 0px;
+}
+
+.game-end > *,
+.game-end > p {
+  margin-block: 0.7rem;
+}
+
+.score-time {
+  display: flex;
+  align-items: center;
+}
+
+.score-time .stopwatch {
+  font-size: 1rem;
+}
+
+.game-end-score {
+  padding: 0;
+  text-align: center;
+}
+
+@media all and (max-width: 1600px) {
+  .game-end-score {
+    font-size: 1.05rem;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  .game-end-score {
+    font-size: 1.35rem;
+  }
+}
+
+@media all and (max-width: 800px) {
+  .game-end-score {
+    font-size: 1.8rem;
+  }
+
+  .game.game-end {
+    top: 25vh;
+  }
+}

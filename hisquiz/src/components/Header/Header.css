@@ -1,0 +1,109 @@
+.nav {
+  background: var(--nav);
+  max-height: 9vh;
+  max-width: 100vw;
+  min-height: 50px;
+  padding: 0.5rem 1.5rem 1rem 1rem;
+
+  box-shadow: var(--main-darkest) 0px 0px 2px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav-logo {
+  max-height: calc(9vh - 1.5rem);
+  height: 100%;
+  max-width: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.nav-logo-image {
+  height: 100%;
+  max-height: inherit;
+  user-select: none;
+}
+
+.nav-logo-text {
+  text-shadow: var(--text-inverted) 1px 1px 2px;
+  margin-left: 1vmin;
+}
+
+.nav-logo-text h1 {
+  margin: 0;
+  font-size: xx-large;
+  font-weight: 900;
+}
+
+.nav-logo-text h4 {
+  margin: 0;
+  font-size: small;
+  font-weight: 900;
+}
+
+[data-theme="dark"] .nav-logo-text {
+  text-shadow: black 1px 1px 2px;
+}
+
+.env-options .switch:nth-child(2) {
+  margin-inline: 1rem;
+}
+
+.sounds-on,
+.sounds-off {
+  font-size: 1em;
+}
+
+.sounds-on {
+  padding-left: 2px;
+}
+
+.sounds-on * {
+  color: var(--stopwatch);
+}
+
+.sounds-off * {
+  color: var(--text-secondary);
+}
+
+.back-btn * {
+  color: var(--inverted);
+}
+
+.back-btn {
+  z-index: 1000;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 -10px 3px var(--text-primary);
+  top: 10vh;
+  left: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+@media all and (max-width: 700px) {
+  .nav {
+    max-height: none;
+    flex-direction: column;
+  }
+
+  .hide.nav-logo {
+    display: none;
+  }
+
+  .back-btn {
+    top: calc(22px - 0.5rem);
+    font-size: 3rem;
+  }
+
+  .env-options {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    width: 90%;
+  }
+}

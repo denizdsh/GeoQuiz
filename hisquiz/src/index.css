@@ -1,0 +1,101 @@
+*,
+*::before,
+*::after {
+  -webkit-transition: color ease-in-out 0.3s, background-color ease-in-out 0.3s,
+    box-shadow ease-in-out 0.3s;
+  -moz-transition: color ease-in-out 0.3s, background-color ease-in-out 0.3s,
+    box-shadow ease-in-out 0.3s;
+  transition: color ease-in-out 0.3s, background-color ease-in-out 0.3s,
+    box-shadow ease-in-out 0.3s;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-heath);
+  background-size: cover;
+}
+
+img {
+  user-select: none;
+}
+
+:root {
+  --color-heath-light: rgb(171, 95, 61);
+  --color-heath: rgb(137, 66, 40);
+  --color-heath-dark: rgb(111, 45, 25);
+  --color-heath-darker: rgb(94, 32, 15);
+
+  --color-buttermilk-light: rgb(255, 246, 212);
+  --color-buttermilk: rgb(254, 238, 182);
+  --color-buttermilk-dark: rgb(223, 203, 137);
+  --color-buttermilk-darker: rgb(193, 168, 94);
+}
+
+:root {
+  --nav: var(--color-heath-dark);
+  --background: var(--color-heath);
+  --main-darkest: var(--color-heath-darker);
+  --inverted: var(--color-buttermilk);
+  --item: var(--color-heath-dark);
+  --text-primary: var(--color-buttermilk-light);
+  --text-inverted: var(--color-heath-darker);
+  --text-secondary: rgb(169, 136, 123);
+  --accent: var(--color-heath-light);
+  --planet-bg: var(--accent);
+  --planet-fill: green;
+  --switch-background: var(--accent);
+  --green: rgb(68, 190, 38);
+  --stopwatch: rgb(123, 205, 233);
+  --inverted-text-shadow-color: var(--color-buttermilk-light);
+  --gradient: linear-gradient(
+    45deg,
+    #6f2d19,
+    #883c25,
+    #926042,
+    #883c25,
+    #6f2d19
+  );
+}
+
+::placeholder {
+  color: var(--text-secondary);
+}
+
+:root {
+  --relative-component-max-height: 900px;
+  background-color: var(--color-heath);
+  text-shadow: 0 0 1px var(--color-buttermilk-darker);
+}
+
+[data-theme="light"] {
+  --nav: var(--color-buttermilk);
+  --background: var(--color-buttermilk-light);
+  --inverted: var(--color-heath-light);
+  --main-darkest: var(--color-buttermilk-dark);
+  --item: var(--color-buttermilk-dark);
+  --text-primary: var(--color-heath-darker);
+  --text-secondary: var(--color-buttermilk-darker);
+  --text-inverted: var(--color-buttermilk-light);
+  --accent: var(--color-buttermilk);
+  --switch-background: var(--color-buttermilk-light);
+  --green: rgba(2, 127, 92, 0.908);
+  --stopwatch: rgb(74, 48, 222);
+  --inverted-text-shadow-color: var(--color-heath-darker);
+  --gradient: linear-gradient(
+    45deg,
+    #cf973e,
+    #feeeb6,
+    #cfaa7d,
+    #feeeb6,
+    #cf973e
+  );
+
+  background-color: var(--color-buttermilk);
+}
+
+html {
+  background-size: cover;
+  padding-top: env(safe-area-inset-top);
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}

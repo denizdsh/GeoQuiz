@@ -1,0 +1,86 @@
+.btn {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    width: calc(200px + 3vw);
+    height: 50px;
+    overflow-y: auto;
+    border: none;
+    border-radius: 0.5rem;
+    outline: none;
+    background: var(--accent);
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    user-select: none;
+}
+
+.btn-disabled {
+    cursor: default;
+}
+
+.btn:active {
+    top: 2px;
+}
+
+.next-btn:hover {
+    background: rgb(255, 123, 0) !important;
+    color: rgb(235, 234, 232) !important;
+}
+
+.next-btn {
+    background: rgb(3, 149, 185) !important;
+    color: rgb(235, 234, 232) !important;
+    cursor: pointer !important;
+}
+
+.false, .false:hover {
+    background: rgb(253, 36, 36) !important;
+    color: rgb(235, 234, 232) !important;
+}
+
+.true, .true:hover {
+    background: rgb(8, 168, 2) !important;
+    color: rgb(235, 234, 232) !important;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media all and (min-width: 3400px) and (min-height: 1800px) {
+    .btn {
+        width: calc(200px + 5vw);
+        height: calc(50px + 1.5vh);
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .btn:hover {
+        background: var(--inverted);
+        color: var(--item);
+        text-shadow: 0 0 1px var(--inverted-text-shadow-color);
+    }
+}
+
+@media all and (max-width: 1200px) {
+    .btn {
+        font-size: 1.5rem;
+    }
+
+    .btn:active {
+        background: var(--inverted);
+        color: var(--item);
+        text-shadow: 0 0 1px var(--inverted-text-shadow-color);
+    }
+}
+
+@media all and (max-width: 800px) {
+    .btn {
+        font-size: 1.8rem;
+    }
+}

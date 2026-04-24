@@ -1,0 +1,17 @@
+.footer {
+  background: var(--nav);
+  box-shadow: var(--main-darkest) 0px 0px 2px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-top: 2rem;
+}
+
+.footer > h5 {
+  line-height: 350%;
+  margin: 0;
+}

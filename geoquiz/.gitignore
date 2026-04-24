@@ -1,0 +1,10 @@
+node_modules
+firebase.json
+.firebaserc
+.firebase
+.env
+build
+/public/images
+/public/icons
+/public/logos
+/public/sounds

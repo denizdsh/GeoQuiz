@@ -1,0 +1,804 @@
+{
+  "africa": [
+    {
+      "Algeria": "Algeria",
+      "image": "/images/africa/flags/Algeria.svg"
+    },
+    {
+      "Angola": "Angola",
+      "image": "/images/africa/flags/Angola.svg"
+    },
+    {
+      "Benin": "Benin",
+      "image": "/images/africa/flags/Benin.svg"
+    },
+    {
+      "Botswana": "Botswana",
+      "image": "/images/africa/flags/Botswana.svg"
+    },
+    {
+      "Burkina Faso": "Burkina Faso",
+      "image": "/images/africa/flags/BurkinaFaso.svg"
+    },
+    {
+      "Burundi": "Burundi",
+      "image": "/images/africa/flags/Burundi.svg"
+    },
+    {
+      "Cabo Verde": "Cabo Verde",
+      "image": "/images/africa/flags/CaboVerde.svg"
+    },
+    {
+      "Cameroon": "Cameroon",
+      "image": "/images/africa/flags/Cameroon.svg"
+    },
+    {
+      "Central African Republic": "Central African Republic",
+      "image": "/images/africa/flags/CAR.svg"
+    },
+    {
+      "Chad": "Chad",
+      "image": "/images/africa/flags/Chad.svg"
+    },
+    {
+      "Comoros": "Comoros",
+      "image": "/images/africa/flags/Comoros.svg"
+    },
+    {
+      "Congo DRC": "Congo DRC",
+      "image": "/images/africa/flags/DRC.svg"
+    },
+    {
+      "Republic of the Congo": "Republic of the Congo",
+      "image": "/images/africa/flags/ROTC.svg"
+    },
+    {
+      "Côte d'Ivoire": "Côte d'Ivoire",
+      "image": "/images/africa/flags/CoteDIvoire.svg"
+    },
+    {
+      "Djibouti": "Djibouti",
+      "image": "/images/africa/flags/Djibouti.svg"
+    },
+    {
+      "Egypt": "Egypt",
+      "image": "/images/africa/flags/Egypt.svg"
+    },
+    {
+      "Equatorial Guinea": "Equatorial Guinea",
+      "image": "/images/africa/flags/EquatorialGuinea.svg"
+    },
+    {
+      "Eritrea": "Eritrea",
+      "image": "/images/africa/flags/Eritrea.svg"
+    },
+    {
+      "Eswatini": "Eswatini",
+      "image": "/images/africa/flags/Eswatini.svg"
+    },
+    {
+      "Ethiopia": "Ethiopia",
+      "image": "/images/africa/flags/Ethiopia.svg"
+    },
+    {
+      "Gabon": "Gabon",
+      "image": "/images/africa/flags/Gabon.svg"
+    },
+    {
+      "Gambia": "Gambia",
+      "image": "/images/africa/flags/Gambia.svg"
+    },
+    {
+      "Ghana": "Ghana",
+      "image": "/images/africa/flags/Ghana.svg"
+    },
+    {
+      "Guinea": "Guinea",
+      "image": "/images/africa/flags/Guinea.svg"
+    },
+    {
+      "Guinea-Bissau": "Guinea-Bissau",
+      "image": "/images/africa/flags/GuineaBissau.svg"
+    },
+    {
+      "Kenya": "Kenya",
+      "image": "/images/africa/flags/Kenya.svg"
+    },
+    {
+      "Lesotho": "Lesotho",
+      "image": "/images/africa/flags/Lesotho.svg"
+    },
+    {
+      "Liberia": "Liberia",
+      "image": "/images/africa/flags/Liberia.svg"
+    },
+    {
+      "Libya": "Libya",
+      "image": "/images/africa/flags/Libya.svg"
+    },
+    {
+      "Madagascar": "Madagascar",
+      "image": "/images/africa/flags/Madagascar.svg"
+    },
+    {
+      "Malawi": "Malawi",
+      "image": "/images/africa/flags/Malawi.svg"
+    },
+    {
+      "Mali": "Mali",
+      "image": "/images/africa/flags/Mali.svg"
+    },
+    {
+      "Mauritania": "Mauritania",
+      "image": "/images/africa/flags/Mauritania.svg"
+    },
+    {
+      "Mauritius": "Mauritius",
+      "image": "/images/africa/flags/Mauritius.svg"
+    },
+    {
+      "Morocco": "Morocco",
+      "image": "/images/africa/flags/Morocco.svg"
+    },
+    {
+      "Mozambique": "Mozambique",
+      "image": "/images/africa/flags/Mozambique.svg"
+    },
+    {
+      "Namibia": "Namibia",
+      "image": "/images/africa/flags/Namibia.svg"
+    },
+    {
+      "Niger": "Niger",
+      "image": "/images/africa/flags/Niger.svg"
+    },
+    {
+      "Nigeria": "Nigeria",
+      "image": "/images/africa/flags/Nigeria.svg"
+    },
+    {
+      "Rwanda": "Rwanda",
+      "image": "/images/africa/flags/Rwanda.svg"
+    },
+    {
+      "Sao Tome and Principe": "Sao Tome and Principe",
+      "image": "/images/africa/flags/SaoTome.svg"
+    },
+    {
+      "Senegal": "Senegal",
+      "image": "/images/africa/flags/Senegal.svg"
+    },
+    {
+      "Seychelles": "Seychelles",
+      "image": "/images/africa/flags/Seychelles.svg"
+    },
+    {
+      "Sierra Leone": "Sierra Leone",
+      "image": "/images/africa/flags/SierraLeone.svg"
+    },
+    {
+      "Somalia": "Somalia",
+      "image": "/images/africa/flags/Somalia.svg"
+    },
+    {
+      "South Africa": "South Africa",
+      "image": "/images/africa/flags/SouthAfrica.svg"
+    },
+    {
+      "South Sudan": "South Sudan",
+      "image": "/images/africa/flags/SouthSudan.svg"
+    },
+    {
+      "Sudan": "Sudan",
+      "image": "/images/africa/flags/Sudan.svg"
+    },
+    {
+      "Tanzania": "Tanzania",
+      "image": "/images/africa/flags/Tanzania.svg"
+    },
+    {
+      "Togo": "Togo",
+      "image": "/images/africa/flags/Togo.svg"
+    },
+    {
+      "Tunisia": "Tunisia",
+      "image": "/images/africa/flags/Tunisia.svg"
+    },
+    {
+      "Uganda": "Uganda",
+      "image": "/images/africa/flags/Uganda.svg"
+    },
+    {
+      "Zambia": "Zambia",
+      "image": "/images/africa/flags/Zambia.svg"
+    },
+    {
+      "Zimbabwe": "Zimbabwe",
+      "image": "/images/africa/flags/Zimbabwe.svg"
+    }
+  ],
+  "americas": [
+    {
+      "Antigua and Barbuda": "Antigua and Barbuda",
+      "image": "/images/americas/flags/AntiguaBarbuda.svg"
+    },
+    {
+      "Argentina": "Argentina",
+      "image": "/images/americas/flags/Argentina.svg"
+    },
+    {
+      "Bahamas": "Bahamas",
+      "image": "/images/americas/flags/Bahamas.svg"
+    },
+    {
+      "Barbados": "Barbados",
+      "image": "/images/americas/flags/Barbados.svg"
+    },
+    {
+      "Belize": "Belize",
+      "image": "/images/americas/flags/Belize.svg"
+    },
+    {
+      "Bolivia": "Bolivia",
+      "image": "/images/americas/flags/Bolivia.svg"
+    },
+    {
+      "Brazil": "Brazil",
+      "image": "/images/americas/flags/Brazil.svg"
+    },
+    {
+      "Canada": "Canada",
+      "image": "/images/americas/flags/Canada.svg"
+    },
+    {
+      "Chile": "Chile",
+      "image": "/images/americas/flags/Chile.svg"
+    },
+    {
+      "Colombia": "Colombia",
+      "image": "/images/americas/flags/Colombia.svg"
+    },
+    {
+      "Costa Rica": "Costa Rica",
+      "image": "/images/americas/flags/CostaRica.svg"
+    },
+    {
+      "Cuba": "Cuba",
+      "image": "/images/americas/flags/Cuba.svg"
+    },
+    {
+      "Dominica": "Dominica",
+      "image": "/images/americas/flags/Dominica.svg"
+    },
+    {
+      "Dominican Republic": "Dominican Republic",
+      "image": "/images/americas/flags/DominicanRepublic.svg"
+    },
+    {
+      "Ecuador": "Ecuador",
+      "image": "/images/americas/flags/Ecuador.svg"
+    },
+    {
+      "El Salvador": "El Salvador",
+      "image": "/images/americas/flags/ElSalvador.svg"
+    },
+    {
+      "Grenada": "Grenada",
+      "image": "/images/americas/flags/Grenada.svg"
+    },
+    {
+      "Guatemala": "Guatemala",
+      "image": "/images/americas/flags/Guatemala.svg"
+    },
+    {
+      "Guyana": "Guyana",
+      "image": "/images/americas/flags/Guyana.svg"
+    },
+    {
+      "Haiti": "Haiti",
+      "image": "/images/americas/flags/Haiti.svg"
+    },
+    {
+      "Honduras": "Honduras",
+      "image": "/images/americas/flags/Honduras.svg"
+    },
+    {
+      "Jamaica": "Jamaica",
+      "image": "/images/americas/flags/Jamaica.svg"
+    },
+    {
+      "Mexico": "Mexico",
+      "image": "/images/americas/flags/Mexico.svg"
+    },
+    {
+      "Nicaragua": "Nicaragua",
+      "image": "/images/americas/flags/Nicaragua.svg"
+    },
+    {
+      "Panama": "Panama",
+      "image": "/images/americas/flags/Panama.svg"
+    },
+    {
+      "Paraguay": "Paraguay",
+      "image": "/images/americas/flags/Paraguay.svg"
+    },
+    {
+      "Peru": "Peru",
+      "image": "/images/americas/flags/Peru.svg"
+    },
+    {
+      "Saint Kitts and Nevis": "Saint Kitts and Nevis",
+      "image": "/images/americas/flags/SaintKittsNevis.svg"
+    },
+    {
+      "Saint Lucia": "Saint Lucia",
+      "image": "/images/americas/flags/SaintLucia.svg"
+    },
+    {
+      "Saint Vincent and the Grenadines": "Saint Vincent and the Grenadines",
+      "image": "/images/americas/flags/SaintVincentGrenadines.svg"
+    },
+    {
+      "Suriname": "Suriname",
+      "image": "/images/americas/flags/Suriname.svg"
+    },
+    {
+      "Trinidad and Tobago": "Trinidad and Tobago",
+      "image": "/images/americas/flags/TrinidadTobago.svg"
+    },
+    {
+      "United States": "United States",
+      "image": "/images/americas/flags/USA.svg"
+    },
+    {
+      "Uruguay": "Uruguay",
+      "image": "/images/americas/flags/Uruguay.svg"
+    },
+    {
+      "Venezuela": "Venezuela",
+      "image": "/images/americas/flags/Venezuela.svg"
+    }
+  ],
+  "asia": [
+    {
+      "Afghanistan": "Afghanistan",
+      "image": "/images/asia/flags/Afghanistan.svg"
+    },
+    {
+      "Armenia": "Armenia",
+      "image": "/images/asia/flags/Armenia.svg"
+    },
+    {
+      "Azerbaijan": "Azerbaijan",
+      "image": "/images/asia/flags/Azerbaijan.svg"
+    },
+    {
+      "Bahrain": "Bahrain",
+      "image": "/images/asia/flags/Bahrain.svg"
+    },
+    {
+      "Bangladesh": "Bangladesh",
+      "image": "/images/asia/flags/Bangladesh.svg"
+    },
+    {
+      "Bhutan": "Bhutan",
+      "image": "/images/asia/flags/Bhutan.svg"
+    },
+    {
+      "Brunei": "Brunei",
+      "image": "/images/asia/flags/Brunei.svg"
+    },
+    {
+      "Cambodia": "Cambodia",
+      "image": "/images/asia/flags/Cambodia.svg"
+    },
+    {
+      "China": "China",
+      "image": "/images/asia/flags/China.svg"
+    },
+    {
+      "East Timor": "East Timor",
+      "image": "/images/asia/flags/EastTimor.svg"
+    },
+    {
+      "Georgia": "Georgia",
+      "image": "/images/asia/flags/Georgia.svg"
+    },
+    {
+      "India": "India",
+      "image": "/images/asia/flags/India.svg"
+    },
+    {
+      "Indonesia": "Indonesia",
+      "image": "/images/asia/flags/Indonesia.svg"
+    },
+    {
+      "Iran": "Iran",
+      "image": "/images/asia/flags/Iran.svg"
+    },
+    {
+      "Iraq": "Iraq",
+      "image": "/images/asia/flags/Iraq.svg"
+    },
+    {
+      "Israel": "Israel",
+      "image": "/images/asia/flags/Israel.svg"
+    },
+    {
+      "Japan": "Japan",
+      "image": "/images/asia/flags/Japan.svg"
+    },
+    {
+      "Jordan": "Jordan",
+      "image": "/images/asia/flags/Jordan.svg"
+    },
+    {
+      "Kazakhstan": "Kazakhstan",
+      "image": "/images/asia/flags/Kazakhstan.svg"
+    },
+    {
+      "Kuwait": "Kuwait",
+      "image": "/images/asia/flags/Kuwait.svg"
+    },
+    {
+      "Kyrgyzstan": "Kyrgyzstan",
+      "image": "/images/asia/flags/Kyrgyzstan.svg"
+    },
+    {
+      "Laos": "Laos",
+      "image": "/images/asia/flags/Laos.svg"
+    },
+    {
+      "Lebanon": "Lebanon",
+      "image": "/images/asia/flags/Lebanon.svg"
+    },
+    {
+      "Malaysia": "Malaysia",
+      "image": "/images/asia/flags/Malaysia.svg"
+    },
+    {
+      "Maldives": "Maldives",
+      "image": "/images/asia/flags/Maldives.svg"
+    },
+    {
+      "Mongolia": "Mongolia",
+      "image": "/images/asia/flags/Mongolia.svg"
+    },
+    {
+      "Myanmar": "Myanmar",
+      "image": "/images/asia/flags/Myanmar.svg"
+    },
+    {
+      "Nepal": "Nepal",
+      "image": "/images/asia/flags/Nepal.svg"
+    },
+    {
+      "North Korea": "North Korea",
+      "image": "/images/asia/flags/NorthKorea.svg"
+    },
+    {
+      "Oman": "Oman",
+      "image": "/images/asia/flags/Oman.svg"
+    },
+    {
+      "Pakistan": "Pakistan",
+      "image": "/images/asia/flags/Pakistan.svg"
+    },
+    {
+      "Palestine": "Palestine",
+      "image": "/images/asia/flags/Palestine.svg"
+    },
+    {
+      "Philippines": "Philippines",
+      "image": "/images/asia/flags/Philippines.svg"
+    },
+    {
+      "Qatar": "Qatar",
+      "image": "/images/asia/flags/Qatar.svg"
+    },
+    {
+      "Russia": "Russia",
+      "image": "/images/asia/flags/Russia.svg"
+    },
+    {
+      "Saudi Arabia": "Saudi Arabia",
+      "image": "/images/asia/flags/SaudiArabia.svg"
+    },
+    {
+      "Singapore": "Singapore",
+      "image": "/images/asia/flags/Singapore.svg"
+    },
+    {
+      "South Korea": "South Korea",
+      "image": "/images/asia/flags/SouthKorea.svg"
+    },
+    {
+      "Sri Lanka": "Sri Lanka",
+      "image": "/images/asia/flags/SriLanka.svg"
+    },
+    {
+      "Syria": "Syria",
+      "image": "/images/asia/flags/Syria.svg"
+    },
+    {
+      "Taiwan": "Taiwan",
+      "image": "/images/asia/flags/Taiwan.svg"
+    },
+    {
+      "Tajikistan": "Tajikistan",
+      "image": "/images/asia/flags/Tajikistan.svg"
+    },
+    {
+      "Thailand": "Thailand",
+      "image": "/images/asia/flags/Thailand.svg"
+    },
+    {
+      "Turkey": "Turkey",
+      "image": "/images/asia/flags/Turkey.svg"
+    },
+    {
+      "Turkmenistan": "Turkmenistan",
+      "image": "/images/asia/flags/Turkmenistan.svg"
+    },
+    {
+      "United Arab Emirates": "United Arab Emirates",
+      "image": "/images/asia/flags/UAE.svg"
+    },
+    {
+      "Uzbekistan": "Uzbekistan",
+      "image": "/images/asia/flags/Uzbekistan.svg"
+    },
+    {
+      "Vietnam": "Vietnam",
+      "image": "/images/asia/flags/Vietnam.svg"
+    },
+    {
+      "Yemen": "Yemen",
+      "image": "/images/asia/flags/Yemen.svg"
+    }
+  ],
+  "australia-oceania": [
+    {
+      "Australia": "Australia",
+      "image": "/images/australia-oceania/flags/Australia.svg"
+    },
+    {
+      "Fiji": "Fiji",
+      "image": "/images/australia-oceania/flags/Fiji.svg"
+    },
+    {
+      "Kiribati": "Kiribati",
+      "image": "/images/australia-oceania/flags/Kiribati.svg"
+    },
+    {
+      "Marshall Islands": "Marshall Islands",
+      "image": "/images/australia-oceania/flags/MarshallIslands.svg"
+    },
+    {
+      "Micronesia": "Micronesia",
+      "image": "/images/australia-oceania/flags/Micronesia.svg"
+    },
+    {
+      "Nauru": "Nauru",
+      "image": "/images/australia-oceania/flags/Nauru.svg"
+    },
+    {
+      "New Zealand": "New Zealand",
+      "image": "/images/australia-oceania/flags/NewZealand.svg"
+    },
+    {
+      "Palau": "Palau",
+      "image": "/images/australia-oceania/flags/Palau.svg"
+    },
+    {
+      "Papua New Guinea": "Papua New Guinea",
+      "image": "/images/australia-oceania/flags/PapuaNewGuinea.svg"
+    },
+    {
+      "Samoa": "Samoa",
+      "image": "/images/australia-oceania/flags/Samoa.svg"
+    },
+    {
+      "Solomon Islands": "Solomon Islands",
+      "image": "/images/australia-oceania/flags/SolomonIslands.svg"
+    },
+    {
+      "Tonga": "Tonga",
+      "image": "/images/australia-oceania/flags/Tonga.svg"
+    },
+    {
+      "Tuvalu": "Tuvalu",
+      "image": "/images/australia-oceania/flags/Tuvalu.svg"
+    },
+    {
+      "Vanuatu": "Vanuatu",
+      "image": "/images/australia-oceania/flags/Vanuatu.svg"
+    }
+  ],
+  "europe": [
+    {
+      "Albania": "Albania",
+      "image": "/images/europe/flags/Albania.svg"
+    },
+    {
+      "Andorra": "Andorra",
+      "image": "/images/europe/flags/Andorra.svg"
+    },
+    {
+      "Austria": "Austria",
+      "image": "/images/europe/flags/Austria.svg"
+    },
+    {
+      "Belarus": "Belarus",
+      "image": "/images/europe/flags/Belarus.svg"
+    },
+    {
+      "Belgium": "Belgium",
+      "image": "/images/europe/flags/Belgium.svg"
+    },
+    {
+      "Bosnia and Herzegovina": "Bosnia and Herzegovina",
+      "image": "/images/europe/flags/BosniaHerzegovina.svg"
+    },
+    {
+      "Bulgaria": "Bulgaria",
+      "image": "/images/europe/flags/Bulgaria.svg"
+    },
+    {
+      "Croatia": "Croatia",
+      "image": "/images/europe/flags/Croatia.svg"
+    },
+    {
+      "Cyprus": "Cyprus",
+      "image": "/images/europe/flags/Cyprus.svg"
+    },
+    {
+      "Czech Republic": "Czech Republic",
+      "image": "/images/europe/flags/CzechRepublic.svg"
+    },
+    {
+      "Denmark": "Denmark",
+      "image": "/images/europe/flags/Denmark.svg"
+    },
+    {
+      "Estonia": "Estonia",
+      "image": "/images/europe/flags/Estonia.svg"
+    },
+    {
+      "Finland": "Finland",
+      "image": "/images/europe/flags/Finland.svg"
+    },
+    {
+      "France": "France",
+      "image": "/images/europe/flags/France.svg"
+    },
+    {
+      "Germany": "Germany",
+      "image": "/images/europe/flags/Germany.svg"
+    },
+    {
+      "Greece": "Greece",
+      "image": "/images/europe/flags/Greece.svg"
+    },
+    {
+      "Hungary": "Hungary",
+      "image": "/images/europe/flags/Hungary.svg"
+    },
+    {
+      "Iceland": "Iceland",
+      "image": "/images/europe/flags/Iceland.svg"
+    },
+    {
+      "Ireland": "Ireland",
+      "image": "/images/europe/flags/Ireland.svg"
+    },
+    {
+      "Italy": "Italy",
+      "image": "/images/europe/flags/Italy.svg"
+    },
+    {
+      "Kosovo": "Kosovo",
+      "image": "/images/europe/flags/Kosovo.svg"
+    },
+    {
+      "Latvia": "Latvia",
+      "image": "/images/europe/flags/Latvia.svg"
+    },
+    {
+      "Liechtenstein": "Liechtenstein",
+      "image": "/images/europe/flags/Liechtenstein.svg"
+    },
+    {
+      "Lithuania": "Lithuania",
+      "image": "/images/europe/flags/Lithuania.svg"
+    },
+    {
+      "Luxembourg": "Luxembourg",
+      "image": "/images/europe/flags/Luxembourg.svg"
+    },
+    {
+      "Malta": "Malta",
+      "image": "/images/europe/flags/Malta.svg"
+    },
+    {
+      "Moldova": "Moldova",
+      "image": "/images/europe/flags/Moldova.svg"
+    },
+    {
+      "Monaco": "Monaco",
+      "image": "/images/europe/flags/Monaco.svg"
+    },
+    {
+      "Montenegro": "Montenegro",
+      "image": "/images/europe/flags/Montenegro.svg"
+    },
+    {
+      "Netherlands": "Netherlands",
+      "image": "/images/europe/flags/Netherlands.svg"
+    },
+    {
+      "North Macedonia": "North Macedonia",
+      "image": "/images/europe/flags/NorthMacedonia.svg"
+    },
+    {
+      "Norway": "Norway",
+      "image": "/images/europe/flags/Norway.svg"
+    },
+    {
+      "Poland": "Poland",
+      "image": "/images/europe/flags/Poland.svg"
+    },
+    {
+      "Portugal": "Portugal",
+      "image": "/images/europe/flags/Portugal.svg"
+    },
+    {
+      "Romania": "Romania",
+      "image": "/images/europe/flags/Romania.svg"
+    },
+    {
+      "Russia": "Russia",
+      "image": "/images/europe/flags/Russia.svg"
+    },
+    {
+      "San Marino": "San Marino",
+      "image": "/images/europe/flags/SanMarino.svg"
+    },
+    {
+      "Serbia": "Serbia",
+      "image": "/images/europe/flags/Serbia.svg"
+    },
+    {
+      "Slovakia": "Slovakia",
+      "image": "/images/europe/flags/Slovakia.svg"
+    },
+    {
+      "Slovenia": "Slovenia",
+      "image": "/images/europe/flags/Slovenia.svg"
+    },
+    {
+      "Spain": "Spain",
+      "image": "/images/europe/flags/Spain.svg"
+    },
+    {
+      "Sweden": "Sweden",
+      "image": "/images/europe/flags/Sweden.svg"
+    },
+    {
+      "Switzerland": "Switzerland",
+      "image": "/images/europe/flags/Switzerland.svg"
+    },
+    {
+      "Ukraine": "Ukraine",
+      "image": "/images/europe/flags/Ukraine.svg"
+    },
+    {
+      "United Kingdom": "United Kingdom",
+      "image": "/images/europe/flags/UK.svg"
+    },
+    {
+      "Vatican City": "Vatican City",
+      "image": "/images/europe/flags/VaticanCity.svg"
+    }
+  ]
+}
